@@ -93,7 +93,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jButton4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="31" max="32767" attributes="0"/>
-                          <Component id="jButton10" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnRegresar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -116,7 +116,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton10" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnRegresar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="44" max="32767" attributes="0"/>
               </Group>
@@ -155,7 +155,7 @@
             <Property name="text" type="java.lang.String" value="Dar de baja Matricula"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton10">
+        <Component class="javax.swing.JButton" name="btnRegresar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="99" red="ff" type="rgb"/>
@@ -166,7 +166,7 @@
             <Property name="text" type="java.lang.String" value="Regresar al Menu Principal"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton10ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegresarActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

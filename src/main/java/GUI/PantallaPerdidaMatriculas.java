@@ -35,7 +35,7 @@ public class PantallaPerdidaMatriculas extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -59,12 +59,12 @@ public class PantallaPerdidaMatriculas extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton4.setText("Dar de baja Matricula");
 
-        jButton10.setBackground(new java.awt.Color(255, 153, 153));
-        jButton10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton10.setText("Regresar al Menu Principal");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.setBackground(new java.awt.Color(255, 153, 153));
+        btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRegresar.setText("Regresar al Menu Principal");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
 
@@ -89,7 +89,7 @@ public class PantallaPerdidaMatriculas extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                        .addComponent(jButton10)
+                        .addComponent(btnRegresar)
                         .addGap(18, 18, 18))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -106,7 +106,7 @@ public class PantallaPerdidaMatriculas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
-                    .addComponent(jButton10))
+                    .addComponent(btnRegresar))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
@@ -157,9 +157,12 @@ public class PantallaPerdidaMatriculas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
+        PantallaMenu frmMenu = new PantallaMenu();
+        frmMenu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,7 +207,7 @@ public class PantallaPerdidaMatriculas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton10;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

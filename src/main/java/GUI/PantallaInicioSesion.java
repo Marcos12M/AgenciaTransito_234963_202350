@@ -31,7 +31,7 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnIniciar = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
 
@@ -50,9 +50,14 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         jLabel3.setText("Contraseña :");
 
-        jButton1.setBackground(new java.awt.Color(204, 255, 153));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("Inicar sesión");
+        btnIniciar.setBackground(new java.awt.Color(204, 255, 153));
+        btnIniciar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnIniciar.setText("Inicar sesión");
+        btnIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarActionPerformed(evt);
+            }
+        });
 
         jPasswordField1.setText("jPasswordField1");
 
@@ -79,7 +84,7 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(95, 95, 95)
-                        .addComponent(jButton1)))
+                        .addComponent(btnIniciar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -96,7 +101,7 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnIniciar)
                 .addGap(21, 21, 21))
         );
 
@@ -130,6 +135,13 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
+        // TODO add your handling code here:
+        PantallaMenu frmMenu = new PantallaMenu();
+        frmMenu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnIniciarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,7 +180,7 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnIniciar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

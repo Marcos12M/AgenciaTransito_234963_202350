@@ -40,7 +40,7 @@ public class PantallaConsultar extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -118,12 +118,12 @@ public class PantallaConsultar extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(255, 153, 153));
-        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton7.setText("Regresar al Menu Principal");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.setBackground(new java.awt.Color(255, 153, 153));
+        btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRegresar.setText("Regresar al Menu Principal");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
 
@@ -159,7 +159,7 @@ public class PantallaConsultar extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton7)
+                .addComponent(btnRegresar)
                 .addGap(32, 32, 32))
         );
         jPanel1Layout.setVerticalGroup(
@@ -172,7 +172,7 @@ public class PantallaConsultar extends javax.swing.JFrame {
                     .addComponent(jButton5)
                     .addComponent(jButton6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addComponent(jButton7)
+                .addComponent(btnRegresar)
                 .addGap(14, 14, 14))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
@@ -258,9 +258,12 @@ public class PantallaConsultar extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+        PantallaMenu frmMenu = new PantallaMenu();
+        frmMenu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -313,12 +316,12 @@ public class PantallaConsultar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

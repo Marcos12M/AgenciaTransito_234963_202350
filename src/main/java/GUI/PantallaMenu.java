@@ -27,15 +27,15 @@ public class PantallaMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        btnTramitarLicencia = new javax.swing.JButton();
+        btnSolicitarPlacas = new javax.swing.JButton();
+        btnConsultar = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnAltaVehiculo = new javax.swing.JButton();
+        btnPerdidaLicencia = new javax.swing.JButton();
+        btnPerdidaPlacas = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -44,52 +44,72 @@ public class PantallaMenu extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setBackground(new java.awt.Color(204, 255, 153));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("Tramitar Licencias");
-
-        jButton2.setBackground(new java.awt.Color(204, 255, 153));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setText("Solicitar Placas para Automoviles");
-
-        jButton9.setBackground(new java.awt.Color(204, 255, 153));
-        jButton9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton9.setText("Consultar Licencias y Matriculas");
-
-        jButton10.setBackground(new java.awt.Color(255, 153, 153));
-        jButton10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton10.setText("Cerrar Sesion");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        btnTramitarLicencia.setBackground(new java.awt.Color(204, 255, 153));
+        btnTramitarLicencia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTramitarLicencia.setText("Tramitar Licencias");
+        btnTramitarLicencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                btnTramitarLicenciaActionPerformed(evt);
             }
         });
 
-        jButton11.setBackground(new java.awt.Color(204, 255, 153));
-        jButton11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton11.setText("Reporte de Tramites realizados");
+        btnSolicitarPlacas.setBackground(new java.awt.Color(204, 255, 153));
+        btnSolicitarPlacas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSolicitarPlacas.setText("Solicitar Placas para Automoviles");
+        btnSolicitarPlacas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSolicitarPlacasActionPerformed(evt);
+            }
+        });
+
+        btnConsultar.setBackground(new java.awt.Color(204, 255, 153));
+        btnConsultar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnConsultar.setText("Consultar Licencias y Matriculas");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
+
+        btnCerrar.setBackground(new java.awt.Color(255, 153, 153));
+        btnCerrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCerrar.setText("Cerrar Sesion");
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
+
+        btnReportes.setBackground(new java.awt.Color(204, 255, 153));
+        btnReportes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnReportes.setText("Reporte de Tramites realizados");
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportesActionPerformed(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Carro.png"))); // NOI18N
 
-        jButton3.setBackground(new java.awt.Color(204, 255, 153));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setText("Dar de alta vehiculo");
+        btnAltaVehiculo.setBackground(new java.awt.Color(204, 255, 153));
+        btnAltaVehiculo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAltaVehiculo.setText("Dar de alta vehiculo");
 
-        jButton4.setBackground(new java.awt.Color(204, 255, 153));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setText("Perdida de Licencias");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnPerdidaLicencia.setBackground(new java.awt.Color(204, 255, 153));
+        btnPerdidaLicencia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnPerdidaLicencia.setText("Perdida de Licencias");
+        btnPerdidaLicencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnPerdidaLicenciaActionPerformed(evt);
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(204, 255, 153));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton5.setText("Perdida de Placas");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnPerdidaPlacas.setBackground(new java.awt.Color(204, 255, 153));
+        btnPerdidaPlacas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnPerdidaPlacas.setText("Perdida de Placas");
+        btnPerdidaPlacas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnPerdidaPlacasActionPerformed(evt);
             }
         });
 
@@ -105,26 +125,26 @@ public class PantallaMenu extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton4)
+                        .addComponent(btnPerdidaLicencia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton6))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(btnTramitarLicencia)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton11, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton9, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(btnPerdidaPlacas, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnAltaVehiculo, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnReportes, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnSolicitarPlacas, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnConsultar, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton10)
+                                .addComponent(btnCerrar)
                                 .addGap(15, 15, 15)))))
                 .addGap(23, 23, 23))
         );
@@ -134,28 +154,28 @@ public class PantallaMenu extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnTramitarLicencia)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(btnSolicitarPlacas)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton9)
+                        .addComponent(btnConsultar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton11))
+                        .addComponent(btnReportes))
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(btnAltaVehiculo)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4)
+                        .addComponent(btnPerdidaLicencia)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5)
+                        .addComponent(btnPerdidaPlacas)
                         .addGap(15, 44, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton6)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton10)
+                        .addComponent(btnCerrar)
                         .addGap(29, 29, 29))))
         );
 
@@ -203,17 +223,54 @@ public class PantallaMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
+        PantallaInicioSesion frmCerrar = new PantallaInicioSesion();
+        frmCerrar.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnPerdidaLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerdidaLicenciaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        PantallaPerdidaLicencias frmPerdida1 = new PantallaPerdidaLicencias();
+        frmPerdida1.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnPerdidaLicenciaActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnPerdidaPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerdidaPlacasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+        PantallaPerdidaMatriculas frmPerdida2 = new PantallaPerdidaMatriculas();
+        frmPerdida2.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnPerdidaPlacasActionPerformed
+
+    private void btnTramitarLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitarLicenciaActionPerformed
+        // TODO add your handling code here:
+        PantallaLicencia frmLicencia = new PantallaLicencia();
+        frmLicencia.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnTramitarLicenciaActionPerformed
+
+    private void btnSolicitarPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarPlacasActionPerformed
+        // TODO add your handling code here:
+        PantallaMatricula frmMatricula = new PantallaMatricula();
+        frmMatricula.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSolicitarPlacasActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        // TODO add your handling code here:
+        PantallaConsultar frmConsultar = new PantallaConsultar();
+        frmConsultar.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
+        // TODO add your handling code here:
+        PantallaReporte frmReporte = new PantallaReporte();
+        frmReporte.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReportesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,15 +308,15 @@ public class PantallaMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnAltaVehiculo;
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnPerdidaLicencia;
+    private javax.swing.JButton btnPerdidaPlacas;
+    private javax.swing.JButton btnReportes;
+    private javax.swing.JButton btnSolicitarPlacas;
+    private javax.swing.JButton btnTramitarLicencia;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;

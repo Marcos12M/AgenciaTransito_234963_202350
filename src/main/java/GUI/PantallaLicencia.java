@@ -30,7 +30,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton10 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -61,12 +61,12 @@ public class PantallaLicencia extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton10.setBackground(new java.awt.Color(255, 153, 153));
-        jButton10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton10.setText("Regresar al Menu Principal");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.setBackground(new java.awt.Color(255, 153, 153));
+        btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRegresar.setText("Regresar al Menu Principal");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
 
@@ -129,7 +129,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton10)
+                        .addComponent(btnRegresar)
                         .addGap(19, 19, 19))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -208,7 +208,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton10)
+                .addComponent(btnRegresar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -256,9 +256,12 @@ public class PantallaLicencia extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
+        PantallaMenu frmMenu = new PantallaMenu();
+        frmMenu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
@@ -309,7 +312,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton10;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
