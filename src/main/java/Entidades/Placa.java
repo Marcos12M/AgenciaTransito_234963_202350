@@ -5,12 +5,16 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -31,6 +35,40 @@ public class Placa implements Serializable {
     @Basic
     @Column(name = "precio")
     private Integer Precio;
+
+    @OneToOne(mappedBy = "placa")
+    private Vehiculo vehiculo;
+
+    @ManyToOne()
+    @JoinColumn(name = "id_persona")
+    private Persona persona;
+
+    public Placa() {
+    }
+
+    public Placa(Integer id, String Numero, Integer Precio, Vehiculo vehiculo, Persona persona) {
+        this.id = id;
+        this.Numero = Numero;
+        this.Precio = Precio;
+        this.vehiculo = vehiculo;
+        this.persona = persona;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
 
     public Integer getId() {
         return id;
@@ -54,6 +92,49 @@ public class Placa implements Serializable {
 
     public void setPrecio(Integer Precio) {
         this.Precio = Precio;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 31 * hash + Objects.hashCode(this.id);
+        hash = 31 * hash + Objects.hashCode(this.Numero);
+        hash = 31 * hash + Objects.hashCode(this.Precio);
+        hash = 31 * hash + Objects.hashCode(this.vehiculo);
+        hash = 31 * hash + Objects.hashCode(this.persona);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Placa other = (Placa) obj;
+        if (!Objects.equals(this.Numero, other.Numero)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.Precio, other.Precio)) {
+            return false;
+        }
+        if (!Objects.equals(this.vehiculo, other.vehiculo)) {
+            return false;
+        }
+        return Objects.equals(this.persona, other.persona);
+    }
+
+    @Override
+    public String toString() {
+        return "Placa{" + "id=" + id + ", Numero=" + Numero + ", Precio=" + Precio + ", vehiculo=" + vehiculo + ", persona=" + persona + '}';
     }
 
 }

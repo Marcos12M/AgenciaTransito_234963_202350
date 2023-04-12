@@ -5,12 +5,16 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -39,6 +43,42 @@ public class Vehiculo implements Serializable {
     @Basic
     @Column(name = "marca")
     private String Marca;
+
+    @OneToOne
+    private Placa placa;
+
+    @ManyToOne()
+    @JoinColumn(name = "id_persona")
+    private Persona persona;
+
+    public Vehiculo() {
+    }
+
+    public Vehiculo(Integer id, String Color, String Modelo, Integer NumSerie, String Marca, Placa placa, Persona persona) {
+        this.id = id;
+        this.Color = Color;
+        this.Modelo = Modelo;
+        this.NumSerie = NumSerie;
+        this.Marca = Marca;
+        this.placa = placa;
+        this.persona = persona;
+    }
+
+    public Placa getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(Placa placa) {
+        this.placa = placa;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
 
     public Integer getId() {
         return id;
@@ -78,6 +118,57 @@ public class Vehiculo implements Serializable {
 
     public void setMarca(String Marca) {
         this.Marca = Marca;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.Color);
+        hash = 53 * hash + Objects.hashCode(this.Modelo);
+        hash = 53 * hash + Objects.hashCode(this.NumSerie);
+        hash = 53 * hash + Objects.hashCode(this.Marca);
+        hash = 53 * hash + Objects.hashCode(this.placa);
+        hash = 53 * hash + Objects.hashCode(this.persona);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Vehiculo other = (Vehiculo) obj;
+        if (!Objects.equals(this.Color, other.Color)) {
+            return false;
+        }
+        if (!Objects.equals(this.Modelo, other.Modelo)) {
+            return false;
+        }
+        if (!Objects.equals(this.Marca, other.Marca)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.NumSerie, other.NumSerie)) {
+            return false;
+        }
+        if (!Objects.equals(this.placa, other.placa)) {
+            return false;
+        }
+        return Objects.equals(this.persona, other.persona);
+    }
+
+    @Override
+    public String toString() {
+        return "Vehiculo{" + "id=" + id + ", Color=" + Color + ", Modelo=" + Modelo + ", NumSerie=" + NumSerie + ", Marca=" + Marca + ", placa=" + placa + ", persona=" + persona + '}';
     }
 
 }
