@@ -19,16 +19,17 @@ import javax.persistence.Id;
 @Entity
 public class Placa implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
+    @Column(name = "id_placa")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @Basic
-    @Column(unique = true) // Aquí se especifica que el atributo es único
+    @Column(unique = true, name = "numero") // Aquí se especifica que el atributo es único
     private String Numero;
-    
+
     @Basic
+    @Column(name = "precio")
     private Integer Precio;
 
     public Integer getId() {
@@ -54,32 +55,5 @@ public class Placa implements Serializable {
     public void setPrecio(Integer Precio) {
         this.Precio = Precio;
     }
-    
-    
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Placa)) {
-            return false;
-        }
-        Placa other = (Placa) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Entidades.Placa[ id=" + id + " ]";
-    }
-    
 }
