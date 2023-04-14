@@ -4,17 +4,44 @@
  */
 package GUI;
 
+import Entidades.Licencia;
+import Entidades.LicenciaDiscapacitado;
+import Entidades.LicenciaNormal;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+import Entidades.Persona;
+import java.time.Instant;
+import java.util.Date;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
 /**
  *
  * @author Marcos Toledo 00000234963
  */
 public class PantallaLicencia extends javax.swing.JFrame {
 
+    String existe = "Espera";
+
     /**
      * Creates new form PantallaMenu
      */
     public PantallaLicencia() {
         initComponents();
+        //Esto permite que no se puedan escribir dentro de los fields hasta que se verifique.
+        btnGenerar.setText("Generar Licencia");
+        txtNombre.setEnabled(false);
+        txtFechaN.setEnabled(false);
+        txtTelefono.setEnabled(false);
+        rbSi.setEnabled(false);
+        rbNo.setEnabled(false);
+        rb1.setEnabled(false);
+        rb2.setEnabled(false);
+        rb3.setEnabled(false);
     }
 
     /**
@@ -29,25 +56,27 @@ public class PantallaLicencia extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jSlider1 = new javax.swing.JSlider();
         jPanel2 = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        txtRFC = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rbSi = new javax.swing.JRadioButton();
+        rbNo = new javax.swing.JRadioButton();
         jLabel10 = new javax.swing.JLabel();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jLabel11 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        rb1 = new javax.swing.JRadioButton();
+        rb3 = new javax.swing.JRadioButton();
+        rb2 = new javax.swing.JRadioButton();
+        txtCosto = new javax.swing.JLabel();
+        btnGenerar = new javax.swing.JButton();
+        txtFechaN = new com.toedter.calendar.JDateChooser();
+        btnExistencia = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -82,43 +111,95 @@ public class PantallaLicencia extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("Telefono:");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setText("¿Es discapacitado?");
-
-        jRadioButton1.setText("Si");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        txtRFC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                txtRFCActionPerformed(evt);
             }
         });
 
-        jRadioButton2.setText("No");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                txtNombreActionPerformed(evt);
+            }
+        });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+
+        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefonoActionPerformed(evt);
+            }
+        });
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setText("¿Es discapacitado?");
+
+        rbSi.setText("Si");
+        rbSi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbSiActionPerformed(evt);
+            }
+        });
+
+        rbNo.setText("No");
+        rbNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbNoActionPerformed(evt);
             }
         });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setText("Vigencia:");
 
-        jRadioButton3.setText("1 Año");
-
-        jRadioButton4.setText("3 Años");
-        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+        rb1.setText("1 Año");
+        rb1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton4ActionPerformed(evt);
+                rb1ActionPerformed(evt);
             }
         });
 
-        jRadioButton5.setText("2 Años");
+        rb3.setText("3 Años");
+        rb3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb3ActionPerformed(evt);
+            }
+        });
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel11.setText("El costo de la licencia sera de - ???");
+        rb2.setText("2 Años");
+        rb2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb2ActionPerformed(evt);
+            }
+        });
 
-        jButton4.setBackground(new java.awt.Color(204, 255, 153));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setText("Imprime pago");
+        txtCosto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtCosto.setText("El costo de la licencia sera de - ???");
+
+        btnGenerar.setBackground(new java.awt.Color(204, 255, 153));
+        btnGenerar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnGenerar.setText("Genera Licencia");
+        btnGenerar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarActionPerformed(evt);
+            }
+        });
+
+        btnExistencia.setBackground(new java.awt.Color(204, 255, 153));
+        btnExistencia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnExistencia.setText("Verifica existencia");
+        btnExistencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExistenciaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -136,41 +217,43 @@ public class PantallaLicencia extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField4))
+                                .addComponent(txtTelefono))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1))
+                                .addComponent(txtRFC))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtFechaN, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(txtNombre)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addComponent(btnExistencia)
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
+                            .addComponent(txtCosto)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton3)
+                                .addComponent(rb1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton5)
+                                .addComponent(rb2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton4))
+                                .addComponent(rb3))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton1)
+                                .addComponent(rbSi)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton2)))
+                                .addComponent(rbNo)))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addComponent(jButton4)
+                .addGap(85, 85, 85)
+                .addComponent(btnGenerar)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -179,34 +262,35 @@ public class PantallaLicencia extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExistencia))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFechaN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(rbSi)
+                    .addComponent(rbNo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton5))
+                    .addComponent(rb1)
+                    .addComponent(rb3)
+                    .addComponent(rb2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel11)
+                .addComponent(txtCosto)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(btnGenerar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegresar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -226,7 +310,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +325,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,6 +338,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -263,17 +348,196 @@ public class PantallaLicencia extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void rbSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbSiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+        if (rbSi.isSelected()) {
+            rbNo.setSelected(false); // Deselecciona NO si SI está seleccionado
+        }
+    }//GEN-LAST:event_rbSiActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void rbNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+        if (rbNo.isSelected()) {
+            rbSi.setSelected(false); // Deselecciona SI si NO está seleccionado
+        }
+    }//GEN-LAST:event_rbNoActionPerformed
 
-    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+    private void rb3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton4ActionPerformed
+        if (rb3.isSelected()) {
+            rb1.setSelected(false); // Deselecciona rb1 si rb3 está seleccionado
+            rb2.setSelected(false); // Deselecciona rb2 si rb3 está seleccionado
+        }
+    }//GEN-LAST:event_rb3ActionPerformed
+
+    private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
+        // TODO add your handling code here:
+        if (existe == "PrimeraVez") {
+            if (!txtRFC.getText().isEmpty() && !txtNombre.getText().isEmpty()
+                    && txtFechaN.getDate() != null && !txtTelefono.getText().isEmpty()
+                    && (rbSi.isSelected() ^ rbNo.isSelected())
+                    && (rb1.isSelected() ^ rb2.isSelected() ^ rb3.isSelected())) {
+                // ...
+                Persona persona = new Persona();
+                persona.setRFC(txtRFC.getText());
+                persona.setNombre(txtNombre.getText());
+                persona.setFechaNacimiento(txtFechaN.getDate());
+                persona.setTelefono(txtTelefono.getText());
+                if (rbSi.isSelected()) {
+                    persona.setDiscapacitado(true);
+                }
+                if (rbNo.isSelected()) {
+                    persona.setDiscapacitado(false);
+                }
+
+                Licencia licencia = new Licencia();
+                LicenciaNormal licenciaNormal = new LicenciaNormal();
+                LicenciaDiscapacitado licenciaDiscapacitado = new LicenciaDiscapacitado();
+                if (rbSi.isSelected()) {
+                    licenciaDiscapacitado.setTipo("LicenciaDiscapacitado");
+                    licenciaDiscapacitado.setVigenciaF(txtFechaN.getDate());
+                    licenciaDiscapacitado.setPersona(persona);
+                    if (rb1.isSelected()) {
+                        licenciaDiscapacitado.setVigencia(1);
+                    }
+                    if (rb2.isSelected()) {
+                        licenciaDiscapacitado.setVigencia(2);
+                    }
+                    if (rb3.isSelected()) {
+                        licenciaDiscapacitado.setVigencia(3);
+                    }
+                } else {
+                    licenciaNormal.setTipo("LicenciaNormal");
+                    licenciaNormal.setVigenciaF(txtFechaN.getDate());
+                    licenciaNormal.setPersona(persona);
+                    if (rb1.isSelected()) {
+                        licenciaNormal.setVigencia(1);
+                    }
+                    if (rb2.isSelected()) {
+                        licenciaNormal.setVigencia(2);
+                    }
+                    if (rb3.isSelected()) {
+                        licenciaNormal.setVigencia(3);
+                    }
+                }
+
+                EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+                EntityManager em = emf.createEntityManager();
+                em.getTransaction().begin();
+                em.persist(persona);
+                //em.persist(licencia);
+                em.persist(licencia);
+                em.getTransaction().commit();
+                em.close();
+                emf.close();
+                JOptionPane.showMessageDialog(this, "Se genero con exito la licencia de la \n RFC: " + txtRFC.getText(), "Licencia Generada", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // Muestra mensaje de error si no se cumplen las condiciones
+                JOptionPane.showMessageDialog(this, "Por favor, verifica los campos y seleccione las opciones correctas.", "Verifique campos", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        if (existe == "Renovacion") {
+            JOptionPane.showMessageDialog(this, "Se renovo con exito la licencia \n RFC: " + txtRFC.getText(), "Licencia Renovada", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnGenerarActionPerformed
+
+    private void rb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb1ActionPerformed
+        // TODO add your handling code here:
+        if (rb1.isSelected()) {
+            rb2.setSelected(false); // Deselecciona rb2 si rb1 está seleccionado
+            rb3.setSelected(false); // Deselecciona rb3 si rb1 está seleccionado
+        }
+    }//GEN-LAST:event_rb1ActionPerformed
+
+    private void rb2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb2ActionPerformed
+        // TODO add your handling code here:
+        if (rb2.isSelected()) {
+            rb1.setSelected(false); // Deselecciona rb1 si rb2 está seleccionado
+            rb3.setSelected(false); // Deselecciona rb3 si rb2 está seleccionado
+        }
+    }//GEN-LAST:event_rb2ActionPerformed
+
+    private void txtRFCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRFCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRFCActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (Character.isDigit(c)) {
+            evt.consume(); // Elimina si se ingresa un numero
+        } else {
+            super.processKeyEvent(evt); // Permite otros eventos de teclado
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoActionPerformed
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c)) {
+            evt.consume(); // Elimina si se ingresa una letra
+        } else {
+            super.processKeyEvent(evt); // Permite otros eventos de teclado
+        }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void btnExistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExistenciaActionPerformed
+        // TODO add your handling code here:
+        String RFC = txtRFC.getText();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        try {
+            // Realizar una consulta en la base de datos para verificar si la RFC ingresada ya existe
+            Query query = em.createQuery("SELECT p FROM Persona p WHERE p.RFC = :RFC");
+            query.setParameter("RFC", RFC);
+            Persona persona = (Persona) query.getSingleResult();
+
+            // La RFC ingresada se encontró en la base de datos y se rellenaron los datos
+            JOptionPane.showMessageDialog(this, "La persona con la\n RFC: " + txtRFC.getText() + " existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            txtNombre.setText(persona.getNombre());
+            txtFechaN.setDate(persona.getFechaNacimiento());
+            txtTelefono.setText(persona.getTelefono());
+            if (persona.isDiscapacitado()) {
+                rbSi.setSelected(true);
+            } else {
+                rbNo.setSelected(true);
+            }
+            rbSi.setEnabled(true);
+            rbNo.setEnabled(true);
+            rb1.setEnabled(true);
+            rb2.setEnabled(true);
+            rb3.setEnabled(true);
+
+            existe = "Renovacion";
+            btnGenerar.setText("Renovar Licencia");
+
+        } catch (NoResultException ex) {
+            // La RFC ingresada no se encontró en la base de datos
+            JOptionPane.showMessageDialog(this, "La persona no existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            // Limpiar los campos de texto y deseleccionar los botones de opción
+            txtNombre.setEnabled(true);
+            txtFechaN.setEnabled(true);
+            txtTelefono.setEnabled(true);
+            rbSi.setEnabled(true);
+            rbNo.setEnabled(true);
+            rb1.setEnabled(true);
+            rb2.setEnabled(true);
+            rb3.setEnabled(true);
+
+            existe = "PrimeraVez";
+        }
+    }//GEN-LAST:event_btnExistenciaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -312,11 +576,11 @@ public class PantallaLicencia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExistencia;
+    private javax.swing.JButton btnGenerar;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -327,14 +591,16 @@ public class PantallaLicencia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JSlider jSlider1;
+    private javax.swing.JRadioButton rb1;
+    private javax.swing.JRadioButton rb2;
+    private javax.swing.JRadioButton rb3;
+    private javax.swing.JRadioButton rbNo;
+    private javax.swing.JRadioButton rbSi;
+    private javax.swing.JLabel txtCosto;
+    private com.toedter.calendar.JDateChooser txtFechaN;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtRFC;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
