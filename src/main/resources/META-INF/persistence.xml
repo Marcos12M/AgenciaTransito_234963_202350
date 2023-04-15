@@ -7,6 +7,8 @@
     <class>Entidades.Placa</class>
     <class>Entidades.Vehiculo</class>
     <class>Entidades.Reporte</class>
+    <class>Entidades.LicenciaDiscapacitado</class>
+    <class>Entidades.LicenciaNormal</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/AgenciaTransito_234963_202350?useUnicode=true&amp;useJDBCCompliantTimezo neShift=true&amp;useLegacyDatetimeCode=false&amp; serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

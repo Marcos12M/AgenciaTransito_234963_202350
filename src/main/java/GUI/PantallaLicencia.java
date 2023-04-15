@@ -5,14 +5,15 @@
 package GUI;
 
 import Entidades.Licencia;
-import Entidades.LicenciaDiscapacitado;
-import Entidades.LicenciaNormal;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import Entidades.Persona;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -26,6 +27,7 @@ import javax.persistence.Query;
 public class PantallaLicencia extends javax.swing.JFrame {
 
     String existe = "Espera";
+    int anios = 0;
 
     /**
      * Creates new form PantallaMenu
@@ -70,13 +72,13 @@ public class PantallaLicencia extends javax.swing.JFrame {
         rbSi = new javax.swing.JRadioButton();
         rbNo = new javax.swing.JRadioButton();
         jLabel10 = new javax.swing.JLabel();
-        rb1 = new javax.swing.JRadioButton();
         rb3 = new javax.swing.JRadioButton();
         rb2 = new javax.swing.JRadioButton();
         txtCosto = new javax.swing.JLabel();
         btnGenerar = new javax.swing.JButton();
         txtFechaN = new com.toedter.calendar.JDateChooser();
         btnExistencia = new javax.swing.JButton();
+        rb1 = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -111,28 +113,12 @@ public class PantallaLicencia extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("Telefono:");
 
-        txtRFC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRFCActionPerformed(evt);
-            }
-        });
-
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombreKeyTyped(evt);
             }
         });
 
-        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonoActionPerformed(evt);
-            }
-        });
         txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtTelefonoKeyTyped(evt);
@@ -158,13 +144,6 @@ public class PantallaLicencia extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setText("Vigencia:");
-
-        rb1.setText("1 Año");
-        rb1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rb1ActionPerformed(evt);
-            }
-        });
 
         rb3.setText("3 Años");
         rb3.addActionListener(new java.awt.event.ActionListener() {
@@ -198,6 +177,13 @@ public class PantallaLicencia extends javax.swing.JFrame {
         btnExistencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExistenciaActionPerformed(evt);
+            }
+        });
+
+        rb1.setText("1 Año");
+        rb1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb1ActionPerformed(evt);
             }
         });
 
@@ -240,7 +226,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(rb1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(1, 1, 1)
                                 .addComponent(rb2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(rb3))
@@ -284,9 +270,9 @@ public class PantallaLicencia extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(rb1)
                     .addComponent(rb3)
-                    .addComponent(rb2))
+                    .addComponent(rb2)
+                    .addComponent(rb1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtCosto)
                 .addGap(18, 18, 18)
@@ -362,17 +348,9 @@ public class PantallaLicencia extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rbNoActionPerformed
 
-    private void rb3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb3ActionPerformed
-        // TODO add your handling code here:
-        if (rb3.isSelected()) {
-            rb1.setSelected(false); // Deselecciona rb1 si rb3 está seleccionado
-            rb2.setSelected(false); // Deselecciona rb2 si rb3 está seleccionado
-        }
-    }//GEN-LAST:event_rb3ActionPerformed
-
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
         // TODO add your handling code here:
-        if (existe == "PrimeraVez") {
+        if (existe.equals("PrimeraVez")) {
             if (!txtRFC.getText().isEmpty() && !txtNombre.getText().isEmpty()
                     && txtFechaN.getDate() != null && !txtTelefono.getText().isEmpty()
                     && (rbSi.isSelected() ^ rbNo.isSelected())
@@ -390,83 +368,132 @@ public class PantallaLicencia extends javax.swing.JFrame {
                     persona.setDiscapacitado(false);
                 }
 
+                Date fechaActual = new Date();
                 Licencia licencia = new Licencia();
-                LicenciaNormal licenciaNormal = new LicenciaNormal();
-                LicenciaDiscapacitado licenciaDiscapacitado = new LicenciaDiscapacitado();
+                licencia.setPersona(persona);
+                //Creacion de la seleccion de vigencia segun los radiobuttons.
                 if (rbSi.isSelected()) {
-                    licenciaDiscapacitado.setTipo("LicenciaDiscapacitado");
-                    licenciaDiscapacitado.setVigenciaF(txtFechaN.getDate());
-                    licenciaDiscapacitado.setPersona(persona);
+                    licencia.setTipo("Discapacitado");
                     if (rb1.isSelected()) {
-                        licenciaDiscapacitado.setVigencia(1);
+                        licencia.setVigencia(1);
                     }
                     if (rb2.isSelected()) {
-                        licenciaDiscapacitado.setVigencia(2);
+                        licencia.setVigencia(2);
                     }
                     if (rb3.isSelected()) {
-                        licenciaDiscapacitado.setVigencia(3);
+                        licencia.setVigencia(3);
+                    } else {
+                        licencia.setTipo("Normal");
+                        if (rb1.isSelected()) {
+                            licencia.setVigencia(1);
+                        }
+                        if (rb2.isSelected()) {
+                            licencia.setVigencia(2);
+                        }
+                        if (rb3.isSelected()) {
+                            licencia.setVigencia(3);
+                        }
                     }
-                } else {
-                    licenciaNormal.setTipo("LicenciaNormal");
-                    licenciaNormal.setVigenciaF(txtFechaN.getDate());
-                    licenciaNormal.setPersona(persona);
-                    if (rb1.isSelected()) {
-                        licenciaNormal.setVigencia(1);
-                    }
-                    if (rb2.isSelected()) {
-                        licenciaNormal.setVigencia(2);
-                    }
-                    if (rb3.isSelected()) {
-                        licenciaNormal.setVigencia(3);
-                    }
-                }
+                    //Creación de la fecha con vigencia
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(fechaActual);
+                    anios = licencia.getVigencia();
+                    calendar.add(Calendar.YEAR, anios);
+                    Date DateVigencia = calendar.getTime();
+                    licencia.setVigenciaF(DateVigencia);
+                    licencia.setCosto(licencia.obtenerCosto());
+                    txtCosto.setText("El costo de la licencia sera de $ " + licencia.obtenerCosto());
 
-                EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
-                EntityManager em = emf.createEntityManager();
-                em.getTransaction().begin();
-                em.persist(persona);
-                //em.persist(licencia);
-                em.persist(licencia);
-                em.getTransaction().commit();
-                em.close();
-                emf.close();
-                JOptionPane.showMessageDialog(this, "Se genero con exito la licencia de la \n RFC: " + txtRFC.getText(), "Licencia Generada", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                // Muestra mensaje de error si no se cumplen las condiciones
-                JOptionPane.showMessageDialog(this, "Por favor, verifica los campos y seleccione las opciones correctas.", "Verifique campos", JOptionPane.ERROR_MESSAGE);
+                    EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+                    EntityManager em = emf.createEntityManager();
+                    em.getTransaction().begin();
+                    em.persist(persona);
+                    em.persist(licencia);
+                    em.getTransaction().commit();
+                    em.close();
+                    emf.close();
+                    JOptionPane.showMessageDialog(this, "Se genero con exito la licencia de la \n RFC: " + txtRFC.getText(), "Licencia Generada", JOptionPane.INFORMATION_MESSAGE);
+                    PantallaMenu frmMenu = new PantallaMenu();
+                    frmMenu.setVisible(true);
+                    this.dispose();
+                } else {
+                    // Muestra mensaje de error si no se cumplen las condiciones
+                    JOptionPane.showMessageDialog(this, "Por favor, verifica los campos y seleccione las opciones correctas.", "Verifique campos", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
 
         if (existe == "Renovacion") {
-            JOptionPane.showMessageDialog(this, "Se renovo con exito la licencia \n RFC: " + txtRFC.getText(), "Licencia Renovada", JOptionPane.INFORMATION_MESSAGE);
+            String RFC = txtRFC.getText();
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+            EntityManager em = emf.createEntityManager();
+            try {
+                // Realizar una consulta en la base de datos para verificar si la RFC ingresada ya existe
+                Query query = em.createQuery("SELECT p FROM Persona p WHERE p.RFC = :RFC");
+                query.setParameter("RFC", RFC);
+                Persona persona = (Persona) query.getSingleResult();
+                persona.setTelefono(txtTelefono.getText());
+                if (rbSi.isSelected()) {
+                    persona.setDiscapacitado(true);
+                }
+                if (rbNo.isSelected()) {
+                    persona.setDiscapacitado(false);
+                }
+
+                Date fechaActual = new Date();
+                persona.getLicencias();
+                Licencia licencia = new Licencia();
+
+                if (rbSi.isSelected()) {
+                    licencia.setTipo("Discapacitado");
+                    if (rb1.isSelected()) {
+                        licencia.setVigencia(1);
+                    }
+                    if (rb2.isSelected()) {
+                        licencia.setVigencia(2);
+                    }
+                    if (rb3.isSelected()) {
+                        licencia.setVigencia(3);
+                    }
+                } else {
+                    licencia.setTipo("Normal");
+                    if (rb1.isSelected()) {
+                        licencia.setVigencia(1);
+                    }
+                    if (rb2.isSelected()) {
+                        licencia.setVigencia(2);
+                    }
+                    if (rb3.isSelected()) {
+                        licencia.setVigencia(3);
+                    }
+                }
+
+                //Creación de la fecha con vigencia
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(fechaActual);
+                anios = licencia.getVigencia();
+                calendar.add(Calendar.YEAR, anios);
+                Date DateVigencia = calendar.getTime();
+                licencia.setVigenciaF(DateVigencia);
+                licencia.setCosto(licencia.obtenerCosto());
+                licencia.setPersona(persona);
+                txtCosto.setText("El costo de la licencia sera de $ " + licencia.obtenerCosto());
+                em.getTransaction().begin();
+                em.merge(persona);
+                em.merge(licencia);
+                em.getTransaction().commit();
+                JOptionPane.showMessageDialog(this, "Se renovó con éxito la licencia \n RFC: " + txtRFC.getText(), "Licencia Renovada", JOptionPane.INFORMATION_MESSAGE);
+                PantallaMenu frmMenu = new PantallaMenu();
+                frmMenu.setVisible(true);
+                this.dispose();
+                
+            } catch (NoResultException ex) {
+                // La RFC ingresada no se encontró en la base de datos
+                JOptionPane.showMessageDialog(this, "La persona no existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
 
     }//GEN-LAST:event_btnGenerarActionPerformed
-
-    private void rb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb1ActionPerformed
-        // TODO add your handling code here:
-        if (rb1.isSelected()) {
-            rb2.setSelected(false); // Deselecciona rb2 si rb1 está seleccionado
-            rb3.setSelected(false); // Deselecciona rb3 si rb1 está seleccionado
-        }
-    }//GEN-LAST:event_rb1ActionPerformed
-
-    private void rb2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb2ActionPerformed
-        // TODO add your handling code here:
-        if (rb2.isSelected()) {
-            rb1.setSelected(false); // Deselecciona rb1 si rb2 está seleccionado
-            rb3.setSelected(false); // Deselecciona rb3 si rb2 está seleccionado
-        }
-    }//GEN-LAST:event_rb2ActionPerformed
-
-    private void txtRFCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRFCActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtRFCActionPerformed
-
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_txtNombreActionPerformed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         // TODO add your handling code here:
@@ -477,10 +504,6 @@ public class PantallaLicencia extends javax.swing.JFrame {
             super.processKeyEvent(evt); // Permite otros eventos de teclado
         }
     }//GEN-LAST:event_txtNombreKeyTyped
-
-    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonoActionPerformed
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
         // TODO add your handling code here:
@@ -495,49 +518,78 @@ public class PantallaLicencia extends javax.swing.JFrame {
     private void btnExistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExistenciaActionPerformed
         // TODO add your handling code here:
         String RFC = txtRFC.getText();
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
-        EntityManager em = emf.createEntityManager();
-        try {
-            // Realizar una consulta en la base de datos para verificar si la RFC ingresada ya existe
-            Query query = em.createQuery("SELECT p FROM Persona p WHERE p.RFC = :RFC");
-            query.setParameter("RFC", RFC);
-            Persona persona = (Persona) query.getSingleResult();
+        if (!txtRFC.getText().isEmpty()) {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+            EntityManager em = emf.createEntityManager();
+            try {
+                // Realizar una consulta en la base de datos para verificar si la RFC ingresada ya existe
+                Query query = em.createQuery("SELECT p FROM Persona p WHERE p.RFC = :RFC");
+                query.setParameter("RFC", RFC);
+                Persona persona = (Persona) query.getSingleResult();
 
-            // La RFC ingresada se encontró en la base de datos y se rellenaron los datos
-            JOptionPane.showMessageDialog(this, "La persona con la\n RFC: " + txtRFC.getText() + " existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            txtNombre.setText(persona.getNombre());
-            txtFechaN.setDate(persona.getFechaNacimiento());
-            txtTelefono.setText(persona.getTelefono());
-            if (persona.isDiscapacitado()) {
-                rbSi.setSelected(true);
-            } else {
-                rbNo.setSelected(true);
+                // La RFC ingresada se encontró en la base de datos y se rellenaron los datos
+                JOptionPane.showMessageDialog(this, "La persona con la\n RFC: " + txtRFC.getText() + " existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                txtNombre.setText(persona.getNombre());
+                txtFechaN.setDate(persona.getFechaNacimiento());
+                txtTelefono.setText(persona.getTelefono());
+                if (persona.isDiscapacitado()) {
+                    rbSi.setSelected(true);
+                } else {
+                    rbNo.setSelected(true);
+                }
+                rbSi.setEnabled(true);
+                rbNo.setEnabled(true);
+                rb1.setEnabled(true);
+                rb2.setEnabled(true);
+                rb3.setEnabled(true);
+                txtTelefono.setEnabled(true);
+
+                existe = "Renovacion";
+                btnGenerar.setText("Renovar Licencia");
+
+            } catch (NoResultException ex) {
+                // La RFC ingresada no se encontró en la base de datos
+                JOptionPane.showMessageDialog(this, "La persona no existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                // Limpiar los campos de texto y deseleccionar los botones de opción
+                txtNombre.setEnabled(true);
+                txtFechaN.setEnabled(true);
+                txtTelefono.setEnabled(true);
+                rbSi.setEnabled(true);
+                rbNo.setEnabled(true);
+                rb1.setEnabled(true);
+                rb2.setEnabled(true);
+                rb3.setEnabled(true);
+
+                existe = "PrimeraVez";
             }
-            rbSi.setEnabled(true);
-            rbNo.setEnabled(true);
-            rb1.setEnabled(true);
-            rb2.setEnabled(true);
-            rb3.setEnabled(true);
-
-            existe = "Renovacion";
-            btnGenerar.setText("Renovar Licencia");
-
-        } catch (NoResultException ex) {
-            // La RFC ingresada no se encontró en la base de datos
-            JOptionPane.showMessageDialog(this, "La persona no existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            // Limpiar los campos de texto y deseleccionar los botones de opción
-            txtNombre.setEnabled(true);
-            txtFechaN.setEnabled(true);
-            txtTelefono.setEnabled(true);
-            rbSi.setEnabled(true);
-            rbNo.setEnabled(true);
-            rb1.setEnabled(true);
-            rb2.setEnabled(true);
-            rb3.setEnabled(true);
-
-            existe = "PrimeraVez";
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, de rellenar el campo vacio.", "Verifique campos", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnExistenciaActionPerformed
+
+    private void rb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb1ActionPerformed
+        // TODO add your handling code here:
+        if (rb1.isSelected()) {
+            rb2.setSelected(false); // Deselecciona rb2 si rb1 está seleccionado
+            rb3.setSelected(false); // Deselecciona rb3 si rb1 está seleccionado
+        }
+    }//GEN-LAST:event_rb1ActionPerformed
+
+    private void rb3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb3ActionPerformed
+        // TODO add your handling code here:
+        if (rb3.isSelected()) {
+            rb1.setSelected(false); // Deselecciona rb1 si rb3 está seleccionado
+            rb2.setSelected(false); // Deselecciona rb2 si rb3 está seleccionado
+        }
+    }//GEN-LAST:event_rb3ActionPerformed
+
+    private void rb2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb2ActionPerformed
+        // TODO add your handling code here:
+        if (rb2.isSelected()) {
+            rb1.setSelected(false); // Deselecciona rb1 si rb2 está seleccionado
+            rb3.setSelected(false); // Deselecciona rb3 si rb2 está seleccionado
+        }
+    }//GEN-LAST:event_rb2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -553,16 +605,24 @@ public class PantallaLicencia extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PantallaLicencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaLicencia.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PantallaLicencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaLicencia.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PantallaLicencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaLicencia.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PantallaLicencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaLicencia.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

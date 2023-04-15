@@ -28,7 +28,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo_licencia")
+@DiscriminatorColumn(name = "tipo_tramite")
 public class Licencia implements Serializable {
 
     @Id
@@ -43,7 +43,11 @@ public class Licencia implements Serializable {
     @Basic
     @Column(name = "vigencia")
     private int Vigencia;
-    
+
+    @Basic
+    @Column(name = "costo")
+    private int costo;
+
     @Column(name = "vigenciaFecha")
     @Temporal(TemporalType.DATE)
     private Date VigenciaF;
@@ -63,9 +67,10 @@ public class Licencia implements Serializable {
     public Licencia() {
     }
 
-    public Licencia(Integer id, String Tipo, Date VigenciaF, Integer Costo, Persona persona) {
+    public Licencia(Integer id, String Tipo, int Vigencia, Date VigenciaF, Persona persona) {
         this.id = id;
         this.Tipo = Tipo;
+        this.Vigencia = Vigencia;
         this.VigenciaF = VigenciaF;
         this.persona = persona;
     }
@@ -102,13 +107,42 @@ public class Licencia implements Serializable {
         this.Vigencia = Vigencia;
     }
 
+    public int obtenerCosto() {
+        if (Vigencia == 1 && Tipo.equals("Discapacitado")) {
+            return 200;
+        } else if (Vigencia == 2 && Tipo.equals("Discapacitado")) {
+            return 500;
+        } else if (Vigencia == 3 && Tipo.equals("Discapacitado")) {
+            return 700;
+        } else if (Vigencia == 1 && Tipo.equals("Normal")) {
+            return 600;
+        } else if (Vigencia == 2 && Tipo.equals("Normal")) {
+            return 900;
+        } else if (Vigencia == 3 && Tipo.equals("Normal")) {
+            return 1100;
+        } else {
+            // En caso de que no se cumpla ninguna condición, puedes lanzar una excepción o devolver un valor por defecto
+            throw new IllegalArgumentException("Vigencia o tipo inválido");
+        }
+    }
+
+    public void setCosto(int costo) {
+        this.costo = costo;
+    }
+    
+    public int getCosto(int Costo) {
+        return costo;
+    }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id);
-        hash = 53 * hash + Objects.hashCode(this.Tipo);
-        hash = 53 * hash + Objects.hashCode(this.persona);
+        hash = 83 * hash + Objects.hashCode(this.id);
+        hash = 83 * hash + Objects.hashCode(this.Tipo);
+        hash = 83 * hash + this.Vigencia;
+        hash = 83 * hash + this.costo;
+        hash = 83 * hash + Objects.hashCode(this.VigenciaF);
+        hash = 83 * hash + Objects.hashCode(this.persona);
         return hash;
     }
 
@@ -124,6 +158,12 @@ public class Licencia implements Serializable {
             return false;
         }
         final Licencia other = (Licencia) obj;
+        if (this.Vigencia != other.Vigencia) {
+            return false;
+        }
+        if (this.costo != other.costo) {
+            return false;
+        }
         if (!Objects.equals(this.Tipo, other.Tipo)) {
             return false;
         }
@@ -135,10 +175,7 @@ public class Licencia implements Serializable {
         }
         return Objects.equals(this.persona, other.persona);
     }
-
-    @Override
-    public String toString() {
-        return "Licencia{" + "id=" + id + ", Tipo=" + Tipo + ", Vigencia=" + VigenciaF + ", persona=" + persona + '}';
-    }
     
+    
+
 }
