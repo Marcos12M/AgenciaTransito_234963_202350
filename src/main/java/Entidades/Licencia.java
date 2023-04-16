@@ -9,13 +9,11 @@ import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -27,9 +25,8 @@ import javax.persistence.TemporalType;
  * @author Marcos Toledo 00000234963
  */
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo_tramite")
-public class Licencia implements Serializable {
+@DiscriminatorValue("Licencia")
+public class Licencia extends Reporte implements Serializable {
 
     @Id
     @Column(name = "id_licencia")
@@ -51,6 +48,10 @@ public class Licencia implements Serializable {
     @Column(name = "vigenciaFecha")
     @Temporal(TemporalType.DATE)
     private Date VigenciaF;
+    
+    @Basic
+    @Column(name = "estado")
+    private String Estado; //Esta opción la agregue por esto (- considerar que pasa si me roban o pierdo las licencias o placas)
 
     @ManyToOne()
     @JoinColumn(name = "id_persona")
@@ -67,11 +68,13 @@ public class Licencia implements Serializable {
     public Licencia() {
     }
 
-    public Licencia(Integer id, String Tipo, int Vigencia, Date VigenciaF, Persona persona) {
+    public Licencia(Integer id, String Tipo, int Vigencia, int costo, Date VigenciaF, String Estado, Persona persona) {
         this.id = id;
         this.Tipo = Tipo;
         this.Vigencia = Vigencia;
+        this.costo = costo;
         this.VigenciaF = VigenciaF;
+        this.Estado = Estado;
         this.persona = persona;
     }
 
@@ -107,6 +110,14 @@ public class Licencia implements Serializable {
         this.Vigencia = Vigencia;
     }
 
+    public String getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(String Estado) {
+        this.Estado = Estado;
+    }
+
     public int obtenerCosto() {
         if (Vigencia == 1 && Tipo.equals("Discapacitado")) {
             return 200;
@@ -137,15 +148,16 @@ public class Licencia implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 83 * hash + Objects.hashCode(this.id);
-        hash = 83 * hash + Objects.hashCode(this.Tipo);
-        hash = 83 * hash + this.Vigencia;
-        hash = 83 * hash + this.costo;
-        hash = 83 * hash + Objects.hashCode(this.VigenciaF);
-        hash = 83 * hash + Objects.hashCode(this.persona);
+        hash = 67 * hash + Objects.hashCode(this.id);
+        hash = 67 * hash + Objects.hashCode(this.Tipo);
+        hash = 67 * hash + this.Vigencia;
+        hash = 67 * hash + this.costo;
+        hash = 67 * hash + Objects.hashCode(this.VigenciaF);
+        hash = 67 * hash + Objects.hashCode(this.Estado);
+        hash = 67 * hash + Objects.hashCode(this.persona);
         return hash;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -167,6 +179,9 @@ public class Licencia implements Serializable {
         if (!Objects.equals(this.Tipo, other.Tipo)) {
             return false;
         }
+        if (!Objects.equals(this.Estado, other.Estado)) {
+            return false;
+        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -175,7 +190,10 @@ public class Licencia implements Serializable {
         }
         return Objects.equals(this.persona, other.persona);
     }
-    
-    
 
+    @Override
+    public String toString() {
+        return "Licencia{" + "id=" + id + ", Tipo=" + Tipo + ", Vigencia=" + Vigencia + ", costo=" + costo + ", VigenciaF=" + VigenciaF + ", Estado=" + Estado + ", persona=" + persona + '}';
+    }
+    
 }

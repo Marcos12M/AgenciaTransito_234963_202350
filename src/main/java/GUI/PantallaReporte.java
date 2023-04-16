@@ -4,17 +4,74 @@
  */
 package GUI;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Marcos Toledo 00000234963
  */
 public class PantallaReporte extends javax.swing.JFrame {
 
+    private PaginatedTableModel model;
+    private int currentPage = 0;
+    private int rowsPerPage = 5;
+
     /**
      * Creates new form PantallaRegistro
      */
     public PantallaReporte() {
         initComponents();
+        
+    // Crear el modelo de tabla paginada con los datos y columnas deseadas
+        Object[][] data = new Object[][]{
+                {"1", "John", "Doe"},
+                {"2", "Jane", "Doe"},
+                {"3", "Alice", "Smith"},
+                {"4", "Bob", "Johnson"},
+                {"5", "Charlie", "Brown"},
+                {"6", "David", "Lee"},
+                {"7", "Eve", "Thomas"},
+                {"8", "Frank", "White"},
+                {"9", "Grace", "Wilson"},
+                {"10", "Henry", "Miller"}
+        };
+        String[] columnNames = new String[]{"ID", "First Name", "Last Name"};
+        int rowsPerPage = 5;
+        model = new PaginatedTableModel(data, columnNames, rowsPerPage);
+        currentPage = 0; // Inicializar la página actual en 0
+
+        // Asignar el modelo a la tabla
+        tblReportes.setModel(model);
+
+        // Establecer el modelo de datos personalizado en la tabla ya creada
+        tblReportes.setModel(model);
+        // Configurar los botones de navegación
+
+        btnAnterior.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (currentPage > 0) {
+                    currentPage--;
+                    tblReportes.setModel(new PaginatedTableModel(data, columnNames, rowsPerPage, currentPage)); // Establecer un nuevo modelo en la tabla
+                }
+            }
+        });
+
+        btnSiguiente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (currentPage < model.getPageCount() - 1) {
+                    currentPage++;
+                    tblReportes.setModel(new PaginatedTableModel(data, columnNames, rowsPerPage, currentPage)); // Establecer un nuevo modelo en la tabla
+                }
+            }
+        });
+
+        // Actualizar la tabla con los datos de la primera página
+        model.fireTableDataChanged();
     }
 
     /**
@@ -36,12 +93,12 @@ public class PantallaReporte extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnAnterior = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
         jTextField4 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        btnRegresar = new javax.swing.JButton();
+        tblReportes = new javax.swing.JTable();
+        btnRegresarMenu = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -85,47 +142,54 @@ public class PantallaReporte extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(204, 204, 255));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton5.setText("<<");
-
-        jButton6.setBackground(new java.awt.Color(204, 204, 255));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton6.setText(">>");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnAnterior.setBackground(new java.awt.Color(204, 204, 255));
+        btnAnterior.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAnterior.setText("<<");
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnAnteriorActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        btnSiguiente.setBackground(new java.awt.Color(204, 204, 255));
+        btnSiguiente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSiguiente.setText(">>");
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteActionPerformed(evt);
+            }
+        });
+
+        tblReportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Fecha", "Persona Solicito", "Costo", "Tramite Realizado"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-        });
-        jScrollPane1.setViewportView(jTable1);
+        ));
+        jScrollPane1.setViewportView(tblReportes);
 
-        btnRegresar.setBackground(new java.awt.Color(255, 153, 153));
-        btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnRegresar.setText("Regresar al Menu Principal");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresarMenu.setBackground(new java.awt.Color(255, 153, 153));
+        btnRegresarMenu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRegresarMenu.setText("Regresar al Menu Principal");
+        btnRegresarMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
+                btnRegresarMenuActionPerformed(evt);
             }
         });
 
@@ -157,13 +221,13 @@ public class PantallaReporte extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRegresar)
+                .addComponent(btnRegresarMenu)
                 .addGap(37, 37, 37))
         );
         jPanel1Layout.setVerticalGroup(
@@ -196,10 +260,10 @@ public class PantallaReporte extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton5)
-                            .addComponent(jButton6))))
+                            .addComponent(btnAnterior)
+                            .addComponent(btnSiguiente))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(btnRegresar)
+                .addComponent(btnRegresarMenu)
                 .addGap(17, 17, 17))
         );
 
@@ -249,6 +313,7 @@ public class PantallaReporte extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -263,16 +328,22 @@ public class PantallaReporte extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+        System.out.println("3");
+    }//GEN-LAST:event_btnSiguienteActionPerformed
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+    private void btnRegresarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarMenuActionPerformed
         // TODO add your handling code here:
         PantallaMenu frmMenu = new PantallaMenu();
         frmMenu.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnRegresarActionPerformed
+    }//GEN-LAST:event_btnRegresarMenuActionPerformed
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        // TODO add your handling code here:
+        System.out.println("2");
+    }//GEN-LAST:event_btnAnteriorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,16 +359,24 @@ public class PantallaReporte extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PantallaReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaReporte.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PantallaReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaReporte.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PantallaReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaReporte.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PantallaReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaReporte.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -341,12 +420,12 @@ public class PantallaReporte extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnAnterior;
+    private javax.swing.JButton btnRegresarMenu;
+    private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -354,10 +433,10 @@ public class PantallaReporte extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable tblReportes;
     // End of variables declaration//GEN-END:variables
 }

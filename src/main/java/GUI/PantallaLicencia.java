@@ -402,6 +402,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
                     Date DateVigencia = calendar.getTime();
                     licencia.setVigenciaF(DateVigencia);
                     licencia.setCosto(licencia.obtenerCosto());
+                    licencia.setEstado("Existe");
                     txtCosto.setText("El costo de la licencia sera de $ " + licencia.obtenerCosto());
 
                     EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");

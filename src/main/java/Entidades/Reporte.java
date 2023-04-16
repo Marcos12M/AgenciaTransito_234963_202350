@@ -5,14 +5,18 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -23,6 +27,8 @@ import javax.persistence.TemporalType;
  * @author Marcos Toledo 00000234963
  */
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "tipo_tramite")
 public class Reporte implements Serializable {
 
     @Id
@@ -30,31 +36,16 @@ public class Reporte implements Serializable {
     @Column(name = "id_reporte")
     private Integer id;
 
-    @Basic
-    @Column(name = "costo")
-    private Integer Costo;
-
-    @Basic
-    @Column(name = "tipo")
-    private String Tipo;
-
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha")
-    private Date Fecha;
-
-    @ManyToOne()
-    @JoinColumn(name = "id_persona")
-    private Persona persona;
+    private Date Fecha = new Date();
 
     public Reporte() {
     }
 
-    public Reporte(Integer id, Integer Costo, String Tipo, Date Fecha, Persona persona) {
+    public Reporte(Integer id, Date Fecha) {
         this.id = id;
-        this.Costo = Costo;
-        this.Tipo = Tipo;
         this.Fecha = Fecha;
-        this.persona = persona;
     }
 
     public Integer getId() {
@@ -63,22 +54,6 @@ public class Reporte implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getCosto() {
-        return Costo;
-    }
-
-    public void setCosto(Integer Costo) {
-        this.Costo = Costo;
-    }
-
-    public String getTipo() {
-        return Tipo;
-    }
-
-    public void setTipo(String Tipo) {
-        this.Tipo = Tipo;
     }
 
     public Date getFecha() {
@@ -91,12 +66,9 @@ public class Reporte implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 71 * hash + Objects.hashCode(this.id);
-        hash = 71 * hash + Objects.hashCode(this.Costo);
-        hash = 71 * hash + Objects.hashCode(this.Tipo);
-        hash = 71 * hash + Objects.hashCode(this.Fecha);
-        hash = 71 * hash + Objects.hashCode(this.persona);
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.id);
+        hash = 67 * hash + Objects.hashCode(this.Fecha);
         return hash;
     }
 
@@ -112,24 +84,15 @@ public class Reporte implements Serializable {
             return false;
         }
         final Reporte other = (Reporte) obj;
-        if (!Objects.equals(this.Tipo, other.Tipo)) {
-            return false;
-        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.Costo, other.Costo)) {
-            return false;
-        }
-        if (!Objects.equals(this.Fecha, other.Fecha)) {
-            return false;
-        }
-        return Objects.equals(this.persona, other.persona);
+        return Objects.equals(this.Fecha, other.Fecha);
     }
 
     @Override
     public String toString() {
-        return "Reporte{" + "id=" + id + ", Costo=" + Costo + ", Tipo=" + Tipo + ", Fecha=" + Fecha + ", persona=" + persona + '}';
+        return "Reporte{" + "id=" + id + ", Fecha=" + Fecha + '}';
     }
-
+    
 }

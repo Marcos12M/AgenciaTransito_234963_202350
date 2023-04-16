@@ -62,13 +62,14 @@ public class Persona implements Serializable {
     @OneToMany(mappedBy = "persona")
     private List<Licencia> licencias;
 
-    @OneToMany(mappedBy = "persona")
-    private List<Reporte> reportes;
+   // @OneToMany(mappedBy = "persona")
+   // private List<Reporte> reportes;
 
     public Persona() {
     }
 
-    public Persona(Integer id, String RFC, String nombre, String telefono, Date fechaNacimiento, boolean discapacitado, List<Vehiculo> vehiculos, List<Placa> placas, List<Licencia> licencias, List<Reporte> reportes) {
+    public Persona(Integer id, String RFC, String nombre, String telefono, Date fechaNacimiento, boolean discapacitado, List<Vehiculo> vehiculos, List<Placa> placas, List<Licencia> licencias) {
+        //licencias, List<Reporte> reportes - Ando probando nuevas formas para la herencia
         this.id = id;
         this.RFC = RFC;
         this.nombre = nombre;
@@ -78,7 +79,7 @@ public class Persona implements Serializable {
         this.vehiculos = vehiculos;
         this.placas = placas;
         this.licencias = licencias;
-        this.reportes = reportes;
+        //this.reportes = reportes;
     }
 
     public Persona(Integer id, String RFC, String nombre, String telefono, Date fechaNacimiento, boolean discapacitado) {
@@ -88,14 +89,6 @@ public class Persona implements Serializable {
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
         this.discapacitado = discapacitado;
-    }
-
-    public List<Reporte> getReportes() {
-        return reportes;
-    }
-
-    public void setReportes(List<Reporte> reportes) {
-        this.reportes = reportes;
     }
 
     public List<Licencia> getLicencias() {
@@ -182,7 +175,6 @@ public class Persona implements Serializable {
         hash = 89 * hash + Objects.hashCode(this.vehiculos);
         hash = 89 * hash + Objects.hashCode(this.placas);
         hash = 89 * hash + Objects.hashCode(this.licencias);
-        hash = 89 * hash + Objects.hashCode(this.reportes);
         return hash;
     }
 
@@ -222,15 +214,11 @@ public class Persona implements Serializable {
         if (!Objects.equals(this.placas, other.placas)) {
             return false;
         }
-        if (!Objects.equals(this.licencias, other.licencias)) {
-            return false;
-        }
-        return Objects.equals(this.reportes, other.reportes);
+        return Objects.equals(this.licencias, other.licencias);
     }
 
     @Override
     public String toString() {
-        return "Persona{" + "id=" + id + ", RFC=" + RFC + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", discapacitado=" + discapacitado + ", vehiculos=" + vehiculos + ", placas=" + placas + ", licencias=" + licencias + ", reportes=" + reportes + '}';
+        return "Persona{" + "id=" + id + ", RFC=" + RFC + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", discapacitado=" + discapacitado + ", vehiculos=" + vehiculos + ", placas=" + placas + ", licencias=" + licencias + '}';
     }
-
 }

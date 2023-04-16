@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,8 @@ import javax.persistence.OneToOne;
  * @author Marcos Toledo 00000234963
  */
 @Entity
-public class Placa implements Serializable {
+@DiscriminatorValue("Placa")
+public class Placa extends Reporte implements Serializable {
 
     @Id
     @Column(name = "id_placa")
@@ -33,7 +35,7 @@ public class Placa implements Serializable {
     private String Numero;
 
     @Basic
-    @Column(name = "precio")
+    @Column(name = "costo")
     private Integer Precio;
 
     @OneToOne(mappedBy = "placa")
