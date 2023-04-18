@@ -47,6 +47,7 @@ public class Vehiculo implements Serializable {
     private String Marca;
 
     @OneToOne
+    @JoinColumn(name = "id_placa")
     private Placa placa;
 
     @ManyToOne()

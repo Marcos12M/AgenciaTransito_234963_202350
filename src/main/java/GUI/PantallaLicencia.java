@@ -36,6 +36,31 @@ public class PantallaLicencia extends javax.swing.JFrame {
     /**
      * Creates new form PantallaMenu
      */
+    public void actualizaprecio(){
+        
+        if (rbSi.isSelected()) {
+            if (rb1.isSelected()) {
+                txtCosto.setText("El costo de la licencia sera de $200");
+            }
+            if (rb2.isSelected()) {
+                txtCosto.setText("El costo de la licencia sera de $500");
+            }
+            if (rb3.isSelected()) {
+                txtCosto.setText("El costo de la licencia sera de $700");
+            }
+        }
+        if (rbNo.isSelected()) {
+            if (rb1.isSelected()) {
+                txtCosto.setText("El costo de la licencia sera de $600");
+            }
+            if (rb2.isSelected()) {
+                txtCosto.setText("El costo de la licencia sera de $900");
+            }
+            if (rb3.isSelected()) {
+                txtCosto.setText("El costo de la licencia sera de $1100");
+            }
+        }
+    }
     public PantallaLicencia(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
         this.personaDAO = personaDAO;
         this.licenciaDAO = licenciaDAO;
@@ -50,6 +75,9 @@ public class PantallaLicencia extends javax.swing.JFrame {
         rb1.setEnabled(false);
         rb2.setEnabled(false);
         rb3.setEnabled(false);
+        txtCosto.setText("El costo de la licencia sera de $$$$");
+        
+        
     }
 
     public Persona obtieneDatosPersona() {
@@ -99,14 +127,17 @@ public class PantallaLicencia extends javax.swing.JFrame {
             if (rb1.isSelected()) {
                 licencia.setVigencia(1);
                 licencia.setCosto(200);
+                txtCosto.setText("El costo de la licencia sera de $200");
             }
             if (rb2.isSelected()) {
                 licencia.setVigencia(2);
                 licencia.setCosto(500);
+                txtCosto.setText("El costo de la licencia sera de $500");
             }
             if (rb3.isSelected()) {
                 licencia.setVigencia(3);
                 licencia.setCosto(700);
+                txtCosto.setText("El costo de la licencia sera de $700");
             }
         }
         if (rbNo.isSelected()) {
@@ -114,14 +145,17 @@ public class PantallaLicencia extends javax.swing.JFrame {
             if (rb1.isSelected()) {
                 licencia.setVigencia(1);
                 licencia.setCosto(600);
+                txtCosto.setText("El costo de la licencia sera de $600");
             }
             if (rb2.isSelected()) {
                 licencia.setVigencia(2);
                 licencia.setCosto(900);
+                txtCosto.setText("El costo de la licencia sera de $900");
             }
             if (rb3.isSelected()) {
                 licencia.setVigencia(3);
                 licencia.setCosto(1100);
+                txtCosto.setText("El costo de la licencia sera de $1100");
             }
         }
 
@@ -458,6 +492,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (rbSi.isSelected()) {
             rbNo.setSelected(false); // Deselecciona NO si SI está seleccionado
+            actualizaprecio();
         }
     }//GEN-LAST:event_rbSiActionPerformed
 
@@ -465,6 +500,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (rbNo.isSelected()) {
             rbSi.setSelected(false); // Deselecciona SI si NO está seleccionado
+            actualizaprecio();
         }
     }//GEN-LAST:event_rbNoActionPerformed
 
@@ -633,6 +669,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
         if (rb1.isSelected()) {
             rb2.setSelected(false); // Deselecciona rb2 si rb1 está seleccionado
             rb3.setSelected(false); // Deselecciona rb3 si rb1 está seleccionado
+            actualizaprecio();
         }
     }//GEN-LAST:event_rb1ActionPerformed
 
@@ -641,6 +678,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
         if (rb3.isSelected()) {
             rb1.setSelected(false); // Deselecciona rb1 si rb3 está seleccionado
             rb2.setSelected(false); // Deselecciona rb2 si rb3 está seleccionado
+            actualizaprecio();
         }
     }//GEN-LAST:event_rb3ActionPerformed
 
@@ -649,6 +687,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
         if (rb2.isSelected()) {
             rb1.setSelected(false); // Deselecciona rb1 si rb2 está seleccionado
             rb3.setSelected(false); // Deselecciona rb3 si rb2 está seleccionado
+            actualizaprecio();
         }
     }//GEN-LAST:event_rb2ActionPerformed
 

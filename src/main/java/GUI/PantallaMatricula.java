@@ -216,7 +216,7 @@ public class PantallaMatricula extends javax.swing.JFrame {
 
     private void btnGeneraMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneraMatriculaActionPerformed
         // TODO add your handling code here:
-        lblCoste.setText("2000?");
+        lblCoste.setText("1000");
         lblMatricula.setText(generarPlaca());
     }//GEN-LAST:event_btnGeneraMatriculaActionPerformed
     public static String generarPlaca() {
