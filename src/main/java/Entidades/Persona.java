@@ -57,50 +57,23 @@ public class Persona implements Serializable {
     private List<Vehiculo> vehiculos;
 
     @OneToMany(mappedBy = "persona")
-    private List<Placa> placas;
+    private List<Tramite> tramites;
 
-    @OneToMany(mappedBy = "persona")
-    private List<Licencia> licencias;
-
-   // @OneToMany(mappedBy = "persona")
-   // private List<Reporte> reportes;
-
+    // @OneToMany(mappedBy = "persona")
+    // private List<Reporte> reportes;
     public Persona() {
     }
 
     public Persona(String RFC) {
         this.RFC = RFC;
     }
-    
-    public Persona(Integer id, String RFC, String nombre, String telefono, Date fechaNacimiento, boolean discapacitado, List<Vehiculo> vehiculos, List<Placa> placas, List<Licencia> licencias) {
-        //licencias, List<Reporte> reportes - Ando probando nuevas formas para la herencia
-        this.id = id;
+
+    public Persona(String RFC, String nombre, String telefono, Date fechaNacimiento, boolean discapacitado) {
         this.RFC = RFC;
         this.nombre = nombre;
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
         this.discapacitado = discapacitado;
-        this.vehiculos = vehiculos;
-        this.placas = placas;
-        this.licencias = licencias;
-        //this.reportes = reportes;
-    }
-
-    public Persona(Integer id, String RFC, String nombre, String telefono, Date fechaNacimiento, boolean discapacitado) {
-        this.id = id;
-        this.RFC = RFC;
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.fechaNacimiento = fechaNacimiento;
-        this.discapacitado = discapacitado;
-    }
-
-    public List<Licencia> getLicencias() {
-        return licencias;
-    }
-
-    public void setLicencias(List<Licencia> licencias) {
-        this.licencias = licencias;
     }
 
     public List<Vehiculo> getVehiculos() {
@@ -111,12 +84,12 @@ public class Persona implements Serializable {
         this.vehiculos = vehiculos;
     }
 
-    public List<Placa> getPlacas() {
-        return placas;
+    public List<Tramite> getTramites() {
+        return tramites;
     }
 
-    public void setPlacas(List<Placa> placas) {
-        this.placas = placas;
+    public void setTramites(List<Tramite> tramites) {
+        this.tramites = tramites;
     }
 
     public Integer getId() {
@@ -169,16 +142,15 @@ public class Persona implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.id);
-        hash = 89 * hash + Objects.hashCode(this.RFC);
-        hash = 89 * hash + Objects.hashCode(this.nombre);
-        hash = 89 * hash + Objects.hashCode(this.telefono);
-        hash = 89 * hash + Objects.hashCode(this.fechaNacimiento);
-        hash = 89 * hash + (this.discapacitado ? 1 : 0);
-        hash = 89 * hash + Objects.hashCode(this.vehiculos);
-        hash = 89 * hash + Objects.hashCode(this.placas);
-        hash = 89 * hash + Objects.hashCode(this.licencias);
+        int hash = 3;
+        hash = 13 * hash + Objects.hashCode(this.id);
+        hash = 13 * hash + Objects.hashCode(this.RFC);
+        hash = 13 * hash + Objects.hashCode(this.nombre);
+        hash = 13 * hash + Objects.hashCode(this.telefono);
+        hash = 13 * hash + Objects.hashCode(this.fechaNacimiento);
+        hash = 13 * hash + (this.discapacitado ? 1 : 0);
+        hash = 13 * hash + Objects.hashCode(this.vehiculos);
+        hash = 13 * hash + Objects.hashCode(this.tramites);
         return hash;
     }
 
@@ -215,14 +187,12 @@ public class Persona implements Serializable {
         if (!Objects.equals(this.vehiculos, other.vehiculos)) {
             return false;
         }
-        if (!Objects.equals(this.placas, other.placas)) {
-            return false;
-        }
-        return Objects.equals(this.licencias, other.licencias);
+        return Objects.equals(this.tramites, other.tramites);
     }
 
     @Override
     public String toString() {
-        return "Persona{" + "id=" + id + ", RFC=" + RFC + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", discapacitado=" + discapacitado + ", vehiculos=" + vehiculos + ", placas=" + placas + ", licencias=" + licencias + '}';
+        return "Persona{" + "id=" + id + ", RFC=" + RFC + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", discapacitado=" + discapacitado + ", vehiculos=" + vehiculos + ", tramites=" + tramites + '}';
     }
+
 }

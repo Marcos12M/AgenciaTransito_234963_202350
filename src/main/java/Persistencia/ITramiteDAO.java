@@ -4,18 +4,13 @@
  */
 package Persistencia;
 
-import Entidades.Persona;
+import javax.persistence.EntityManager;
+import javax.swing.JTable;
 
 /**
  *
  * @author Marcos Toledo 00000234963
  */
-public interface IPersonaDAO {
-
-    public Persona agregarPersona(Persona persona);
-
-    public Persona buscarPersona(String RFC);
-
-    public Persona buscarTelefono(String telefono);
-
+public interface ITramiteDAO {
+    public void llenarTablaTramites(JTable table, EntityManager entityManager);
 }

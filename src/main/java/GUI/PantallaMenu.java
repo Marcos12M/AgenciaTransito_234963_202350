@@ -6,6 +6,8 @@ package GUI;
 
 import Persistencia.ILicenciaDAO;
 import Persistencia.IPersonaDAO;
+import Persistencia.ITramiteDAO;
+import Persistencia.TramiteDAO;
 
 /**
  *
@@ -103,6 +105,11 @@ public class PantallaMenu extends javax.swing.JFrame {
         btnAltaVehiculo.setBackground(new java.awt.Color(204, 255, 153));
         btnAltaVehiculo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAltaVehiculo.setText("Dar de alta vehiculo");
+        btnAltaVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltaVehiculoActionPerformed(evt);
+            }
+        });
 
         btnPerdidaLicencia.setBackground(new java.awt.Color(204, 255, 153));
         btnPerdidaLicencia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -277,10 +284,15 @@ public class PantallaMenu extends javax.swing.JFrame {
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         // TODO add your handling code here:
-        PantallaReporte frmReporte = new PantallaReporte(personaDAO, licenciaDAO);
+        ITramiteDAO tramiteDAO = new TramiteDAO();
+        PantallaReporte frmReporte = new PantallaReporte(personaDAO, licenciaDAO, tramiteDAO);
         frmReporte.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnReportesActionPerformed
+
+    private void btnAltaVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaVehiculoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAltaVehiculoActionPerformed
 
     /**
      * @param args the command line arguments

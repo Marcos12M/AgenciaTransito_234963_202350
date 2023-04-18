@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -30,6 +31,7 @@ import javax.persistence.TemporalType;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "tipo_tramite")
 public class Tramite implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tramite")
@@ -38,21 +40,26 @@ public class Tramite implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "fecha")
     private Date Fecha = new Date();
-    
+
     @Basic
     @Column(name = "estado")
     private String Estado; //Esta opción la agregue por esto (- considerar que pasa si me roban o pierdo las licencias o placas, ademas de saber si esta vigente)
-    
+
     @Basic
     @Column(name = "costo")
     private int Costo; //Son dos atributos que comparten
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_Persona")
+    private Persona persona;
+
     public Tramite() {
     }
 
-    public Tramite(String Estado, int Costo) {
+    public Tramite(String Estado, int Costo, Persona persona) {
         this.Estado = Estado;
         this.Costo = Costo;
+        this.persona = persona;
     }
 
     public Integer getId() {
@@ -87,13 +94,22 @@ public class Tramite implements Serializable {
         this.Costo = Costo;
     }
 
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 79 * hash + Objects.hashCode(this.id);
-        hash = 79 * hash + Objects.hashCode(this.Fecha);
-        hash = 79 * hash + Objects.hashCode(this.Estado);
-        hash = 79 * hash + this.Costo;
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.Fecha);
+        hash = 29 * hash + Objects.hashCode(this.Estado);
+        hash = 29 * hash + this.Costo;
+        hash = 29 * hash + Objects.hashCode(this.persona);
         return hash;
     }
 
@@ -118,12 +134,16 @@ public class Tramite implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        return Objects.equals(this.Fecha, other.Fecha);
+        if (!Objects.equals(this.Fecha, other.Fecha)) {
+            return false;
+        }
+        return Objects.equals(this.persona, other.persona);
     }
 
     @Override
     public String toString() {
-        return "Reporte{" + "id=" + id + ", Fecha=" + Fecha + ", Estado=" + Estado + ", Costo=" + Costo + '}';
+        return "Tramite{" + "id=" + id + ", Fecha=" + Fecha + ", Estado=" + Estado + ", Costo=" + Costo + ", persona=" + persona + '}';
     }
+
     
 }

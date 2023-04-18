@@ -180,6 +180,7 @@ public class PantallaPerdidaLicencias extends javax.swing.JFrame {
 
     private void btnBajaLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaLicenciaActionPerformed
         // TODO add your handling code here:
+        /*
         String RFC = txtRFC.getText();
         if (!txtRFC.getText().isEmpty()) {
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
@@ -196,7 +197,7 @@ public class PantallaPerdidaLicencias extends javax.swing.JFrame {
                         // El usuario seleccionó "Sí"
                         // Realizar la eliminación del archivo
                         // Obtener la Licencia de la Persona
-                        List<Licencia> licencias = persona.getLicencias();
+                        //List<Licencia> licencias = persona.getLicencias();
                         System.out.println(licencias);
                         if (!licencias.isEmpty()) {
                             Licencia licencia = new Licencia();
@@ -226,7 +227,7 @@ public class PantallaPerdidaLicencias extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(this, "Rellene el espacio para continuar", "Informacion", JOptionPane.ERROR_MESSAGE);
-        }
+        }*/
     }//GEN-LAST:event_btnBajaLicenciaActionPerformed
 
     private void txtRFCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyTyped

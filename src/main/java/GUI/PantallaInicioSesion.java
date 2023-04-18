@@ -6,6 +6,7 @@ package GUI;
 
 import Persistencia.ILicenciaDAO;
 import Persistencia.IPersonaDAO;
+import Persistencia.ITramiteDAO;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 

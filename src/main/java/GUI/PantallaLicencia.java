@@ -73,6 +73,12 @@ public class PantallaLicencia extends javax.swing.JFrame {
         return RFC;
     }
 
+    public String obtieneTelefono(String telefono) {
+        Persona persona = new Persona();
+        persona.setTelefono(telefono);
+        return telefono;
+    }
+
     private void buscarPersona(String RFC) {
         String existePersona = obtieneRFC(RFC);
         Persona seBuscoPersona = this.personaDAO.buscarPersona(RFC);
@@ -101,20 +107,21 @@ public class PantallaLicencia extends javax.swing.JFrame {
             if (rb3.isSelected()) {
                 licencia.setVigencia(3);
                 licencia.setCosto(700);
-            } else {
-                licencia.setTipo("Normal");
-                if (rb1.isSelected()) {
-                    licencia.setVigencia(1);
-                    licencia.setCosto(600);
-                }
-                if (rb2.isSelected()) {
-                    licencia.setVigencia(2);
-                    licencia.setCosto(900);
-                }
-                if (rb3.isSelected()) {
-                    licencia.setVigencia(3);
-                    licencia.setCosto(1100);
-                }
+            }
+        }
+        if (rbNo.isSelected()) {
+            licencia.setTipo("Normal");
+            if (rb1.isSelected()) {
+                licencia.setVigencia(1);
+                licencia.setCosto(600);
+            }
+            if (rb2.isSelected()) {
+                licencia.setVigencia(2);
+                licencia.setCosto(900);
+            }
+            if (rb3.isSelected()) {
+                licencia.setVigencia(3);
+                licencia.setCosto(1100);
             }
         }
 
@@ -126,6 +133,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
         Date DateVigencia = calendar.getTime();
         licencia.setVigenciaF(DateVigencia);
         licencia.setEstado("Vigente");
+        System.out.println("licencia:" + licencia);
         return licencia;
     }
 
@@ -470,6 +478,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
                     && txtFechaN.getDate() != null && !txtTelefono.getText().isEmpty()
                     && (rbSi.isSelected() ^ rbNo.isSelected())
                     && (rb1.isSelected() ^ rb2.isSelected() ^ rb3.isSelected())) {
+                System.out.println("licencia2:" + obtieneDatosLicencia());
                 agregarLicencia(obtieneDatosLicencia());
                 JOptionPane.showMessageDialog(this, "Se genero con exito la licencia de la \n RFC: " + txtRFC.getText(), "Licencia Generada", JOptionPane.INFORMATION_MESSAGE);
                 PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);

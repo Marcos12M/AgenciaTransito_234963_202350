@@ -16,11 +16,10 @@ import javax.persistence.Persistence;
  */
 public class LicenciaDAO implements ILicenciaDAO {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
-    EntityManager em = emf.createEntityManager();
-
     @Override
     public Licencia agregarLicencia(Licencia licencia) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         em.persist(licencia);
         em.getTransaction().commit();

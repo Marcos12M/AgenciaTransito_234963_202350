@@ -46,47 +46,30 @@ public class Licencia extends Tramite implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date VigenciaF;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_Persona")
-    private Persona persona;
+    public Licencia() {
+    }
 
-    public Persona getPersona() {
-        return persona;
+    public Licencia(String Tipo, int Vigencia, Date VigenciaF, String Estado, int Costo, Persona persona) {
+        super(Estado, Costo, persona);
+        this.Tipo = Tipo;
+        this.Vigencia = Vigencia;
+        this.VigenciaF = VigenciaF;
     }
 
     public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
-
-    public Licencia() {
+        super.setPersona(persona);
     }
 
     public void setCosto(int costo) {
         super.setCosto(costo);
     }
 
-    public void setFecha(Date Fecha ) {
+    public void setFecha(Date Fecha) {
         super.setFecha(Fecha);
     }
 
     public void setEstado(String Estado) {
         super.setEstado(Estado);
-    }
-
-    public Licencia(String Tipo, int Vigencia, Date VigenciaF, Persona persona, String Estado, int Costo) {
-        super(Estado, Costo);
-        this.Tipo = Tipo;
-        this.Vigencia = Vigencia;
-        this.VigenciaF = VigenciaF;
-        this.persona = persona;
-    }
-
-    public Licencia(Integer id, String Tipo, int Vigencia, Date VigenciaF, Persona persona) {
-        this.id = id;
-        this.Tipo = Tipo;
-        this.Vigencia = Vigencia;
-        this.VigenciaF = VigenciaF;
-        this.persona = persona;
     }
 
     public Integer getId() {
@@ -124,11 +107,10 @@ public class Licencia extends Tramite implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 71 * hash + Objects.hashCode(this.id);
-        hash = 71 * hash + Objects.hashCode(this.Tipo);
-        hash = 71 * hash + this.Vigencia;
-        hash = 71 * hash + Objects.hashCode(this.VigenciaF);
-        hash = 71 * hash + Objects.hashCode(this.persona);
+        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.Tipo);
+        hash = 29 * hash + this.Vigencia;
+        hash = 29 * hash + Objects.hashCode(this.VigenciaF);
         return hash;
     }
 
@@ -153,15 +135,12 @@ public class Licencia extends Tramite implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.VigenciaF, other.VigenciaF)) {
-            return false;
-        }
-        return Objects.equals(this.persona, other.persona);
+        return Objects.equals(this.VigenciaF, other.VigenciaF);
     }
 
     @Override
     public String toString() {
-        return "Licencia{" + "id=" + id + ", Tipo=" + Tipo + ", Vigencia=" + Vigencia + ", VigenciaF=" + VigenciaF + ", persona=" + persona + '}';
+        return "Licencia{" + "id=" + id + ", Tipo=" + Tipo + ", Vigencia=" + Vigencia + ", VigenciaF=" + VigenciaF + '}';
     }
 
 }

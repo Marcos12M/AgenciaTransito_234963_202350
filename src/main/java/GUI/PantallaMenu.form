@@ -214,6 +214,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Dar de alta vehiculo"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAltaVehiculoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnPerdidaLicencia">
           <Properties>
