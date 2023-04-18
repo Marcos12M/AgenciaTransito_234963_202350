@@ -325,9 +325,16 @@ public class PantallaAltaVehiculo extends javax.swing.JFrame {
     private void btnDarAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarAltaActionPerformed
         // TODO add your handling code here:
         agregarVehiculo(recoletaDatos());
-
+        limpiaCampos();
+        
     }//GEN-LAST:event_btnDarAltaActionPerformed
-
+    public void limpiaCampos(){
+        txtColor.setText("");
+        txtMarca.setText("");
+        txtRFCdueno.setText("");
+        txtModelo.setText("");
+        txtNumeroSerie.setText("");
+    }
     public Vehiculo recoletaDatos() {
         Vehiculo vehiculo = new Vehiculo();
         vehiculo.setNumSerie(txtNumeroSerie.getText());
