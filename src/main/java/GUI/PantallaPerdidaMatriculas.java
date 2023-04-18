@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author Marcos Toledo 00000234963
@@ -32,9 +35,9 @@ public class PantallaPerdidaMatriculas extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        txtMatricula = new javax.swing.JTextField();
+        txtRFC = new javax.swing.JTextField();
+        btnDarBaja = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -55,9 +58,26 @@ public class PantallaPerdidaMatriculas extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("RFC:");
 
-        jButton4.setBackground(new java.awt.Color(204, 255, 153));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setText("Dar de baja Matricula");
+        txtMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMatriculaActionPerformed(evt);
+            }
+        });
+        txtMatricula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMatriculaKeyTyped(evt);
+            }
+        });
+
+        txtRFC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRFCKeyTyped(evt);
+            }
+        });
+
+        btnDarBaja.setBackground(new java.awt.Color(204, 255, 153));
+        btnDarBaja.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDarBaja.setText("Dar de baja Matricula");
 
         btnRegresar.setBackground(new java.awt.Color(255, 153, 153));
         btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -80,14 +100,14 @@ public class PantallaPerdidaMatriculas extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1))
+                                .addComponent(txtMatricula))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton4)
+                        .addComponent(btnDarBaja)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addComponent(btnRegresar)
                         .addGap(18, 18, 18))))
@@ -98,14 +118,14 @@ public class PantallaPerdidaMatriculas extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
+                    .addComponent(btnDarBaja)
                     .addComponent(btnRegresar))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
@@ -164,6 +184,34 @@ public class PantallaPerdidaMatriculas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void txtRFCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyTyped
+        // TODO add your handling code here:
+         txtRFC.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (txtRFC.getText().length() >= 13) {
+                    e.consume();
+                }
+            }
+        });
+    }//GEN-LAST:event_txtRFCKeyTyped
+
+    private void txtMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatriculaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMatriculaActionPerformed
+
+    private void txtMatriculaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMatriculaKeyTyped
+        // TODO add your handling code here:
+        txtMatricula.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (txtMatricula.getText().length() >= 6) {
+                    e.consume();
+                }
+            }
+        });
+    }//GEN-LAST:event_txtMatriculaKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -207,8 +255,8 @@ public class PantallaPerdidaMatriculas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDarBaja;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -217,7 +265,7 @@ public class PantallaPerdidaMatriculas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField txtMatricula;
+    private javax.swing.JTextField txtRFC;
     // End of variables declaration//GEN-END:variables
 }

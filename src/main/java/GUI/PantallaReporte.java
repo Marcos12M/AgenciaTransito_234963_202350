@@ -91,7 +91,7 @@ public class PantallaReporte extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnConsultarNombre = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         btnAnterior = new javax.swing.JButton();
         btnSiguiente = new javax.swing.JButton();
@@ -124,12 +124,12 @@ public class PantallaReporte extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(204, 255, 153));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setText("Consultar por Nombres Similares");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnConsultarNombre.setBackground(new java.awt.Color(204, 255, 153));
+        btnConsultarNombre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnConsultarNombre.setText("Consultar por Nombres Similares");
+        btnConsultarNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnConsultarNombreActionPerformed(evt);
             }
         });
 
@@ -201,7 +201,7 @@ public class PantallaReporte extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
+                    .addComponent(btnConsultarNombre)
                     .addComponent(jButton4)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -247,7 +247,7 @@ public class PantallaReporte extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2))
+                        .addComponent(btnConsultarNombre))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -316,9 +316,9 @@ public class PantallaReporte extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnConsultarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnConsultarNombreActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -421,10 +421,10 @@ public class PantallaReporte extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnterior;
+    private javax.swing.JButton btnConsultarNombre;
     private javax.swing.JButton btnRegresarMenu;
     private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

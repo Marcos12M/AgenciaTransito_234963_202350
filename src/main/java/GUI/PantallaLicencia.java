@@ -113,6 +113,17 @@ public class PantallaLicencia extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("Telefono:");
 
+        txtRFC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRFCKeyTyped(evt);
+            }
+        });
+
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombreKeyTyped(evt);
@@ -487,7 +498,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
                 PantallaMenu frmMenu = new PantallaMenu();
                 frmMenu.setVisible(true);
                 this.dispose();
-                
+
             } catch (NoResultException ex) {
                 // La RFC ingresada no se encontró en la base de datos
                 JOptionPane.showMessageDialog(this, "La persona no existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
@@ -504,15 +515,27 @@ public class PantallaLicencia extends javax.swing.JFrame {
         } else {
             super.processKeyEvent(evt); // Permite otros eventos de teclado
         }
+        txtNombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (txtNombre.getText().length() >= 50) {
+                    e.consume();
+                }
+            }
+        });
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
         // TODO add your handling code here:
+        //solo permite que se ingresen numeros
         char c = evt.getKeyChar();
-        if (Character.isLetter(c)) {
-            evt.consume(); // Elimina si se ingresa una letra
-        } else {
-            super.processKeyEvent(evt); // Permite otros eventos de teclado
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+        //Solo permite 10 digitos
+        String text = txtTelefono.getText();
+        if (text.length() >= 10) {
+            evt.consume();
         }
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
@@ -591,6 +614,22 @@ public class PantallaLicencia extends javax.swing.JFrame {
             rb3.setSelected(false); // Deselecciona rb3 si rb2 está seleccionado
         }
     }//GEN-LAST:event_rb2ActionPerformed
+
+    private void txtRFCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyTyped
+        // TODO add your handling code here:
+        txtRFC.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (txtRFC.getText().length() >= 13) {
+                    e.consume();
+                }
+            }
+        });
+    }//GEN-LAST:event_txtRFCKeyTyped
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
 
     /**
      * @param args the command line arguments

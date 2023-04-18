@@ -6,6 +6,8 @@ package GUI;
 
 import Entidades.Licencia;
 import Entidades.Persona;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -77,6 +79,12 @@ public class PantallaPerdidaLicencias extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("RFC:");
+
+        txtRFC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRFCKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -213,6 +221,18 @@ public class PantallaPerdidaLicencias extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Rellene el espacio para continuar", "Informacion", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBajaLicenciaActionPerformed
+
+    private void txtRFCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyTyped
+        // TODO add your handling code here:
+         txtRFC.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (txtRFC.getText().length() >= 13) {
+                    e.consume();
+                }
+            }
+        });
+    }//GEN-LAST:event_txtRFCKeyTyped
 
     /**
      * @param args the command line arguments
