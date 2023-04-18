@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -26,35 +27,27 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @DiscriminatorValue("Licencia")
-public class Licencia extends Reporte implements Serializable {
+public class Licencia extends Tramite implements Serializable {
 
     @Id
-    @Column(name = "id_licencia")
+    @Column(name = "id_Licencia")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Basic
-    @Column(name = "tipo")
+    @Column(name = "Tipo")
     private String Tipo;
 
     @Basic
-    @Column(name = "vigencia")
+    @Column(name = "Vigencia")
     private int Vigencia;
-
-    @Basic
-    @Column(name = "costo")
-    private int costo;
 
     @Column(name = "vigenciaFecha")
     @Temporal(TemporalType.DATE)
     private Date VigenciaF;
-    
-    @Basic
-    @Column(name = "estado")
-    private String Estado; //Esta opción la agregue por esto (- considerar que pasa si me roban o pierdo las licencias o placas)
 
-    @ManyToOne()
-    @JoinColumn(name = "id_persona")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_Persona")
     private Persona persona;
 
     public Persona getPersona() {
@@ -68,13 +61,31 @@ public class Licencia extends Reporte implements Serializable {
     public Licencia() {
     }
 
-    public Licencia(Integer id, String Tipo, int Vigencia, int costo, Date VigenciaF, String Estado, Persona persona) {
+    public void setCosto(int costo) {
+        super.setCosto(costo);
+    }
+
+    public void setFecha(Date Fecha ) {
+        super.setFecha(Fecha);
+    }
+
+    public void setEstado(String Estado) {
+        super.setEstado(Estado);
+    }
+
+    public Licencia(String Tipo, int Vigencia, Date VigenciaF, Persona persona, String Estado, int Costo) {
+        super(Estado, Costo);
+        this.Tipo = Tipo;
+        this.Vigencia = Vigencia;
+        this.VigenciaF = VigenciaF;
+        this.persona = persona;
+    }
+
+    public Licencia(Integer id, String Tipo, int Vigencia, Date VigenciaF, Persona persona) {
         this.id = id;
         this.Tipo = Tipo;
         this.Vigencia = Vigencia;
-        this.costo = costo;
         this.VigenciaF = VigenciaF;
-        this.Estado = Estado;
         this.persona = persona;
     }
 
@@ -94,14 +105,6 @@ public class Licencia extends Reporte implements Serializable {
         this.Tipo = Tipo;
     }
 
-    public Date getVigenciaF() {
-        return VigenciaF;
-    }
-
-    public void setVigenciaF(Date VigenciaF) {
-        this.VigenciaF = VigenciaF;
-    }
-
     public int getVigencia() {
         return Vigencia;
     }
@@ -110,54 +113,25 @@ public class Licencia extends Reporte implements Serializable {
         this.Vigencia = Vigencia;
     }
 
-    public String getEstado() {
-        return Estado;
+    public Date getVigenciaF() {
+        return VigenciaF;
     }
 
-    public void setEstado(String Estado) {
-        this.Estado = Estado;
-    }
-
-    public int obtenerCosto() {
-        if (Vigencia == 1 && Tipo.equals("Discapacitado")) {
-            return 200;
-        } else if (Vigencia == 2 && Tipo.equals("Discapacitado")) {
-            return 500;
-        } else if (Vigencia == 3 && Tipo.equals("Discapacitado")) {
-            return 700;
-        } else if (Vigencia == 1 && Tipo.equals("Normal")) {
-            return 600;
-        } else if (Vigencia == 2 && Tipo.equals("Normal")) {
-            return 900;
-        } else if (Vigencia == 3 && Tipo.equals("Normal")) {
-            return 1100;
-        } else {
-            // En caso de que no se cumpla ninguna condición, puedes lanzar una excepción o devolver un valor por defecto
-            throw new IllegalArgumentException("Vigencia o tipo inválido");
-        }
-    }
-
-    public void setCosto(int costo) {
-        this.costo = costo;
-    }
-    
-    public int getCosto(int Costo) {
-        return costo;
+    public void setVigenciaF(Date VigenciaF) {
+        this.VigenciaF = VigenciaF;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.id);
-        hash = 67 * hash + Objects.hashCode(this.Tipo);
-        hash = 67 * hash + this.Vigencia;
-        hash = 67 * hash + this.costo;
-        hash = 67 * hash + Objects.hashCode(this.VigenciaF);
-        hash = 67 * hash + Objects.hashCode(this.Estado);
-        hash = 67 * hash + Objects.hashCode(this.persona);
+        hash = 71 * hash + Objects.hashCode(this.id);
+        hash = 71 * hash + Objects.hashCode(this.Tipo);
+        hash = 71 * hash + this.Vigencia;
+        hash = 71 * hash + Objects.hashCode(this.VigenciaF);
+        hash = 71 * hash + Objects.hashCode(this.persona);
         return hash;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -173,13 +147,7 @@ public class Licencia extends Reporte implements Serializable {
         if (this.Vigencia != other.Vigencia) {
             return false;
         }
-        if (this.costo != other.costo) {
-            return false;
-        }
         if (!Objects.equals(this.Tipo, other.Tipo)) {
-            return false;
-        }
-        if (!Objects.equals(this.Estado, other.Estado)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
@@ -193,7 +161,7 @@ public class Licencia extends Reporte implements Serializable {
 
     @Override
     public String toString() {
-        return "Licencia{" + "id=" + id + ", Tipo=" + Tipo + ", Vigencia=" + Vigencia + ", costo=" + costo + ", VigenciaF=" + VigenciaF + ", Estado=" + Estado + ", persona=" + persona + '}';
+        return "Licencia{" + "id=" + id + ", Tipo=" + Tipo + ", Vigencia=" + Vigencia + ", VigenciaF=" + VigenciaF + ", persona=" + persona + '}';
     }
-    
+
 }

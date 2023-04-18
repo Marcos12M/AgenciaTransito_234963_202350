@@ -5,6 +5,10 @@
 package Pruebas;
 
 import GUI.PantallaInicioSesion;
+import Persistencia.ILicenciaDAO;
+import Persistencia.IPersonaDAO;
+import Persistencia.LicenciaDAO;
+import Persistencia.PersonaDAO;
 
 /**
  *
@@ -17,8 +21,10 @@ public class ProyectoAgenciaTransito {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        PantallaInicioSesion frm = new PantallaInicioSesion();
+        IPersonaDAO personaDAO = new PersonaDAO();
+        ILicenciaDAO licenciaDAO = new LicenciaDAO();
+        PantallaInicioSesion frm = new PantallaInicioSesion(personaDAO, licenciaDAO);
         frm.setVisible(true);
     }
-    
+
 }

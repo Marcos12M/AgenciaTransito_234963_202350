@@ -23,53 +23,32 @@ import javax.persistence.OneToOne;
  */
 @Entity
 @DiscriminatorValue("Placa")
-public class Placa extends Reporte implements Serializable {
+public class Placa extends Tramite implements Serializable {
 
     @Id
-    @Column(name = "id_placa")
+    @Column(name = "id_Placa")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Basic
-    @Column(unique = true, name = "numero") // Aquí se especifica que el atributo es único
+    @Column(unique = true, name = "Numero") // Aquí se especifica que el atributo es único
     private String Numero;
-
-    @Basic
-    @Column(name = "costo")
-    private Integer Precio;
-
-    @OneToOne(mappedBy = "placa")
+    
+    @OneToOne(mappedBy = "Placa")
     private Vehiculo vehiculo;
 
     @ManyToOne()
-    @JoinColumn(name = "id_persona")
+    @JoinColumn(name = "id_Persona")
     private Persona persona;
 
     public Placa() {
     }
 
-    public Placa(Integer id, String Numero, Integer Precio, Vehiculo vehiculo, Persona persona) {
+    public Placa(Integer id, String Numero, Vehiculo vehiculo, Persona persona) {
         this.id = id;
         this.Numero = Numero;
-        this.Precio = Precio;
         this.vehiculo = vehiculo;
         this.persona = persona;
-    }
-
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
-
-    public Vehiculo getVehiculo() {
-        return vehiculo;
-    }
-
-    public void setVehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
     }
 
     public Integer getId() {
@@ -88,22 +67,29 @@ public class Placa extends Reporte implements Serializable {
         this.Numero = Numero;
     }
 
-    public Integer getPrecio() {
-        return Precio;
+    public Vehiculo getVehiculo() {
+        return vehiculo;
     }
 
-    public void setPrecio(Integer Precio) {
-        this.Precio = Precio;
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 31 * hash + Objects.hashCode(this.id);
-        hash = 31 * hash + Objects.hashCode(this.Numero);
-        hash = 31 * hash + Objects.hashCode(this.Precio);
-        hash = 31 * hash + Objects.hashCode(this.vehiculo);
-        hash = 31 * hash + Objects.hashCode(this.persona);
+        int hash = 7;
+        hash = 17 * hash + Objects.hashCode(this.id);
+        hash = 17 * hash + Objects.hashCode(this.Numero);
+        hash = 17 * hash + Objects.hashCode(this.vehiculo);
+        hash = 17 * hash + Objects.hashCode(this.persona);
         return hash;
     }
 
@@ -125,9 +111,6 @@ public class Placa extends Reporte implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.Precio, other.Precio)) {
-            return false;
-        }
         if (!Objects.equals(this.vehiculo, other.vehiculo)) {
             return false;
         }
@@ -136,7 +119,7 @@ public class Placa extends Reporte implements Serializable {
 
     @Override
     public String toString() {
-        return "Placa{" + "id=" + id + ", Numero=" + Numero + ", Precio=" + Precio + ", vehiculo=" + vehiculo + ", persona=" + persona + '}';
+        return "Placa{" + "id=" + id + ", Numero=" + Numero + ", vehiculo=" + vehiculo + ", persona=" + persona + '}';
     }
 
 }

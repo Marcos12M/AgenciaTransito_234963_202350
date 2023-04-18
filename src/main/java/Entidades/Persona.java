@@ -68,6 +68,10 @@ public class Persona implements Serializable {
     public Persona() {
     }
 
+    public Persona(String RFC) {
+        this.RFC = RFC;
+    }
+    
     public Persona(Integer id, String RFC, String nombre, String telefono, Date fechaNacimiento, boolean discapacitado, List<Vehiculo> vehiculos, List<Placa> placas, List<Licencia> licencias) {
         //licencias, List<Reporte> reportes - Ando probando nuevas formas para la herencia
         this.id = id;

@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import Persistencia.ILicenciaDAO;
+import Persistencia.IPersonaDAO;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -16,7 +18,13 @@ public class PantallaMatricula extends javax.swing.JFrame {
     /**
      * Creates new form PantallaMenu
      */
-    public PantallaMatricula() {
+    
+    private final IPersonaDAO personaDAO;
+    private final ILicenciaDAO licenciaDAO;
+    
+    public PantallaMatricula(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
+        this.personaDAO = personaDAO;
+        this.licenciaDAO = licenciaDAO;
         initComponents();
     }
 
@@ -163,7 +171,7 @@ public class PantallaMatricula extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        PantallaMenu frmMenu = new PantallaMenu();
+        PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
         frmMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
@@ -225,7 +233,7 @@ public class PantallaMatricula extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PantallaMatricula().setVisible(true);
+               //new PantallaMatricula().setVisible(true);
             }
         });
     }

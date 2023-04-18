@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import Persistencia.ILicenciaDAO;
+import Persistencia.IPersonaDAO;
+
 /**
  *
  * @author Marcos Toledo 00000234963
@@ -13,7 +16,13 @@ public class PantallaMenu extends javax.swing.JFrame {
     /**
      * Creates new form PantallaMenu
      */
-    public PantallaMenu() {
+    
+    private final IPersonaDAO personaDAO;
+    private final ILicenciaDAO licenciaDAO;
+
+    public PantallaMenu(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
+        this.personaDAO = personaDAO;
+        this.licenciaDAO = licenciaDAO;
         initComponents();
     }
 
@@ -226,49 +235,49 @@ public class PantallaMenu extends javax.swing.JFrame {
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         // TODO add your handling code here:
-        PantallaInicioSesion frmCerrar = new PantallaInicioSesion();
+        PantallaInicioSesion frmCerrar = new PantallaInicioSesion(personaDAO, licenciaDAO);
         frmCerrar.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnPerdidaLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerdidaLicenciaActionPerformed
         // TODO add your handling code here:
-        PantallaPerdidaLicencias frmPerdida1 = new PantallaPerdidaLicencias();
+        PantallaPerdidaLicencias frmPerdida1 = new PantallaPerdidaLicencias(personaDAO, licenciaDAO);
         frmPerdida1.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnPerdidaLicenciaActionPerformed
 
     private void btnPerdidaPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerdidaPlacasActionPerformed
         // TODO add your handling code here:
-        PantallaPerdidaMatriculas frmPerdida2 = new PantallaPerdidaMatriculas();
+        PantallaPerdidaMatriculas frmPerdida2 = new PantallaPerdidaMatriculas(personaDAO, licenciaDAO);
         frmPerdida2.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnPerdidaPlacasActionPerformed
 
     private void btnTramitarLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitarLicenciaActionPerformed
         // TODO add your handling code here:
-        PantallaLicencia frmLicencia = new PantallaLicencia();
+        PantallaLicencia frmLicencia = new PantallaLicencia(personaDAO, licenciaDAO);
         frmLicencia.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnTramitarLicenciaActionPerformed
 
     private void btnSolicitarPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarPlacasActionPerformed
         // TODO add your handling code here:
-        PantallaMatricula frmMatricula = new PantallaMatricula();
+        PantallaMatricula frmMatricula = new PantallaMatricula(personaDAO, licenciaDAO);
         frmMatricula.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSolicitarPlacasActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // TODO add your handling code here:
-        PantallaConsultar frmConsultar = new PantallaConsultar();
+        PantallaConsultar frmConsultar = new PantallaConsultar(personaDAO, licenciaDAO);
         frmConsultar.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         // TODO add your handling code here:
-        PantallaReporte frmReporte = new PantallaReporte();
+        PantallaReporte frmReporte = new PantallaReporte(personaDAO, licenciaDAO);
         frmReporte.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnReportesActionPerformed
@@ -303,7 +312,7 @@ public class PantallaMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PantallaMenu().setVisible(true);
+                //new PantallaMenu().setVisible(true);
             }
         });
     }

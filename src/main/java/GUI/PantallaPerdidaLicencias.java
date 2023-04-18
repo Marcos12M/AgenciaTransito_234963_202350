@@ -6,6 +6,8 @@ package GUI;
 
 import Entidades.Licencia;
 import Entidades.Persona;
+import Persistencia.ILicenciaDAO;
+import Persistencia.IPersonaDAO;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -25,7 +27,12 @@ public class PantallaPerdidaLicencias extends javax.swing.JFrame {
     /**
      * Creates new form PantallaMenu
      */
-    public PantallaPerdidaLicencias() {
+    private final IPersonaDAO personaDAO;
+    private final ILicenciaDAO licenciaDAO;
+
+    public PantallaPerdidaLicencias(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
+        this.personaDAO = personaDAO;
+        this.licenciaDAO = licenciaDAO;
         initComponents();
     }
 
@@ -166,7 +173,7 @@ public class PantallaPerdidaLicencias extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        PantallaMenu frmMenu = new PantallaMenu();
+        PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
         frmMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
@@ -224,7 +231,7 @@ public class PantallaPerdidaLicencias extends javax.swing.JFrame {
 
     private void txtRFCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyTyped
         // TODO add your handling code here:
-         txtRFC.addKeyListener(new KeyAdapter() {
+        txtRFC.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 if (txtRFC.getText().length() >= 13) {
@@ -279,7 +286,7 @@ public class PantallaPerdidaLicencias extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PantallaPerdidaLicencias().setVisible(true);
+                //new PantallaPerdidaLicencias().setVisible(true);
             }
         });
     }

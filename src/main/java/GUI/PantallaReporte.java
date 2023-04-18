@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import Persistencia.ILicenciaDAO;
+import Persistencia.IPersonaDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTable;
@@ -18,25 +20,29 @@ public class PantallaReporte extends javax.swing.JFrame {
     private PaginatedTableModel model;
     private int currentPage = 0;
     private int rowsPerPage = 5;
+    private final IPersonaDAO personaDAO;
+    private final ILicenciaDAO licenciaDAO;
 
     /**
      * Creates new form PantallaRegistro
      */
-    public PantallaReporte() {
+    public PantallaReporte(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
+        this.personaDAO = personaDAO;
+        this.licenciaDAO = licenciaDAO;
         initComponents();
-        
-    // Crear el modelo de tabla paginada con los datos y columnas deseadas
+
+        // Crear el modelo de tabla paginada con los datos y columnas deseadas
         Object[][] data = new Object[][]{
-                {"1", "John", "Doe"},
-                {"2", "Jane", "Doe"},
-                {"3", "Alice", "Smith"},
-                {"4", "Bob", "Johnson"},
-                {"5", "Charlie", "Brown"},
-                {"6", "David", "Lee"},
-                {"7", "Eve", "Thomas"},
-                {"8", "Frank", "White"},
-                {"9", "Grace", "Wilson"},
-                {"10", "Henry", "Miller"}
+            {"1", "John", "Doe"},
+            {"2", "Jane", "Doe"},
+            {"3", "Alice", "Smith"},
+            {"4", "Bob", "Johnson"},
+            {"5", "Charlie", "Brown"},
+            {"6", "David", "Lee"},
+            {"7", "Eve", "Thomas"},
+            {"8", "Frank", "White"},
+            {"9", "Grace", "Wilson"},
+            {"10", "Henry", "Miller"}
         };
         String[] columnNames = new String[]{"ID", "First Name", "Last Name"};
         int rowsPerPage = 5;
@@ -335,7 +341,7 @@ public class PantallaReporte extends javax.swing.JFrame {
 
     private void btnRegresarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarMenuActionPerformed
         // TODO add your handling code here:
-        PantallaMenu frmMenu = new PantallaMenu();
+        PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
         frmMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarMenuActionPerformed
@@ -414,7 +420,7 @@ public class PantallaReporte extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PantallaReporte().setVisible(true);
+                //new PantallaReporte().setVisible(true);
             }
         });
     }

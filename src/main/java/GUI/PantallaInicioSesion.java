@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import Persistencia.ILicenciaDAO;
+import Persistencia.IPersonaDAO;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -16,7 +18,12 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
     /**
      * Creates new form PantallaInicioSesion
      */
-    public PantallaInicioSesion() {
+    private final IPersonaDAO personaDAO;
+    private final ILicenciaDAO licenciaDAO;
+
+    public PantallaInicioSesion(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
+        this.personaDAO = personaDAO;
+        this.licenciaDAO = licenciaDAO;
         initComponents();
     }
 
@@ -154,7 +161,7 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         // TODO add your handling code here:
-        PantallaMenu frmMenu = new PantallaMenu();
+        PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
         frmMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnIniciarActionPerformed
@@ -214,7 +221,7 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new PantallaInicioSesion().setVisible(true);
+                //new PantallaInicioSesion().setVisible(true);
             }
         });
     }

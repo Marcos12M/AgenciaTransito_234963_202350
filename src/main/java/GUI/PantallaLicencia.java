@@ -5,6 +5,8 @@
 package GUI;
 
 import Entidades.Licencia;
+import Persistencia.IPersonaDAO;
+import Persistencia.ILicenciaDAO;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -26,13 +28,17 @@ import javax.persistence.Query;
  */
 public class PantallaLicencia extends javax.swing.JFrame {
 
+    private final IPersonaDAO personaDAO;
+    private final ILicenciaDAO licenciaDAO;
     String existe = "Espera";
     int anios = 0;
 
     /**
      * Creates new form PantallaMenu
      */
-    public PantallaLicencia() {
+    public PantallaLicencia(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
+        this.personaDAO = personaDAO;
+        this.licenciaDAO = licenciaDAO;
         initComponents();
         //Esto permite que no se puedan escribir dentro de los fields hasta que se verifique.
         btnGenerar.setText("Generar Licencia");
@@ -44,6 +50,101 @@ public class PantallaLicencia extends javax.swing.JFrame {
         rb1.setEnabled(false);
         rb2.setEnabled(false);
         rb3.setEnabled(false);
+    }
+
+    public Persona obtieneDatosPersona() {
+        Persona persona = new Persona();
+        persona.setRFC(txtRFC.getText());
+        persona.setNombre(txtNombre.getText());
+        persona.setFechaNacimiento(txtFechaN.getDate());
+        persona.setTelefono(txtTelefono.getText());
+        if (rbSi.isSelected()) {
+            persona.setDiscapacitado(true);
+        }
+        if (rbNo.isSelected()) {
+            persona.setDiscapacitado(false);
+        }
+        return persona;
+    }
+
+    public String obtieneRFC(String RFC) {
+        Persona persona = new Persona();
+        persona.setRFC(RFC);
+        return RFC;
+    }
+
+    private void buscarPersona(String RFC) {
+        String existePersona = obtieneRFC(RFC);
+        Persona seBuscoPersona = this.personaDAO.buscarPersona(RFC);
+        if (seBuscoPersona != null) {
+        } else {
+            JOptionPane.showMessageDialog(this, "La persona no existe\nPuedes rellenar los espacios", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    public Licencia obtieneDatosLicencia() {
+        Date fechaActual = new Date();
+        Licencia licencia = new Licencia();
+        Persona persona = obtieneDatosPersona();
+        licencia.setPersona(persona);
+        //Creacion de la seleccion de vigencia segun los radiobuttons.
+        if (rbSi.isSelected()) {
+            licencia.setTipo("Discapacitado");
+            if (rb1.isSelected()) {
+                licencia.setVigencia(1);
+                licencia.setCosto(200);
+            }
+            if (rb2.isSelected()) {
+                licencia.setVigencia(2);
+                licencia.setCosto(500);
+            }
+            if (rb3.isSelected()) {
+                licencia.setVigencia(3);
+                licencia.setCosto(700);
+            } else {
+                licencia.setTipo("Normal");
+                if (rb1.isSelected()) {
+                    licencia.setVigencia(1);
+                    licencia.setCosto(600);
+                }
+                if (rb2.isSelected()) {
+                    licencia.setVigencia(2);
+                    licencia.setCosto(900);
+                }
+                if (rb3.isSelected()) {
+                    licencia.setVigencia(3);
+                    licencia.setCosto(1100);
+                }
+            }
+        }
+
+        //Creación de la fecha con vigencia
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaActual);
+        anios = licencia.getVigencia();
+        calendar.add(Calendar.YEAR, anios);
+        Date DateVigencia = calendar.getTime();
+        licencia.setVigenciaF(DateVigencia);
+        licencia.setEstado("Vigente");
+        return licencia;
+    }
+
+    private void agregarPersona(Persona persona) {
+        Persona nuevaPersona = obtieneDatosPersona();
+        Persona seAgregoPersona = this.personaDAO.agregarPersona(persona);
+        if (seAgregoPersona != null) {
+        } else {
+            JOptionPane.showMessageDialog(this, "No fue posible agregar la Persona", "Informacion", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void agregarLicencia(Licencia licencia) {
+        Licencia nuevaLicencia = obtieneDatosLicencia();
+        Licencia seAgregoLicencia = this.licenciaDAO.agregarLicencia(licencia);
+        if (seAgregoLicencia != null) {
+        } else {
+            JOptionPane.showMessageDialog(this, "No fue posible agregar la Licencia", "Informacion", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -340,7 +441,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        PantallaMenu frmMenu = new PantallaMenu();
+        PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
         frmMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
@@ -361,80 +462,26 @@ public class PantallaLicencia extends javax.swing.JFrame {
 
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
         // TODO add your handling code here:
+        if (existe.equals("Espera")) {
+            JOptionPane.showMessageDialog(this, "Por favor, verifica primero para continuar.", "Verifique campos", JOptionPane.ERROR_MESSAGE);
+        }
         if (existe.equals("PrimeraVez")) {
             if (!txtRFC.getText().isEmpty() && !txtNombre.getText().isEmpty()
                     && txtFechaN.getDate() != null && !txtTelefono.getText().isEmpty()
                     && (rbSi.isSelected() ^ rbNo.isSelected())
                     && (rb1.isSelected() ^ rb2.isSelected() ^ rb3.isSelected())) {
-                // ...
-                Persona persona = new Persona();
-                persona.setRFC(txtRFC.getText());
-                persona.setNombre(txtNombre.getText());
-                persona.setFechaNacimiento(txtFechaN.getDate());
-                persona.setTelefono(txtTelefono.getText());
-                if (rbSi.isSelected()) {
-                    persona.setDiscapacitado(true);
-                }
-                if (rbNo.isSelected()) {
-                    persona.setDiscapacitado(false);
-                }
-
-                Date fechaActual = new Date();
-                Licencia licencia = new Licencia();
-                licencia.setPersona(persona);
-                //Creacion de la seleccion de vigencia segun los radiobuttons.
-                if (rbSi.isSelected()) {
-                    licencia.setTipo("Discapacitado");
-                    if (rb1.isSelected()) {
-                        licencia.setVigencia(1);
-                    }
-                    if (rb2.isSelected()) {
-                        licencia.setVigencia(2);
-                    }
-                    if (rb3.isSelected()) {
-                        licencia.setVigencia(3);
-                    } else {
-                        licencia.setTipo("Normal");
-                        if (rb1.isSelected()) {
-                            licencia.setVigencia(1);
-                        }
-                        if (rb2.isSelected()) {
-                            licencia.setVigencia(2);
-                        }
-                        if (rb3.isSelected()) {
-                            licencia.setVigencia(3);
-                        }
-                    }
-                    //Creación de la fecha con vigencia
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(fechaActual);
-                    anios = licencia.getVigencia();
-                    calendar.add(Calendar.YEAR, anios);
-                    Date DateVigencia = calendar.getTime();
-                    licencia.setVigenciaF(DateVigencia);
-                    licencia.setCosto(licencia.obtenerCosto());
-                    licencia.setEstado("Existe");
-                    txtCosto.setText("El costo de la licencia sera de $ " + licencia.obtenerCosto());
-
-                    EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
-                    EntityManager em = emf.createEntityManager();
-                    em.getTransaction().begin();
-                    em.persist(persona);
-                    em.persist(licencia);
-                    em.getTransaction().commit();
-                    em.close();
-                    emf.close();
-                    JOptionPane.showMessageDialog(this, "Se genero con exito la licencia de la \n RFC: " + txtRFC.getText(), "Licencia Generada", JOptionPane.INFORMATION_MESSAGE);
-                    PantallaMenu frmMenu = new PantallaMenu();
-                    frmMenu.setVisible(true);
-                    this.dispose();
-                } else {
-                    // Muestra mensaje de error si no se cumplen las condiciones
-                    JOptionPane.showMessageDialog(this, "Por favor, verifica los campos y seleccione las opciones correctas.", "Verifique campos", JOptionPane.ERROR_MESSAGE);
-                }
+                agregarLicencia(obtieneDatosLicencia());
+                JOptionPane.showMessageDialog(this, "Se genero con exito la licencia de la \n RFC: " + txtRFC.getText(), "Licencia Generada", JOptionPane.INFORMATION_MESSAGE);
+                PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
+                frmMenu.setVisible(true);
+                this.dispose();
+            } else {
+                // Muestra mensaje de error si no se cumplen las condiciones
+                JOptionPane.showMessageDialog(this, "Por favor, verifica los campos y seleccione las opciones correctas.", "Verifique campos", JOptionPane.ERROR_MESSAGE);
             }
         }
 
+        /*
         if (existe == "Renovacion") {
             String RFC = txtRFC.getText();
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
@@ -487,9 +534,9 @@ public class PantallaLicencia extends javax.swing.JFrame {
                 calendar.add(Calendar.YEAR, anios);
                 Date DateVigencia = calendar.getTime();
                 licencia.setVigenciaF(DateVigencia);
-                licencia.setCosto(licencia.obtenerCosto());
+                //licencia.setCosto(licencia.obtenerCosto());
                 licencia.setPersona(persona);
-                txtCosto.setText("El costo de la licencia sera de $ " + licencia.obtenerCosto());
+                //txtCosto.setText("El costo de la licencia sera de $ " + licencia.obtenerCosto());
                 em.getTransaction().begin();
                 em.merge(persona);
                 em.merge(licencia);
@@ -503,14 +550,14 @@ public class PantallaLicencia extends javax.swing.JFrame {
                 // La RFC ingresada no se encontró en la base de datos
                 JOptionPane.showMessageDialog(this, "La persona no existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
-        }
+        }*/
 
     }//GEN-LAST:event_btnGenerarActionPerformed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
-        if (Character.isDigit(c)) {
+        if (Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_SPACE) {
             evt.consume(); // Elimina si se ingresa un numero
         } else {
             super.processKeyEvent(evt); // Permite otros eventos de teclado
@@ -541,40 +588,22 @@ public class PantallaLicencia extends javax.swing.JFrame {
 
     private void btnExistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExistenciaActionPerformed
         // TODO add your handling code here:
-        String RFC = txtRFC.getText();
         if (!txtRFC.getText().isEmpty()) {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
-            EntityManager em = emf.createEntityManager();
-            try {
-                // Realizar una consulta en la base de datos para verificar si la RFC ingresada ya existe
-                Query query = em.createQuery("SELECT p FROM Persona p WHERE p.RFC = :RFC");
-                query.setParameter("RFC", RFC);
-                Persona persona = (Persona) query.getSingleResult();
-
-                // La RFC ingresada se encontró en la base de datos y se rellenaron los datos
-                JOptionPane.showMessageDialog(this, "La persona con la\n RFC: " + txtRFC.getText() + " existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            this.buscarPersona(obtieneRFC(txtRFC.getText()));
+            Persona persona = personaDAO.buscarPersona(obtieneRFC(txtRFC.getText()));;
+            if ((persona) != null) {
                 txtNombre.setText(persona.getNombre());
                 txtFechaN.setDate(persona.getFechaNacimiento());
                 txtTelefono.setText(persona.getTelefono());
-                if (persona.isDiscapacitado()) {
-                    rbSi.setSelected(true);
-                } else {
-                    rbNo.setSelected(true);
-                }
                 rbSi.setEnabled(true);
                 rbNo.setEnabled(true);
                 rb1.setEnabled(true);
                 rb2.setEnabled(true);
                 rb3.setEnabled(true);
                 txtTelefono.setEnabled(true);
-
                 existe = "Renovacion";
                 btnGenerar.setText("Renovar Licencia");
-
-            } catch (NoResultException ex) {
-                // La RFC ingresada no se encontró en la base de datos
-                JOptionPane.showMessageDialog(this, "La persona no existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-                // Limpiar los campos de texto y deseleccionar los botones de opción
+            } else {
                 txtNombre.setEnabled(true);
                 txtFechaN.setEnabled(true);
                 txtTelefono.setEnabled(true);
@@ -583,7 +612,6 @@ public class PantallaLicencia extends javax.swing.JFrame {
                 rb1.setEnabled(true);
                 rb2.setEnabled(true);
                 rb3.setEnabled(true);
-
                 existe = "PrimeraVez";
             }
         } else {
@@ -617,6 +645,12 @@ public class PantallaLicencia extends javax.swing.JFrame {
 
     private void txtRFCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyTyped
         // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (Character.isLetterOrDigit(c) || c == KeyEvent.VK_BACK_SPACE) {
+            super.processKeyEvent(evt);
+        } else {
+            evt.consume();
+        }
         txtRFC.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -670,7 +704,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PantallaLicencia().setVisible(true);
+                //new PantallaLicencia().setVisible(true);
             }
         });
     }

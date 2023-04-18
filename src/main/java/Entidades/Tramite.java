@@ -29,23 +29,30 @@ import javax.persistence.TemporalType;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "tipo_tramite")
-public class Reporte implements Serializable {
-
+public class Tramite implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_reporte")
+    @Column(name = "id_tramite")
     private Integer id;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "fecha")
     private Date Fecha = new Date();
+    
+    @Basic
+    @Column(name = "estado")
+    private String Estado; //Esta opción la agregue por esto (- considerar que pasa si me roban o pierdo las licencias o placas, ademas de saber si esta vigente)
+    
+    @Basic
+    @Column(name = "costo")
+    private int Costo; //Son dos atributos que comparten
 
-    public Reporte() {
+    public Tramite() {
     }
 
-    public Reporte(Integer id, Date Fecha) {
-        this.id = id;
-        this.Fecha = Fecha;
+    public Tramite(String Estado, int Costo) {
+        this.Estado = Estado;
+        this.Costo = Costo;
     }
 
     public Integer getId() {
@@ -64,11 +71,29 @@ public class Reporte implements Serializable {
         this.Fecha = Fecha;
     }
 
+    public String getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(String Estado) {
+        this.Estado = Estado;
+    }
+
+    public int getCosto() {
+        return Costo;
+    }
+
+    public void setCosto(int Costo) {
+        this.Costo = Costo;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + Objects.hashCode(this.id);
-        hash = 67 * hash + Objects.hashCode(this.Fecha);
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.Fecha);
+        hash = 79 * hash + Objects.hashCode(this.Estado);
+        hash = 79 * hash + this.Costo;
         return hash;
     }
 
@@ -83,7 +108,13 @@ public class Reporte implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Reporte other = (Reporte) obj;
+        final Tramite other = (Tramite) obj;
+        if (this.Costo != other.Costo) {
+            return false;
+        }
+        if (!Objects.equals(this.Estado, other.Estado)) {
+            return false;
+        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -92,7 +123,7 @@ public class Reporte implements Serializable {
 
     @Override
     public String toString() {
-        return "Reporte{" + "id=" + id + ", Fecha=" + Fecha + '}';
+        return "Reporte{" + "id=" + id + ", Fecha=" + Fecha + ", Estado=" + Estado + ", Costo=" + Costo + '}';
     }
     
 }
