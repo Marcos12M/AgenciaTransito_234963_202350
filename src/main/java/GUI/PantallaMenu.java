@@ -256,8 +256,8 @@ public class PantallaMenu extends javax.swing.JFrame {
 
     private void btnPerdidaPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerdidaPlacasActionPerformed
         // TODO add your handling code here:
-        PantallaPerdidaMatriculas frmPerdida2 = new PantallaPerdidaMatriculas(personaDAO, licenciaDAO);
-        frmPerdida2.setVisible(true);
+        PantallaPerdidaMatriculas frmPerdidaMat = new PantallaPerdidaMatriculas(personaDAO, licenciaDAO);
+        frmPerdidaMat.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnPerdidaPlacasActionPerformed
 
@@ -292,6 +292,9 @@ public class PantallaMenu extends javax.swing.JFrame {
 
     private void btnAltaVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaVehiculoActionPerformed
         // TODO add your handling code here:
+        PantallaAltaVehiculo frmVechiculo = new PantallaAltaVehiculo(personaDAO, licenciaDAO);
+        frmVechiculo.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnAltaVehiculoActionPerformed
 
     /**

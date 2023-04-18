@@ -15,12 +15,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author Marcos Toledo 00000234963
  */
 @Entity
+@Table(name = "Vehiculo")
 public class Vehiculo implements Serializable {
 
     @Id
@@ -38,7 +40,7 @@ public class Vehiculo implements Serializable {
 
     @Basic
     @Column(name = "numero_serie")
-    private Integer NumSerie;
+    private String NumSerie;
 
     @Basic
     @Column(name = "marca")
@@ -54,13 +56,22 @@ public class Vehiculo implements Serializable {
     public Vehiculo() {
     }
 
-    public Vehiculo(Integer id, String Color, String Modelo, Integer NumSerie, String Marca, Placa placa, Persona persona) {
+    public Vehiculo(Integer id, String Color, String Modelo, String NumSerie, String Marca, Placa placa, Persona persona) {
         this.id = id;
         this.Color = Color;
         this.Modelo = Modelo;
         this.NumSerie = NumSerie;
         this.Marca = Marca;
         this.placa = placa;
+        this.persona = persona;
+    }
+
+    public Vehiculo(Integer id, String Color, String Modelo, String NumSerie, String Marca, Persona persona) {
+        this.id = id;
+        this.Color = Color;
+        this.Modelo = Modelo;
+        this.NumSerie = NumSerie;
+        this.Marca = Marca;
         this.persona = persona;
     }
 
@@ -104,11 +115,11 @@ public class Vehiculo implements Serializable {
         this.Modelo = Modelo;
     }
 
-    public Integer getNumSerie() {
+    public String getNumSerie() {
         return NumSerie;
     }
 
-    public void setNumSerie(Integer NumSerie) {
+    public void setNumSerie(String NumSerie) {
         this.NumSerie = NumSerie;
     }
 

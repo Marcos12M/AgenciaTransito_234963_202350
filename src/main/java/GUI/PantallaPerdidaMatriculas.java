@@ -54,7 +54,7 @@ public class PantallaPerdidaMatriculas extends javax.swing.JFrame {
 
         jLabel3.setText("jLabel3");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -84,6 +84,11 @@ public class PantallaPerdidaMatriculas extends javax.swing.JFrame {
         btnDarBaja.setBackground(new java.awt.Color(204, 255, 153));
         btnDarBaja.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnDarBaja.setText("Dar de baja Matricula");
+        btnDarBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDarBajaActionPerformed(evt);
+            }
+        });
 
         btnRegresar.setBackground(new java.awt.Color(255, 153, 153));
         btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -217,6 +222,10 @@ public class PantallaPerdidaMatriculas extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_txtMatriculaKeyTyped
+
+    private void btnDarBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarBajaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDarBajaActionPerformed
 
     /**
      * @param args the command line arguments

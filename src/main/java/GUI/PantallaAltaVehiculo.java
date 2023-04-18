@@ -4,10 +4,13 @@
  */
 package GUI;
 
+import Entidades.Vehiculo;
 import Persistencia.ILicenciaDAO;
 import Persistencia.IPersonaDAO;
+import Persistencia.VehiculoDAO;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,11 +23,13 @@ public class PantallaAltaVehiculo extends javax.swing.JFrame {
      */
     private final IPersonaDAO personaDAO;
     private final ILicenciaDAO licenciaDAO;
+    private final VehiculoDAO vehiculoDAO = new VehiculoDAO();
 
     public PantallaAltaVehiculo(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
         this.personaDAO = personaDAO;
         this.licenciaDAO = licenciaDAO;
         initComponents();
+
     }
 
     /**
@@ -86,15 +91,47 @@ public class PantallaAltaVehiculo extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("Modelo:");
 
+        txtNumeroSerie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroSerieActionPerformed(evt);
+            }
+        });
         txtNumeroSerie.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNumeroSerieKeyTyped(evt);
             }
         });
 
+        txtMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMarcaActionPerformed(evt);
+            }
+        });
+        txtMarca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMarcaKeyTyped(evt);
+            }
+        });
+
+        txtColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtColorActionPerformed(evt);
+            }
+        });
+        txtColor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtColorKeyTyped(evt);
+            }
+        });
+
         btnDarAlta.setBackground(new java.awt.Color(204, 255, 153));
         btnDarAlta.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnDarAlta.setText("Dar de Alta Vehiculo");
+        btnDarAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDarAltaActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setText("RFC del Dueño:");
@@ -226,14 +263,15 @@ public class PantallaAltaVehiculo extends javax.swing.JFrame {
 
     private void txtNumeroSerieKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroSerieKeyTyped
         // TODO add your handling code here:
-        txtNumeroSerie.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (txtNumeroSerie.getText().length() >= 17) {
-                    e.consume();
-                }
-            }
-        });
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+        //Solo permite 10 digitos
+        String text = txtNumeroSerie.getText();
+        if (text.length() >= 17) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtNumeroSerieKeyTyped
 
     private void txtRFCduenoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCduenoKeyTyped
@@ -247,6 +285,67 @@ public class PantallaAltaVehiculo extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_txtRFCduenoKeyTyped
+
+    private void txtNumeroSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroSerieActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumeroSerieActionPerformed
+
+    private void txtMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMarcaActionPerformed
+
+    private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
+        // TODO add your handling code here:
+        txtMarca.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (txtMarca.getText().length() >= 50) {
+                    e.consume();
+                }
+            }
+        });
+    }//GEN-LAST:event_txtMarcaKeyTyped
+
+    private void txtColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtColorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtColorActionPerformed
+
+    private void txtColorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtColorKeyTyped
+        // TODO add your handling code here:
+        txtColor.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (txtColor.getText().length() >= 13) {
+                    e.consume();
+                }
+            }
+        });
+    }//GEN-LAST:event_txtColorKeyTyped
+
+    private void btnDarAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarAltaActionPerformed
+        // TODO add your handling code here:
+        agregarVehiculo(recoletaDatos());
+
+    }//GEN-LAST:event_btnDarAltaActionPerformed
+
+    public Vehiculo recoletaDatos() {
+        Vehiculo vehiculo = new Vehiculo();
+        vehiculo.setNumSerie(txtNumeroSerie.getText());
+        vehiculo.setMarca(txtMarca.getText());
+        vehiculo.setColor(txtColor.getText());
+        vehiculo.setModelo(txtModelo.getText());
+        vehiculo.setPersona(personaDAO.buscarPersona(txtRFCdueno.getText()));
+        vehiculo.setPlaca(null);
+        return vehiculo;
+    }
+
+    public void agregarVehiculo(Vehiculo vehiculo) {
+        Vehiculo seAgregoPersona = this.vehiculoDAO.agregaVehiculo(vehiculo);
+        if (seAgregoPersona != null) {
+        } else {
+            JOptionPane.showMessageDialog(this, "No fue posible agregar el vehiculo", "Informacion", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * @param args the command line arguments
