@@ -4,26 +4,34 @@
  */
 package Persistencia;
 
-import Entidades.Licencia;
+import Entidades.Placa;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
- * @author Marcos Toledo 00000234963
+ * @author gerar
  */
-public class LicenciaDAO implements ILicenciaDAO {
+public class PlacaDAO implements IPlacaDAO {
 
     @Override
-    public Licencia agregarLicencia(Licencia licencia) {
+    public Placa agregarPlaca(Placa placa) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        em.persist(licencia);
+        em.persist(placa);
         em.getTransaction().commit();
         em.close();
         emf.close();
-        return licencia;
+        return placa;
     }
+
+    @Override
+    public Placa buscarPlacaNum(String numPlaca) {
+       return null;
+    }
+
 }

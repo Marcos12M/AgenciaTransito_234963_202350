@@ -5,7 +5,6 @@
 package Persistencia;
 
 import Entidades.Persona;
-import GUI.PantallaLicencia;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
