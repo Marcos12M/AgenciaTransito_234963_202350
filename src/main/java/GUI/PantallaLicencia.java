@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import Entidades.Persona;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -27,17 +28,17 @@ import javax.persistence.Query;
  * @author Marcos Toledo 00000234963
  */
 public class PantallaLicencia extends javax.swing.JFrame {
-
+    
     private final IPersonaDAO personaDAO;
     private final ILicenciaDAO licenciaDAO;
-    String existe = "Espera";
-    int anios = 0;
+    private Persona persona;
+    private String existe = "Espera";
+    private int anios = 0;
 
     /**
      * Creates new form PantallaMenu
      */
-    public void actualizaprecio(){
-        
+    public void actualizaprecio() {
         if (rbSi.isSelected()) {
             if (rb1.isSelected()) {
                 txtCosto.setText("El costo de la licencia sera de $200");
@@ -61,6 +62,11 @@ public class PantallaLicencia extends javax.swing.JFrame {
             }
         }
     }
+    
+    public static int calcularEdad(LocalDate fechaNacimiento, LocalDate fechaActual) {
+        return Period.between(fechaNacimiento, fechaActual).getYears();
+    }
+    
     public PantallaLicencia(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
         this.personaDAO = personaDAO;
         this.licenciaDAO = licenciaDAO;
@@ -77,9 +83,8 @@ public class PantallaLicencia extends javax.swing.JFrame {
         rb3.setEnabled(false);
         txtCosto.setText("El costo de la licencia sera de $$$$");
         
-        
     }
-
+    
     public Persona obtieneDatosPersona() {
         Persona persona = new Persona();
         persona.setRFC(txtRFC.getText());
@@ -94,19 +99,13 @@ public class PantallaLicencia extends javax.swing.JFrame {
         }
         return persona;
     }
-
+    
     public String obtieneRFC(String RFC) {
         Persona persona = new Persona();
         persona.setRFC(RFC);
         return RFC;
     }
-
-    public String obtieneTelefono(String telefono) {
-        Persona persona = new Persona();
-        persona.setTelefono(telefono);
-        return telefono;
-    }
-
+    
     private void buscarPersona(String RFC) {
         String existePersona = obtieneRFC(RFC);
         Persona seBuscoPersona = this.personaDAO.buscarPersona(RFC);
@@ -115,7 +114,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "La persona no existe\nPuedes rellenar los espacios", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-
+    
     public Licencia obtieneDatosLicencia() {
         Date fechaActual = new Date();
         Licencia licencia = new Licencia();
@@ -170,18 +169,8 @@ public class PantallaLicencia extends javax.swing.JFrame {
         System.out.println("licencia:" + licencia);
         return licencia;
     }
-
-    private void agregarPersona(Persona persona) {
-        Persona nuevaPersona = obtieneDatosPersona();
-        Persona seAgregoPersona = this.personaDAO.agregarPersona(persona);
-        if (seAgregoPersona != null) {
-        } else {
-            JOptionPane.showMessageDialog(this, "No fue posible agregar la Persona", "Informacion", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
+    
     private void agregarLicencia(Licencia licencia) {
-        Licencia nuevaLicencia = obtieneDatosLicencia();
         Licencia seAgregoLicencia = this.licenciaDAO.agregarLicencia(licencia);
         if (seAgregoLicencia != null) {
         } else {
@@ -515,6 +504,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
                     && (rbSi.isSelected() ^ rbNo.isSelected())
                     && (rb1.isSelected() ^ rb2.isSelected() ^ rb3.isSelected())) {
                 System.out.println("licencia2:" + obtieneDatosLicencia());
+                Date fechaActual = new Date();
                 agregarLicencia(obtieneDatosLicencia());
                 JOptionPane.showMessageDialog(this, "Se genero con exito la licencia de la \n RFC: " + txtRFC.getText(), "Licencia Generada", JOptionPane.INFORMATION_MESSAGE);
                 PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
@@ -525,77 +515,23 @@ public class PantallaLicencia extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Por favor, verifica los campos y seleccione las opciones correctas.", "Verifique campos", JOptionPane.ERROR_MESSAGE);
             }
         }
-
-        /*
+        
         if (existe == "Renovacion") {
-            String RFC = txtRFC.getText();
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
-            EntityManager em = emf.createEntityManager();
-            try {
-                // Realizar una consulta en la base de datos para verificar si la RFC ingresada ya existe
-                Query query = em.createQuery("SELECT p FROM Persona p WHERE p.RFC = :RFC");
-                query.setParameter("RFC", RFC);
-                Persona persona = (Persona) query.getSingleResult();
-                persona.setTelefono(txtTelefono.getText());
-                if (rbSi.isSelected()) {
-                    persona.setDiscapacitado(true);
-                }
-                if (rbNo.isSelected()) {
-                    persona.setDiscapacitado(false);
-                }
-
-                Date fechaActual = new Date();
-                persona.getLicencias();
-                Licencia licencia = new Licencia();
-
-                if (rbSi.isSelected()) {
-                    licencia.setTipo("Discapacitado");
-                    if (rb1.isSelected()) {
-                        licencia.setVigencia(1);
-                    }
-                    if (rb2.isSelected()) {
-                        licencia.setVigencia(2);
-                    }
-                    if (rb3.isSelected()) {
-                        licencia.setVigencia(3);
-                    }
-                } else {
-                    licencia.setTipo("Normal");
-                    if (rb1.isSelected()) {
-                        licencia.setVigencia(1);
-                    }
-                    if (rb2.isSelected()) {
-                        licencia.setVigencia(2);
-                    }
-                    if (rb3.isSelected()) {
-                        licencia.setVigencia(3);
-                    }
-                }
-
-                //Creación de la fecha con vigencia
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(fechaActual);
-                anios = licencia.getVigencia();
-                calendar.add(Calendar.YEAR, anios);
-                Date DateVigencia = calendar.getTime();
-                licencia.setVigenciaF(DateVigencia);
-                //licencia.setCosto(licencia.obtenerCosto());
-                licencia.setPersona(persona);
-                //txtCosto.setText("El costo de la licencia sera de $ " + licencia.obtenerCosto());
-                em.getTransaction().begin();
-                em.merge(persona);
-                em.merge(licencia);
-                em.getTransaction().commit();
-                JOptionPane.showMessageDialog(this, "Se renovó con éxito la licencia \n RFC: " + txtRFC.getText(), "Licencia Renovada", JOptionPane.INFORMATION_MESSAGE);
-                PantallaMenu frmMenu = new PantallaMenu();
-                frmMenu.setVisible(true);
-                this.dispose();
-
-            } catch (NoResultException ex) {
-                // La RFC ingresada no se encontró en la base de datos
-                JOptionPane.showMessageDialog(this, "La persona no existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            if (!txtRFC.getText().isEmpty() && !txtNombre.getText().isEmpty()
+                    && txtFechaN.getDate() != null && !txtTelefono.getText().isEmpty()
+                    && (rbSi.isSelected() ^ rbNo.isSelected())
+                    && (rb1.isSelected() ^ rb2.isSelected() ^ rb3.isSelected())) {
+                Licencia licencia = obtieneDatosLicencia();
+                licencia.getPersona().setId(persona.getId());
+                licenciaDAO.agregarLicenciaMismaPersona(licencia);
+            } else {
+                return;
             }
-        }*/
+            JOptionPane.showMessageDialog(this, "Se renovó con éxito la licencia \n RFC: " + txtRFC.getText(), "Licencia Renovada", JOptionPane.INFORMATION_MESSAGE);
+            PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
+            frmMenu.setVisible(true);
+            this.dispose();
+        }
 
     }//GEN-LAST:event_btnGenerarActionPerformed
 
@@ -648,6 +584,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
                 txtTelefono.setEnabled(true);
                 existe = "Renovacion";
                 btnGenerar.setText("Renovar Licencia");
+                this.persona = persona;
             } else {
                 txtNombre.setEnabled(true);
                 txtFechaN.setEnabled(true);
@@ -727,21 +664,21 @@ public class PantallaLicencia extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(PantallaLicencia.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(PantallaLicencia.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(PantallaLicencia.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PantallaLicencia.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);

@@ -16,6 +16,4 @@ public interface IPersonaDAO {
 
     public Persona buscarPersona(String RFC);
 
-    public Persona buscarTelefono(String telefono);
-
 }

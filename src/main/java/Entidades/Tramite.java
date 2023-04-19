@@ -49,7 +49,7 @@ public class Tramite implements Serializable {
     @Column(name = "costo")
     private int Costo; //Son dos atributos que comparten
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "id_Persona")
     private Persona persona;
 

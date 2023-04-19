@@ -113,7 +113,7 @@ public class PantallaMenu extends javax.swing.JFrame {
 
         btnPerdidaLicencia.setBackground(new java.awt.Color(204, 255, 153));
         btnPerdidaLicencia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnPerdidaLicencia.setText("Perdida de Licencias");
+        btnPerdidaLicencia.setText("Baja de Licencias");
         btnPerdidaLicencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPerdidaLicenciaActionPerformed(evt);
@@ -122,7 +122,7 @@ public class PantallaMenu extends javax.swing.JFrame {
 
         btnPerdidaPlacas.setBackground(new java.awt.Color(204, 255, 153));
         btnPerdidaPlacas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnPerdidaPlacas.setText("Perdida de Placas");
+        btnPerdidaPlacas.setText("Baja de Placas");
         btnPerdidaPlacas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPerdidaPlacasActionPerformed(evt);

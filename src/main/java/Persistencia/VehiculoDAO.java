@@ -17,7 +17,7 @@ public class VehiculoDAO implements IVehiculoDAO{
 
     @Override
     public Vehiculo agregaVehiculo(Vehiculo vehiculo) {
-EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         em.persist(vehiculo);

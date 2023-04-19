@@ -4,6 +4,10 @@
  */
 package Persistencia;
 
+import Entidades.Tramite;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.swing.JTable;
 
@@ -12,5 +16,5 @@ import javax.swing.JTable;
  * @author Marcos Toledo 00000234963
  */
 public interface ITramiteDAO {
-    public void llenarTablaTramites(JTable table, EntityManager entityManager);
+    public List<Tramite> listaTramite(boolean LicenciasS, boolean PlacasS, Date fechaInicio, Date fechaFin);
 }

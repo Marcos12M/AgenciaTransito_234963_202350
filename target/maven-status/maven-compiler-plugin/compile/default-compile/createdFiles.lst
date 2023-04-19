@@ -1,5 +1,7 @@
 GUI\PantallaConsultar$6.class
 GUI\PantallaPerdidaLicencias$2.class
+GUI\PantallaPerdidaMatriculas$8.class
+GUI\PantallaAltaVehiculo$8.class
 Entidades\Vehiculo_.class
 GUI\PantallaAltaVehiculo.class
 Persistencia\PersonaDAO.class
@@ -15,12 +17,13 @@ GUI\PantallaMatricula$2.class
 GUI\PantallaPerdidaMatriculas$2.class
 GUI\PantallaMenu$2.class
 GUI\PantallaMenu$8.class
-GUI\PaginatedTableModel.class
 GUI\PantallaMenu$5.class
 GUI\PantallaPerdidaMatriculas$5.class
 GUI\PantallaReporte.class
 GUI\PantallaConsultar$1.class
 GUI\PantallaConsultar$12.class
+GUI\PantallaReporte$8.class
+GUI\PantallaAltaVehiculo$10.class
 GUI\PantallaPerdidaMatriculas$6.class
 GUI\PantallaLicencia$9.class
 GUI\PantallaConsultar$4.class
@@ -33,9 +36,13 @@ GUI\PantallaReporte$2.class
 GUI\PantallaLicencia$13.class
 GUI\PantallaAltaVehiculo$3.class
 GUI\PantallaMenu$4.class
+Persistencia\IVehiculoDAO.class
 Entidades\Persona_.class
 GUI\PantallaPerdidaMatriculas$7.class
 Entidades\Licencia.class
+GUI\PantallaAltaVehiculo$11.class
+GUI\PantallaAltaVehiculo$9.class
+GUI\PantallaPerdidaLicencias$6.class
 GUI\PantallaConsultar$10.class
 GUI\PantallaConsultar$3.class
 GUI\PantallaConsultar$9.class
@@ -43,6 +50,7 @@ GUI\PantallaMenu$3.class
 GUI\PantallaLicencia$4.class
 GUI\PantallaReporte$3.class
 GUI\PantallaInicioSesion$2.class
+Persistencia\VehiculoDAO.class
 GUI\PantallaAltaVehiculo$2.class
 GUI\PantallaLicencia$12.class
 GUI\PantallaPerdidaMatriculas$1.class
@@ -61,10 +69,12 @@ GUI\PantallaMatricula$1.class
 GUI\PantallaPerdidaMatriculas$4.class
 Entidades\Tramite.class
 GUI\PantallaConsultar$2.class
+GUI\PantallaReporte$7.class
 GUI\PantallaLicencia.class
 Entidades\exceptions\IllegalOrphanException.class
 GUI\PantallaInicioSesion.class
 Entidades\Placa_.class
+GUI\PantallaAltaVehiculo$7.class
 GUI\PantallaMatricula$4.class
 GUI\PantallaInicioSesion$1.class
 GUI\PantallaPerdidaLicencias$1.class
@@ -75,6 +85,7 @@ Pruebas\ProyectoAgenciaTransito.class
 GUI\PantallaPerdidaMatriculas.class
 GUI\PantallaAltaVehiculo$4.class
 GUI\PantallaPerdidaLicencias$4.class
+GUI\PantallaAltaVehiculo$12.class
 GUI\PantallaConsultar.class
 GUI\PantallaLicencia$2.class
 GUI\PantallaMatricula$3.class
@@ -83,6 +94,7 @@ GUI\PantallaReporte$6.class
 Entidades\Tramite_.class
 GUI\PantallaMatricula.class
 GUI\PantallaPerdidaMatriculas$3.class
+GUI\PantallaAltaVehiculo$13.class
 GUI\PantallaLicencia$6.class
 Entidades\exceptions\NonexistentEntityException.class
 GUI\PantallaAltaVehiculo$6.class

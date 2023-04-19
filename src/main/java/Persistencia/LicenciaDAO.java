@@ -8,7 +8,9 @@ import Entidades.Licencia;
 import Entidades.Persona;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -21,6 +23,19 @@ public class LicenciaDAO implements ILicenciaDAO {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
+        em.persist(licencia.getPersona());
+        em.persist(licencia);
+        em.getTransaction().commit();
+        em.close();
+        emf.close();
+        return licencia;
+    }
+
+    public Licencia agregarLicenciaMismaPersona(Licencia licencia) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(licencia.getPersona());
         em.persist(licencia);
         em.getTransaction().commit();
         em.close();

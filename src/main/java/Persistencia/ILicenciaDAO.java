@@ -12,4 +12,6 @@ import Entidades.Licencia;
  */
 public interface ILicenciaDAO {
     public Licencia agregarLicencia(Licencia licencia);
+    
+    public Licencia agregarLicenciaMismaPersona(Licencia licencia); 
 }

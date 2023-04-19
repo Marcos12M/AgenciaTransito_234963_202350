@@ -33,7 +33,7 @@ public class Persona implements Serializable {
     private Integer id;
 
     @Basic
-    @Column(unique = true, name = "rfc") // Aquí se especifica que el atributo es único
+    @Column(name = "rfc") // Aquí se especifica que el atributo es único
     private String RFC;
 
     @Basic
@@ -41,7 +41,7 @@ public class Persona implements Serializable {
     private String nombre;
 
     @Basic
-    @Column(unique = true, name = "telefono") // Aquí se especifica que el atributo es único
+    @Column(name = "telefono")
     private String telefono;
 
     @Basic
