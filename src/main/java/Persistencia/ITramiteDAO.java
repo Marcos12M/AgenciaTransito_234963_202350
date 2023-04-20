@@ -18,7 +18,7 @@ import javax.swing.JTable;
 public interface ITramiteDAO {
 
     public List<Tramite> listaTramite(boolean LicenciasS, boolean PlacasS, Date fechaInicio, Date fechaFin, String Nombre);
-
-    public List<Tramite> listaConsulta(Date fechaNacimiento, String RFC, String Nombre);
+    
+    public List<Tramite> listaConsulta(String RFC);
     
 }

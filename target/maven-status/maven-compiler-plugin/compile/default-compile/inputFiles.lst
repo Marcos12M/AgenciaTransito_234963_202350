@@ -14,16 +14,15 @@ C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\GUI\Panta
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Persistencia\PersonaDAO.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Entidades\exceptions\NonexistentEntityException.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Entidades\Vehiculo.java
-C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\GUI\PantallaPerdidaMatriculas.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\GUI\PantallaMenu.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Persistencia\IVehiculoDAO.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Entidades\Persona.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Persistencia\VehiculoDAO.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Persistencia\LicenciaDAO.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\GUI\PantallaConsultar.java
+C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Reporte\ReporteTramite.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Persistencia\ILicenciaDAO.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Entidades\exceptions\IllegalOrphanException.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Pruebas\ProyectoAgenciaTransito.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\GUI\PantallaAltaVehiculo.java
-C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\GUI\PantallaPerdidaLicencias.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Entidades\exceptions\PreexistingEntityException.java

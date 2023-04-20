@@ -75,7 +75,7 @@ public class TramiteDAO implements ITramiteDAO {
     }
 
     @Override
-    public List<Tramite> listaConsulta(Date fechaNacimiento, String RFC, String Nombre) {
+    public List<Tramite> listaConsulta(String RFC) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -88,18 +88,10 @@ public class TramiteDAO implements ITramiteDAO {
 
         List<Predicate> predicados = new ArrayList<Predicate>();
 
-        if (fechaNacimiento != null) {
-            predicados.add(criteriaBuilder.equal(persona.get("fechaNacimiento"), fechaNacimiento));
-        }
-
         if (!RFC.equals("")) {
             predicados.add(criteriaBuilder.equal(persona.get("RFC"), RFC));
         }
-
-        if (!Nombre.equals("")){
-            predicados.add(criteriaBuilder.like(persona.get("nombre"), "%" + Nombre + "%"));
-        }
-
+        
         if (!predicados.isEmpty()) {
             criteriaQuery.where(criteriaBuilder.and(predicados.toArray(new Predicate[predicados.size()])));
         }

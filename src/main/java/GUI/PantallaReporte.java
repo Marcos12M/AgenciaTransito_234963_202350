@@ -11,10 +11,19 @@ import Entidades.Tramite;
 import Persistencia.ILicenciaDAO;
 import Persistencia.IPersonaDAO;
 import Persistencia.ITramiteDAO;
+import Reporte.ReporteTramite;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.SimpleFormatter;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -25,6 +34,14 @@ import javax.persistence.criteria.Root;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -37,15 +54,17 @@ public class PantallaReporte extends javax.swing.JFrame {
     private final IPersonaDAO personaDAO;
     private final ILicenciaDAO licenciaDAO;
     private final ITramiteDAO tramiteDAO;
+    private List<Tramite> results;
 
     /**
      * Creates new form PantallaRegistro
      */
-    public PantallaReporte(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO, ITramiteDAO tramiteDAO) {
+    public PantallaReporte(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO, ITramiteDAO tramiteDAO, String valor) {
         this.personaDAO = personaDAO;
         this.licenciaDAO = licenciaDAO;
         this.tramiteDAO = tramiteDAO;
         initComponents();
+        txtNombre.setText(valor);
         llenarTablaTramites();
     }
 
@@ -63,7 +82,7 @@ public class PantallaReporte extends javax.swing.JFrame {
         tablaReportes.setModel(model);
 
         // Llenar la tabla con los resultados
-        List<Tramite> results = tramiteDAO.listaTramite(rbLicencia.isSelected(), rbPlacas.isSelected(), txtFechaInicio.getDate(), txtFechaFinal.getDate(), txtNombre.getText());
+        results = tramiteDAO.listaTramite(rbLicencia.isSelected(), rbPlacas.isSelected(), txtFechaInicio.getDate(), txtFechaFinal.getDate(), txtNombre.getText());
         for (Tramite tramite : results) {
             Object[] rowData = new Object[4];
             rowData[0] = tramite.getFecha();
@@ -375,6 +394,46 @@ public class PantallaReporte extends javax.swing.JFrame {
 
     private void btnGenerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPDFActionPerformed
         // TODO add your handling code here:
+        if (results.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe haber un tipo de tramite seleccionado");
+        }
+
+        int opcion = JOptionPane.showOptionDialog(null, "¿Deseas realizar un PDF del documento?",
+                "Información", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+        if (opcion == JOptionPane.YES_OPTION) {
+            List<ReporteTramite> listaReporte = new ArrayList<ReporteTramite>();
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+            for (int i = 0; i < results.size(); i++) {
+                String fecha = formato.format(results.get(i).getFecha());
+                String nombreTramite = "";
+                if (results.get(i) instanceof Licencia) {
+                    nombreTramite = "Licencia";
+                }
+                if (results.get(i) instanceof Placa) {
+                    nombreTramite = "Placa";
+                }
+                Persona persona = results.get(i).getPersona();
+                String nombre = persona.getNombre();
+                String costo = String.valueOf(results.get(i).getCosto());
+                ReporteTramite PDF = new ReporteTramite(fecha, nombreTramite, nombre, costo);
+                listaReporte.add(PDF);
+            }
+            try {
+                JasperReport reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/src/main/java/Reporte/Tramites.jasper"));
+                JasperPrint print = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(listaReporte));
+                JasperViewer visualiza = new JasperViewer(print, false);
+                visualiza.setTitle("Reporte tramites realizados");
+                visualiza.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        if (opcion == JOptionPane.NO_OPTION) {
+            return;
+        }
+
     }//GEN-LAST:event_btnGenerarPDFActionPerformed
 
     private void rbPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPlacasActionPerformed

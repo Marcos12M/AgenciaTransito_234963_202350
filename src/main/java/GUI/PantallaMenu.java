@@ -47,7 +47,6 @@ public class PantallaMenu extends javax.swing.JFrame {
         btnTramitarLicencia = new javax.swing.JButton();
         btnSolicitarPlacas = new javax.swing.JButton();
         btnConsultar = new javax.swing.JButton();
-        btnCerrar = new javax.swing.JButton();
         btnReportes = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnAltaVehiculo = new javax.swing.JButton();
@@ -61,7 +60,7 @@ public class PantallaMenu extends javax.swing.JFrame {
 
         btnTramitarLicencia.setBackground(new java.awt.Color(204, 255, 153));
         btnTramitarLicencia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnTramitarLicencia.setText("Tramitar Licencias");
+        btnTramitarLicencia.setText("Tramitar Licencias/Renovar Licencias");
         btnTramitarLicencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTramitarLicenciaActionPerformed(evt);
@@ -83,15 +82,6 @@ public class PantallaMenu extends javax.swing.JFrame {
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsultarActionPerformed(evt);
-            }
-        });
-
-        btnCerrar.setBackground(new java.awt.Color(255, 153, 153));
-        btnCerrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnCerrar.setText("Cerrar Sesion");
-        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarActionPerformed(evt);
             }
         });
 
@@ -146,11 +136,7 @@ public class PantallaMenu extends javax.swing.JFrame {
                                     .addComponent(btnSolicitarPlacas, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnConsultar, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnCerrar)
-                                .addGap(15, 15, 15)))))
+                        .addComponent(jLabel2)))
                 .addGap(23, 23, 23))
         );
         jPanel2Layout.setVerticalGroup(
@@ -171,9 +157,7 @@ public class PantallaMenu extends javax.swing.JFrame {
                 .addComponent(btnAltaVehiculo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(btnInsercionMasiva)
-                .addGap(18, 18, 18)
-                .addComponent(btnCerrar)
-                .addGap(29, 29, 29))
+                .addGap(70, 70, 70))
         );
 
         jPanel1.setBackground(new java.awt.Color(153, 102, 0));
@@ -221,13 +205,6 @@ public class PantallaMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        // TODO add your handling code here:
-        PantallaInicioSesion frmCerrar = new PantallaInicioSesion(personaDAO, licenciaDAO);
-        frmCerrar.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnCerrarActionPerformed
-
     private void btnTramitarLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitarLicenciaActionPerformed
         // TODO add your handling code here:
         PantallaLicencia frmLicencia = new PantallaLicencia(personaDAO, licenciaDAO);
@@ -253,7 +230,7 @@ public class PantallaMenu extends javax.swing.JFrame {
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         // TODO add your handling code here:
         ITramiteDAO tramiteDAO = new TramiteDAO();
-        PantallaReporte frmReporte = new PantallaReporte(personaDAO, licenciaDAO, tramiteDAO);
+        PantallaReporte frmReporte = new PantallaReporte(personaDAO, licenciaDAO, tramiteDAO, null);
         frmReporte.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnReportesActionPerformed
@@ -327,7 +304,6 @@ public class PantallaMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAltaVehiculo;
-    private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnInsercionMasiva;
     private javax.swing.JButton btnReportes;

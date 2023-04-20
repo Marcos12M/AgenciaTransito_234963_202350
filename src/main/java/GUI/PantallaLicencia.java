@@ -168,6 +168,12 @@ public class PantallaLicencia extends javax.swing.JFrame {
 
     private void agregarLicencia(Licencia licencia) {
         if (!insertarPersona) {
+            if (rbSi.isSelected()) {
+                persona.setDiscapacitado(true);
+            }
+            if (rbSi.isSelected()) {
+                persona.setDiscapacitado(false);
+            }
             persona.setTelefono(txtTelefono.getText());
             licencia.setPersona(persona);
             Licencia seAgregoLicencia = this.licenciaDAO.agregarLicenciaMismaPersona(licencia);

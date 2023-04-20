@@ -5,6 +5,7 @@
 package Pruebas;
 
 import GUI.PantallaInicioSesion;
+import GUI.PantallaMenu;
 import Persistencia.ILicenciaDAO;
 import Persistencia.IPersonaDAO;
 import Persistencia.LicenciaDAO;
@@ -23,8 +24,8 @@ public class ProyectoAgenciaTransito {
         // TODO code application logic here
         IPersonaDAO personaDAO = new PersonaDAO();
         ILicenciaDAO licenciaDAO = new LicenciaDAO();
-        PantallaInicioSesion frm = new PantallaInicioSesion(personaDAO, licenciaDAO);
-        frm.setVisible(true);
+        PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
+        frmMenu.setVisible(true);
     }
 
 }
