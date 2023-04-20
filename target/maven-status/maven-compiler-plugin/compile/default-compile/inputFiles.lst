@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Entidades\Licencia.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Entidades\Tramite.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Persistencia\PlacaDAO.java
@@ -25,3 +26,32 @@ C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Entidades
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Pruebas\ProyectoAgenciaTransito.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\GUI\PantallaAltaVehiculo.java
 C:\Users\Usuario\Documents\AgenciaTransito_234963_202350\src\main\java\Entidades\exceptions\PreexistingEntityException.java
+=======
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Persistencia\VehiculoDAO.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Reporte\ReporteTramite.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\GUI\PantallaMatricula.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\GUI\PantallaReporte.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Entidades\Licencia.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Persistencia\ILicenciaDAO.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Persistencia\PlacaDAO.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\GUI\PantallaAltaVehiculo.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Persistencia\IVehiculoDAO.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Pruebas\ProyectoAgenciaTransito.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Persistencia\LicenciaDAO.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\GUI\PantallaConsultar.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\GUI\PantallaLicencia.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Persistencia\IPlacaDAO.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Entidades\Placa.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Persistencia\IPersonaDAO.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Entidades\Persona.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Entidades\exceptions\NonexistentEntityException.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Entidades\Vehiculo.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Persistencia\ITramiteDAO.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Persistencia\PersonaDAO.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Entidades\exceptions\PreexistingEntityException.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Persistencia\TramiteDAO.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Entidades\exceptions\IllegalOrphanException.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Entidades\Usuario.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\Entidades\Tramite.java
+C:\Users\gerar\OneDrive\Documents\GitHub\AgenciaTransito_234963_202350\src\main\java\GUI\PantallaMenu.java
+>>>>>>> 7742156fcccc00445b80d0ed48667ca9a623e3b7

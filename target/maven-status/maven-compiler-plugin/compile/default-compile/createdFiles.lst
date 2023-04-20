@@ -68,7 +68,10 @@ GUI\PantallaAltaVehiculo$7.class
 GUI\PantallaMatricula$4.class
 GUI\PantallaConsultar$7.class
 Entidades\Placa.class
+<<<<<<< HEAD
 Pruebas\ProyectoAgenciaTransito.class
+=======
+>>>>>>> 7742156fcccc00445b80d0ed48667ca9a623e3b7
 GUI\PantallaAltaVehiculo$4.class
 GUI\PantallaAltaVehiculo$12.class
 GUI\PantallaConsultar.class
