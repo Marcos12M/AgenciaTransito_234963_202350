@@ -277,7 +277,8 @@ public class PantallaMenu extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // TODO add your handling code here:
-        PantallaConsultar frmConsultar = new PantallaConsultar(personaDAO, licenciaDAO);
+        ITramiteDAO tramiteDAO = new TramiteDAO();
+        PantallaConsultar frmConsultar = new PantallaConsultar(personaDAO, licenciaDAO, tramiteDAO);
         frmConsultar.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnConsultarActionPerformed

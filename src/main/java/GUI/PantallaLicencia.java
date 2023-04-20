@@ -28,7 +28,7 @@ import javax.persistence.Query;
  * @author Marcos Toledo 00000234963
  */
 public class PantallaLicencia extends javax.swing.JFrame {
-    
+
     private final IPersonaDAO personaDAO;
     private final ILicenciaDAO licenciaDAO;
     private Persona persona;
@@ -62,11 +62,11 @@ public class PantallaLicencia extends javax.swing.JFrame {
             }
         }
     }
-    
+
     public static int calcularEdad(LocalDate fechaNacimiento, LocalDate fechaActual) {
         return Period.between(fechaNacimiento, fechaActual).getYears();
     }
-    
+
     public PantallaLicencia(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
         this.personaDAO = personaDAO;
         this.licenciaDAO = licenciaDAO;
@@ -82,9 +82,9 @@ public class PantallaLicencia extends javax.swing.JFrame {
         rb2.setEnabled(false);
         rb3.setEnabled(false);
         txtCosto.setText("El costo de la licencia sera de $$$$");
-        
+
     }
-    
+
     public Persona obtieneDatosPersona() {
         Persona persona = new Persona();
         persona.setRFC(txtRFC.getText());
@@ -99,13 +99,13 @@ public class PantallaLicencia extends javax.swing.JFrame {
         }
         return persona;
     }
-    
+
     public String obtieneRFC(String RFC) {
         Persona persona = new Persona();
         persona.setRFC(RFC);
         return RFC;
     }
-    
+
     private void buscarPersona(String RFC) {
         String existePersona = obtieneRFC(RFC);
         Persona seBuscoPersona = this.personaDAO.buscarPersona(RFC);
@@ -114,7 +114,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "La persona no existe\nPuedes rellenar los espacios", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
+
     public Licencia obtieneDatosLicencia() {
         Date fechaActual = new Date();
         Licencia licencia = new Licencia();
@@ -169,7 +169,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
         System.out.println("licencia:" + licencia);
         return licencia;
     }
-    
+
     private void agregarLicencia(Licencia licencia) {
         Licencia seAgregoLicencia = this.licenciaDAO.agregarLicencia(licencia);
         if (seAgregoLicencia != null) {
@@ -245,6 +245,11 @@ public class PantallaLicencia extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("Telefono:");
 
+        txtRFC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRFCActionPerformed(evt);
+            }
+        });
         txtRFC.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtRFCKeyTyped(evt);
@@ -503,19 +508,37 @@ public class PantallaLicencia extends javax.swing.JFrame {
                     && txtFechaN.getDate() != null && !txtTelefono.getText().isEmpty()
                     && (rbSi.isSelected() ^ rbNo.isSelected())
                     && (rb1.isSelected() ^ rb2.isSelected() ^ rb3.isSelected())) {
-                System.out.println("licencia2:" + obtieneDatosLicencia());
-                Date fechaActual = new Date();
-                agregarLicencia(obtieneDatosLicencia());
-                JOptionPane.showMessageDialog(this, "Se genero con exito la licencia de la \n RFC: " + txtRFC.getText(), "Licencia Generada", JOptionPane.INFORMATION_MESSAGE);
-                PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
-                frmMenu.setVisible(true);
-                this.dispose();
+                if (txtRFC.getText().length() == 13 && txtTelefono.getText().length() == 10) {
+                    Date fechaActual = new Date();
+                    Date fechaNacimiento = txtFechaN.getDate();
+
+                    // Calcular la diferencia de años entre la fecha de nacimiento y la fecha actual
+                    long diff = fechaActual.getTime() - fechaNacimiento.getTime();
+                    long edadMillis = Math.abs(diff);
+                    int edad = (int) (edadMillis / (24 * 60 * 60 * 1000 * 365.25));
+                    
+                    // La variable 'edad' ahora contiene la edad de la persona
+                    System.out.println("Edad: " + edad + " años");
+                    
+                    if (txtFechaN.getDate().compareTo(fechaActual) < 0 && edad >= 18) {
+                        System.out.println("licencia2:" + obtieneDatosLicencia());
+                        agregarLicencia(obtieneDatosLicencia());
+                        JOptionPane.showMessageDialog(this, "Se genero con exito la licencia de la \n RFC: " + txtRFC.getText(), "Licencia Generada", JOptionPane.INFORMATION_MESSAGE);
+                        PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
+                        frmMenu.setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Alguno de tus datos es erroneo debido a\n-Fecha nacimiento mayor a la actual.\n-Es menor de edad.", "Verifique campos", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Alguno de tus datos falta de completar\n-Telefono 10 digitos.\n-RFC 13 digitos.", "Verifique campos", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
                 // Muestra mensaje de error si no se cumplen las condiciones
                 JOptionPane.showMessageDialog(this, "Por favor, verifica los campos y seleccione las opciones correctas.", "Verifique campos", JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
         if (existe == "Renovacion") {
             if (!txtRFC.getText().isEmpty() && !txtNombre.getText().isEmpty()
                     && txtFechaN.getDate() != null && !txtTelefono.getText().isEmpty()
@@ -538,10 +561,10 @@ public class PantallaLicencia extends javax.swing.JFrame {
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
-        if (Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_SPACE) {
-            evt.consume(); // Elimina si se ingresa un numero
+        if (Character.isLetter(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_SPACE) {
+            super.processKeyEvent(evt);
         } else {
-            super.processKeyEvent(evt); // Permite otros eventos de teclado
+            evt.consume();
         }
         txtNombre.addKeyListener(new KeyAdapter() {
             @Override
@@ -557,7 +580,9 @@ public class PantallaLicencia extends javax.swing.JFrame {
         // TODO add your handling code here:
         //solo permite que se ingresen numeros
         char c = evt.getKeyChar();
-        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+        if (Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE) {
+            super.processKeyEvent(evt);
+        } else {
             evt.consume();
         }
         //Solo permite 10 digitos
@@ -569,7 +594,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
 
     private void btnExistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExistenciaActionPerformed
         // TODO add your handling code here:
-        if (!txtRFC.getText().isEmpty()) {
+        if (!txtRFC.getText().isEmpty() && txtRFC.getText().length() == 13) {
             this.buscarPersona(obtieneRFC(txtRFC.getText()));
             Persona persona = personaDAO.buscarPersona(obtieneRFC(txtRFC.getText()));;
             if ((persona) != null) {
@@ -597,7 +622,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
                 existe = "PrimeraVez";
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Por favor, de rellenar el campo vacio.", "Verifique campos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Algo esta mal, verifica alguna de estas opciones\n-Campo vacio.\n-RFC menor a 13 digitos.", "Verifique campos", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnExistenciaActionPerformed
 
@@ -650,6 +675,10 @@ public class PantallaLicencia extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
+    private void txtRFCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRFCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRFCActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -664,21 +693,21 @@ public class PantallaLicencia extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(PantallaLicencia.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(PantallaLicencia.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(PantallaLicencia.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PantallaLicencia.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);

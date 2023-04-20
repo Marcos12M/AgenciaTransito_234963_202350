@@ -31,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
 public class TramiteDAO implements ITramiteDAO {
 
     @Override
-    public List<Tramite> listaTramite(boolean LicenciasS, boolean PlacasS, Date fechaInicio, Date fechaFin) {
+    public List<Tramite> listaTramite(boolean LicenciasS, boolean PlacasS, Date fechaInicio, Date fechaFin, String Nombre) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -57,6 +57,47 @@ public class TramiteDAO implements ITramiteDAO {
         }
         if (fechaInicio != null && fechaFin != null) {
             predicados.add(criteriaBuilder.between(tramite.get("Fecha"), fechaInicio, fechaFin));
+        }
+
+        if (Nombre != null) {
+            predicados.add(criteriaBuilder.like(persona.get("nombre"), "%" + Nombre + "%"));
+        }
+
+        if (!predicados.isEmpty()) {
+            criteriaQuery.where(criteriaBuilder.and(predicados.toArray(new Predicate[predicados.size()])));
+        }
+
+        TypedQuery<Tramite> query = em.createQuery(criteriaQuery);
+        List<Tramite> listaTramites = query.getResultList();
+        em.getTransaction().commit();
+
+        return listaTramites;
+    }
+
+    @Override
+    public List<Tramite> listaConsulta(Date fechaNacimiento, String RFC, String Nombre) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Tramite> criteriaQuery = criteriaBuilder.createQuery(Tramite.class);
+        Root<Tramite> tramite = criteriaQuery.from(Tramite.class);
+        criteriaQuery.select(tramite);
+
+        Join<Tramite, Persona> persona = tramite.join("persona");
+
+        List<Predicate> predicados = new ArrayList<Predicate>();
+
+        if (fechaNacimiento != null) {
+            predicados.add(criteriaBuilder.equal(persona.get("fechaNacimiento"), fechaNacimiento));
+        }
+
+        if (RFC != null) {
+            predicados.add(criteriaBuilder.equal(persona.get("RFC"), RFC));
+        }
+
+        if (Nombre != null) {
+            predicados.add(criteriaBuilder.like(persona.get("nombre"), "%" + Nombre + "%"));
         }
 
         if (!predicados.isEmpty()) {
