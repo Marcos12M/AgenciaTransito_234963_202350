@@ -4,16 +4,20 @@
  */
 package Persistencia;
 
+import Entidades.Placa;
 import Entidades.Vehiculo;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author gerar
  */
-public class VehiculoDAO implements IVehiculoDAO{
+public class VehiculoDAO implements IVehiculoDAO {
 
     @Override
     public Vehiculo agregaVehiculo(Vehiculo vehiculo) {
@@ -28,8 +32,22 @@ public class VehiculoDAO implements IVehiculoDAO{
     }
 
     @Override
-    public Vehiculo buscarVehiculo(long numSerie) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Vehiculo buscarVehiculo(String numSerie) {
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+            EntityManager em = emf.createEntityManager();
+            Query query = em.createQuery("SELECT p FROM Vehiculo p WHERE p.NumSerie = :numSerie");
+            query.setParameter("numSerie", numSerie);
+            Vehiculo vehiculo = (Vehiculo) query.getSingleResult();
+            return vehiculo;
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
     
+    @Override
+    public void setPlaca(Placa placa) {
+            
+    }
+
 }

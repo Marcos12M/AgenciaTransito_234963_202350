@@ -4,10 +4,17 @@
  */
 package GUI;
 
+import Entidades.Persona;
 import Persistencia.ILicenciaDAO;
 import Persistencia.IPersonaDAO;
 import Persistencia.ITramiteDAO;
 import Persistencia.TramiteDAO;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +25,6 @@ public class PantallaMenu extends javax.swing.JFrame {
     /**
      * Creates new form PantallaMenu
      */
-    
     private final IPersonaDAO personaDAO;
     private final ILicenciaDAO licenciaDAO;
 
@@ -47,7 +53,7 @@ public class PantallaMenu extends javax.swing.JFrame {
         btnAltaVehiculo = new javax.swing.JButton();
         btnPerdidaLicencia = new javax.swing.JButton();
         btnPerdidaPlacas = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnInsercionMasiva = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -129,9 +135,14 @@ public class PantallaMenu extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(255, 153, 153));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton6.setText("inserción “masiva”");
+        btnInsercionMasiva.setBackground(new java.awt.Color(255, 153, 153));
+        btnInsercionMasiva.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnInsercionMasiva.setText("inserción “masiva”");
+        btnInsercionMasiva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsercionMasivaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -143,7 +154,7 @@ public class PantallaMenu extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnPerdidaLicencia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton6))
+                        .addComponent(btnInsercionMasiva))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -189,7 +200,7 @@ public class PantallaMenu extends javax.swing.JFrame {
                         .addGap(15, 44, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton6)
+                        .addComponent(btnInsercionMasiva)
                         .addGap(18, 18, 18)
                         .addComponent(btnCerrar)
                         .addGap(29, 29, 29))))
@@ -298,6 +309,23 @@ public class PantallaMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnAltaVehiculoActionPerformed
 
+    private void btnInsercionMasivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsercionMasivaActionPerformed
+        // TODO add your handling code here:
+        personaDAO.buscarPersona("BEFJ831218123");
+        Persona persona = personaDAO.buscarPersona("BEFJ831218123");
+        if ((persona) != null) {
+            JOptionPane.showMessageDialog(this, "La inserción ya fue realizada.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            int opcion = JOptionPane.showOptionDialog(null, "¿Deseas realizar la inserción masiva?\nSe agregarán 20 personas nuevas",
+                    "Información", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            if (opcion == JOptionPane.YES_OPTION) {
+                personaDAO.agregarPersonas(personaDAO.generarListaPersonas());
+                JOptionPane.showMessageDialog(null, "Inserción masiva realizada.");
+            }
+        }
+
+    }//GEN-LAST:event_btnInsercionMasivaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -312,16 +340,24 @@ public class PantallaMenu extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PantallaMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaMenu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PantallaMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaMenu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PantallaMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaMenu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PantallaMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaMenu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -337,12 +373,12 @@ public class PantallaMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnAltaVehiculo;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnInsercionMasiva;
     private javax.swing.JButton btnPerdidaLicencia;
     private javax.swing.JButton btnPerdidaPlacas;
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSolicitarPlacas;
     private javax.swing.JButton btnTramitarLicencia;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;

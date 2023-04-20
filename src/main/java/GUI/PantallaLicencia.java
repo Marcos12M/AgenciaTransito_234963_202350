@@ -598,6 +598,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
             this.buscarPersona(obtieneRFC(txtRFC.getText()));
             Persona persona = personaDAO.buscarPersona(obtieneRFC(txtRFC.getText()));;
             if ((persona) != null) {
+                JOptionPane.showMessageDialog(null, "La persona con la RFC: " + txtRFC.getText() + " existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
                 txtNombre.setText(persona.getNombre());
                 txtFechaN.setDate(persona.getFechaNacimiento());
                 txtTelefono.setText(persona.getTelefono());
