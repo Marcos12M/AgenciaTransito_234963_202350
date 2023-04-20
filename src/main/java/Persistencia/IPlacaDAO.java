@@ -4,13 +4,12 @@
  */
 package Persistencia;
 
-import Entidades.Vehiculo;
+import Entidades.Placa;
 
 /**
  *
  * @author gerar
  */
-public interface IVehiculoDAO {
-    public Vehiculo agregaVehiculo(Vehiculo vehiculo);
-    public Vehiculo buscarVehiculo(String numSerie);
+public interface IPlacaDAO {
+    public Placa agregarPlaca(Placa placa);
 }

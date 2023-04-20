@@ -40,7 +40,7 @@ public class Vehiculo implements Serializable {
 
     @Basic
     @Column(name = "numero_serie")
-    private String NumSerie;
+    private String numSerie;
 
     @Basic
     @Column(name = "marca")
@@ -61,7 +61,7 @@ public class Vehiculo implements Serializable {
         this.id = id;
         this.Color = Color;
         this.Modelo = Modelo;
-        this.NumSerie = NumSerie;
+        this.numSerie = NumSerie;
         this.Marca = Marca;
         this.placa = placa;
         this.persona = persona;
@@ -71,7 +71,7 @@ public class Vehiculo implements Serializable {
         this.id = id;
         this.Color = Color;
         this.Modelo = Modelo;
-        this.NumSerie = NumSerie;
+        this.numSerie = NumSerie;
         this.Marca = Marca;
         this.persona = persona;
     }
@@ -117,11 +117,11 @@ public class Vehiculo implements Serializable {
     }
 
     public String getNumSerie() {
-        return NumSerie;
+        return numSerie;
     }
 
     public void setNumSerie(String NumSerie) {
-        this.NumSerie = NumSerie;
+        this.numSerie = NumSerie;
     }
 
     public String getMarca() {
@@ -138,7 +138,7 @@ public class Vehiculo implements Serializable {
         hash = 53 * hash + Objects.hashCode(this.id);
         hash = 53 * hash + Objects.hashCode(this.Color);
         hash = 53 * hash + Objects.hashCode(this.Modelo);
-        hash = 53 * hash + Objects.hashCode(this.NumSerie);
+        hash = 53 * hash + Objects.hashCode(this.numSerie);
         hash = 53 * hash + Objects.hashCode(this.Marca);
         hash = 53 * hash + Objects.hashCode(this.placa);
         hash = 53 * hash + Objects.hashCode(this.persona);
@@ -169,7 +169,7 @@ public class Vehiculo implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.NumSerie, other.NumSerie)) {
+        if (!Objects.equals(this.numSerie, other.numSerie)) {
             return false;
         }
         if (!Objects.equals(this.placa, other.placa)) {
@@ -180,7 +180,7 @@ public class Vehiculo implements Serializable {
 
     @Override
     public String toString() {
-        return "Vehiculo{" + "id=" + id + ", Color=" + Color + ", Modelo=" + Modelo + ", NumSerie=" + NumSerie + ", Marca=" + Marca + ", placa=" + placa + ", persona=" + persona + '}';
+        return "Vehiculo{" + "id=" + id + ", Color=" + Color + ", Modelo=" + Modelo + ", NumSerie=" + numSerie + ", Marca=" + Marca + ", placa=" + placa + ", persona=" + persona + '}';
     }
 
 }

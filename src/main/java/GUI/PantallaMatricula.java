@@ -4,9 +4,12 @@
  */
 package GUI;
 
+import Entidades.Placa;
+import Entidades.Vehiculo;
 import Persistencia.ILicenciaDAO;
 import Persistencia.IPersonaDAO;
-import java.awt.event.KeyAdapter;
+import Persistencia.PlacaDAO;
+import Persistencia.VehiculoDAO;
 import java.awt.event.KeyEvent;
 
 /**
@@ -20,6 +23,8 @@ public class PantallaMatricula extends javax.swing.JFrame {
      */
     private final IPersonaDAO personaDAO;
     private final ILicenciaDAO licenciaDAO;
+    private final VehiculoDAO vehiculoDAO = new VehiculoDAO();
+    private final PlacaDAO placaDAO = new PlacaDAO();
 
     public PantallaMatricula(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
         this.personaDAO = personaDAO;
@@ -38,7 +43,7 @@ public class PantallaMatricula extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnPago = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtNumSerie = new javax.swing.JTextField();
@@ -46,6 +51,7 @@ public class PantallaMatricula extends javax.swing.JFrame {
         btnGeneraMatricula = new javax.swing.JToggleButton();
         lblMatricula = new javax.swing.JLabel();
         lblCoste = new javax.swing.JLabel();
+        btnVerificar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -62,9 +68,14 @@ public class PantallaMatricula extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(204, 255, 153));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setText("Imprime pago");
+        btnPago.setBackground(new java.awt.Color(204, 255, 153));
+        btnPago.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnPago.setText("Imprime pago");
+        btnPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagoActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("No. Serie");
@@ -92,13 +103,20 @@ public class PantallaMatricula extends javax.swing.JFrame {
 
         lblCoste.setText("Coste");
 
+        btnVerificar.setText("Verificar");
+        btnVerificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addComponent(jButton3)
+                .addComponent(btnPago)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
                 .addGap(32, 32, 32))
@@ -114,8 +132,10 @@ public class PantallaMatricula extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNumSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(txtNumSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnVerificar)))
+                        .addContainerGap(55, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -130,7 +150,9 @@ public class PantallaMatricula extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(txtNumSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNumSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnVerificar)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(jLabel4)))
@@ -145,7 +167,7 @@ public class PantallaMatricula extends javax.swing.JFrame {
                     .addComponent(lblCoste))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                    .addComponent(btnPago)
                     .addComponent(btnRegresar))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -219,6 +241,38 @@ public class PantallaMatricula extends javax.swing.JFrame {
         lblCoste.setText("1000");
         lblMatricula.setText(generarPlaca());
     }//GEN-LAST:event_btnGeneraMatriculaActionPerformed
+
+    private void btnPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagoActionPerformed
+        // TODO add your handling code here:
+        placaDAO.agregarPlaca(recolectaDatos());
+        
+    }//GEN-LAST:event_btnPagoActionPerformed
+
+    private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
+        // TODO add your handling code here:
+        Vehiculo vehiculo = new Vehiculo();
+        vehiculo= vehiculoDAO.buscarVehiculo(txtNumSerie.getText());
+        if (vehiculo.getPlaca()!=null) {
+            lblCoste.setText("1000");
+        }else{
+            lblCoste.setText("1500");
+        }
+        
+    }//GEN-LAST:event_btnVerificarActionPerformed
+    
+    public Vehiculo generaPlacaVehiculo (Placa placa){
+        Vehiculo vehiculo = new Vehiculo();
+        vehiculo = vehiculoDAO.buscarVehiculo(txtNumSerie.getText());
+        vehiculo.setPlaca(placa);
+        return vehiculo;
+    }
+    public Placa recolectaDatos(){
+        Placa placa  = new Placa();
+        placa.setNumero(lblMatricula.getText());
+        placa.setVehiculo(vehiculoDAO.buscarVehiculo(txtNumSerie.getText()));
+        placa.setCosto(Integer.parseInt(lblCoste.getText()));
+        return placa;
+    }
     public static String generarPlaca() {
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String numeros = "0123456789";
@@ -286,8 +340,9 @@ public class PantallaMatricula extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnGeneraMatricula;
+    private javax.swing.JButton btnPago;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnVerificar;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
