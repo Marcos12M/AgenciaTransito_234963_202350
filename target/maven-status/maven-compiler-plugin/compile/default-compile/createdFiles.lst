@@ -4,7 +4,6 @@ GUI\PantallaMatricula$5.class
 Entidades\Vehiculo_.class
 GUI\PantallaAltaVehiculo.class
 Persistencia\PersonaDAO.class
-GUI\PantallaInicioSesion$3.class
 GUI\PantallaLicencia$3.class
 Persistencia\TramiteDAO.class
 Entidades\Vehiculo.class
@@ -15,7 +14,6 @@ GUI\PantallaMatricula$2.class
 Persistencia\PlacaDAO.class
 Entidades\Usuario_.class
 GUI\PantallaMenu$2.class
-GUI\PantallaMenu$8.class
 GUI\PantallaMenu$5.class
 GUI\PantallaReporte.class
 GUI\PantallaConsultar$1.class
@@ -45,7 +43,6 @@ GUI\PantallaConsultar$9.class
 GUI\PantallaMenu$3.class
 GUI\PantallaLicencia$4.class
 GUI\PantallaReporte$3.class
-GUI\PantallaInicioSesion$2.class
 Persistencia\VehiculoDAO.class
 GUI\PantallaAltaVehiculo$2.class
 GUI\PantallaLicencia$12.class
@@ -66,22 +63,17 @@ GUI\PantallaConsultar$2.class
 GUI\PantallaReporte$7.class
 GUI\PantallaLicencia.class
 Entidades\exceptions\IllegalOrphanException.class
-GUI\PantallaInicioSesion.class
 Entidades\Placa_.class
 GUI\PantallaAltaVehiculo$7.class
 GUI\PantallaMatricula$4.class
-GUI\PantallaInicioSesion$1.class
 GUI\PantallaConsultar$7.class
 Entidades\Placa.class
-GUI\PantallaInicioSesion$4.class
-Pruebas\ProyectoAgenciaTransito.class
 GUI\PantallaAltaVehiculo$4.class
 GUI\PantallaAltaVehiculo$12.class
 GUI\PantallaConsultar.class
 GUI\PantallaLicencia$16.class
 GUI\PantallaLicencia$2.class
 GUI\PantallaMatricula$3.class
-GUI\PantallaInicioSesion$5.class
 GUI\PantallaReporte$6.class
 Entidades\Tramite_.class
 GUI\PantallaMatricula.class
@@ -91,7 +83,6 @@ Entidades\exceptions\NonexistentEntityException.class
 GUI\PantallaAltaVehiculo$6.class
 GUI\PantallaConsultar$5.class
 GUI\PantallaMenu$1.class
-GUI\PantallaInicioSesion$6.class
 GUI\PantallaLicencia$15.class
 Persistencia\IPersonaDAO.class
 GUI\PantallaLicencia$1.class

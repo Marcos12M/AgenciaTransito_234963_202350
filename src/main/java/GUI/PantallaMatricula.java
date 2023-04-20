@@ -5,11 +5,13 @@
 package GUI;
 
 import Entidades.Placa;
+import Entidades.Vehiculo;
 import Persistencia.ILicenciaDAO;
 import Persistencia.IPersonaDAO;
 import Persistencia.PlacaDAO;
 import Persistencia.VehiculoDAO;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,6 +31,7 @@ public class PantallaMatricula extends javax.swing.JFrame {
         this.personaDAO = personaDAO;
         this.licenciaDAO = licenciaDAO;
         initComponents();
+        btnPago.setEnabled(false);
     }
 
     /**
@@ -47,9 +50,9 @@ public class PantallaMatricula extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtNumSerie = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        btnGeneraMatricula = new javax.swing.JToggleButton();
         lblMatricula = new javax.swing.JLabel();
         lblCoste = new javax.swing.JLabel();
+        btnVerificar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -90,16 +93,16 @@ public class PantallaMatricula extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setText("Matricula:");
 
-        btnGeneraMatricula.setText("Genera matricula");
-        btnGeneraMatricula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGeneraMatriculaActionPerformed(evt);
-            }
-        });
-
         lblMatricula.setText("Matricula");
 
         lblCoste.setText("Coste");
+
+        btnVerificar.setText("Verificar");
+        btnVerificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -115,23 +118,20 @@ public class PantallaMatricula extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblCoste, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNumSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(165, Short.MAX_VALUE))
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblCoste, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNumSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnVerificar))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGeneraMatricula)
-                        .addGap(64, 64, 64))))
+                        .addComponent(lblMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,11 +139,11 @@ public class PantallaMatricula extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtNumSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVerificar))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(btnGeneraMatricula)
                     .addComponent(lblMatricula))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -220,26 +220,61 @@ public class PantallaMatricula extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtNumSerieKeyTyped
 
-    private void btnGeneraMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneraMatriculaActionPerformed
-        // TODO add your handling code here:
-        lblCoste.setText("1000");
-        lblMatricula.setText(generarPlaca());
-    }//GEN-LAST:event_btnGeneraMatriculaActionPerformed
-
     private void btnPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagoActionPerformed
         // TODO add your handling code here:
-        placaDAO.agregarPlaca(recolectaDatos());
-        System.out.println(vehiculoDAO.buscarVehiculo(txtNumSerie.getText()).toString()); 
-        
+
+        Vehiculo vehiculo = new Vehiculo();
+        vehiculo = vehiculoDAO.buscarVehiculo(txtNumSerie.getText());
+
+        if (vehiculo != null) {
+            vehiculoDAO.setPlaca(recolectaDatos(), vehiculo);
+            txtNumSerie.setText("");
+            JOptionPane.showMessageDialog(null, "Las placas: "
+                    + lblMatricula.getText() + " se han asignado correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            lblMatricula.setText("");
+            lblCoste.setText("");
+            btnPago.setEnabled(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Las placas no se han asignado correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_btnPagoActionPerformed
-    public Placa recolectaDatos(){
-        Placa placa = new  Placa();
-        placa.setCosto(1000);
+
+    private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
+        // TODO add your handling code here:
+        Vehiculo vehiculo = new Vehiculo();
+        vehiculo = buscaVehiculo(txtNumSerie.getText());
+        if (vehiculo != null) {
+            lblMatricula.setText(generarPlaca());
+            btnPago.setEnabled(true);
+            JOptionPane.showMessageDialog(null, "El vehiculo con numero de serie: "
+                    + txtNumSerie.getText() + " existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            if (vehiculo.getPlaca() != null) {
+                JOptionPane.showMessageDialog(null, "El vehiculo con numero de serie: "
+                        + txtNumSerie.getText() + "Tiene placas existentes", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                lblCoste.setText("1000");
+            } else {
+                JOptionPane.showMessageDialog(null, "El vehiculo con numero de serie: "
+                        + txtNumSerie.getText() + " no tiene placas existentes", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                lblCoste.setText("1500");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "El vehiculo con numero de serie: "
+                    + txtNumSerie.getText() + " no existe", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnVerificarActionPerformed
+
+    public Placa recolectaDatos() {
+        Placa placa = new Placa();
+        placa.setCosto(Integer.parseInt(lblCoste.getText()));
         placa.setNumero(lblMatricula.getText());
-        placa.setVehiculo(vehiculoDAO.buscarVehiculo(txtNumSerie.getText()));
         return placa;
     }
-    
+    public Vehiculo buscaVehiculo(String numSerie){
+        return vehiculoDAO.buscarVehiculo(numSerie);
+        
+    }
     public static String generarPlaca() {
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String numeros = "0123456789";
@@ -306,9 +341,9 @@ public class PantallaMatricula extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btnGeneraMatricula;
     private javax.swing.JButton btnPago;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnVerificar;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
