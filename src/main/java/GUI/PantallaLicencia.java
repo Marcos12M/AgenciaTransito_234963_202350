@@ -33,40 +33,12 @@ public class PantallaLicencia extends javax.swing.JFrame {
     private final ILicenciaDAO licenciaDAO;
     private Persona persona;
     private String existe = "Espera";
+    private boolean insertarPersona;
     private int anios = 0;
 
     /**
      * Creates new form PantallaMenu
      */
-    public void actualizaprecio() {
-        if (rbSi.isSelected()) {
-            if (rb1.isSelected()) {
-                txtCosto.setText("El costo de la licencia sera de $200");
-            }
-            if (rb2.isSelected()) {
-                txtCosto.setText("El costo de la licencia sera de $500");
-            }
-            if (rb3.isSelected()) {
-                txtCosto.setText("El costo de la licencia sera de $700");
-            }
-        }
-        if (rbNo.isSelected()) {
-            if (rb1.isSelected()) {
-                txtCosto.setText("El costo de la licencia sera de $600");
-            }
-            if (rb2.isSelected()) {
-                txtCosto.setText("El costo de la licencia sera de $900");
-            }
-            if (rb3.isSelected()) {
-                txtCosto.setText("El costo de la licencia sera de $1100");
-            }
-        }
-    }
-
-    public static int calcularEdad(LocalDate fechaNacimiento, LocalDate fechaActual) {
-        return Period.between(fechaNacimiento, fechaActual).getYears();
-    }
-
     public PantallaLicencia(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
         this.personaDAO = personaDAO;
         this.licenciaDAO = licenciaDAO;
@@ -82,7 +54,6 @@ public class PantallaLicencia extends javax.swing.JFrame {
         rb2.setEnabled(false);
         rb3.setEnabled(false);
         txtCosto.setText("El costo de la licencia sera de $$$$");
-
     }
 
     public Persona obtieneDatosPersona() {
@@ -112,6 +83,31 @@ public class PantallaLicencia extends javax.swing.JFrame {
         if (seBuscoPersona != null) {
         } else {
             JOptionPane.showMessageDialog(this, "La persona no existe\nPuedes rellenar los espacios", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    public void actualizaprecio() {
+        if (rbSi.isSelected()) {
+            if (rb1.isSelected()) {
+                txtCosto.setText("El costo de la licencia sera de $200");
+            }
+            if (rb2.isSelected()) {
+                txtCosto.setText("El costo de la licencia sera de $500");
+            }
+            if (rb3.isSelected()) {
+                txtCosto.setText("El costo de la licencia sera de $700");
+            }
+        }
+        if (rbNo.isSelected()) {
+            if (rb1.isSelected()) {
+                txtCosto.setText("El costo de la licencia sera de $600");
+            }
+            if (rb2.isSelected()) {
+                txtCosto.setText("El costo de la licencia sera de $900");
+            }
+            if (rb3.isSelected()) {
+                txtCosto.setText("El costo de la licencia sera de $1100");
+            }
         }
     }
 
@@ -171,7 +167,17 @@ public class PantallaLicencia extends javax.swing.JFrame {
     }
 
     private void agregarLicencia(Licencia licencia) {
-        Licencia seAgregoLicencia = this.licenciaDAO.agregarLicencia(licencia);
+        if (!insertarPersona) {
+            persona.setTelefono(txtTelefono.getText());
+            licencia.setPersona(persona);
+            Licencia seAgregoLicencia = this.licenciaDAO.agregarLicenciaMismaPersona(licencia);
+            if (seAgregoLicencia != null) {
+            } else {
+                JOptionPane.showMessageDialog(this, "No fue posible agregar la Licencia", "Informacion", JOptionPane.ERROR_MESSAGE);
+            }
+            return;
+        }
+        Licencia seAgregoLicencia = this.licenciaDAO.agregarLicencia(licencia, insertarPersona);
         if (seAgregoLicencia != null) {
         } else {
             JOptionPane.showMessageDialog(this, "No fue posible agregar la Licencia", "Informacion", JOptionPane.ERROR_MESSAGE);
@@ -508,6 +514,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
                     && txtFechaN.getDate() != null && !txtTelefono.getText().isEmpty()
                     && (rbSi.isSelected() ^ rbNo.isSelected())
                     && (rb1.isSelected() ^ rb2.isSelected() ^ rb3.isSelected())) {
+
                 if (txtRFC.getText().length() == 13 && txtTelefono.getText().length() == 10) {
                     Date fechaActual = new Date();
                     Date fechaNacimiento = txtFechaN.getDate();
@@ -516,10 +523,10 @@ public class PantallaLicencia extends javax.swing.JFrame {
                     long diff = fechaActual.getTime() - fechaNacimiento.getTime();
                     long edadMillis = Math.abs(diff);
                     int edad = (int) (edadMillis / (24 * 60 * 60 * 1000 * 365.25));
-                    
+
                     // La variable 'edad' ahora contiene la edad de la persona
                     System.out.println("Edad: " + edad + " años");
-                    
+
                     if (txtFechaN.getDate().compareTo(fechaActual) < 0 && edad >= 18) {
                         System.out.println("licencia2:" + obtieneDatosLicencia());
                         agregarLicencia(obtieneDatosLicencia());
@@ -544,16 +551,32 @@ public class PantallaLicencia extends javax.swing.JFrame {
                     && txtFechaN.getDate() != null && !txtTelefono.getText().isEmpty()
                     && (rbSi.isSelected() ^ rbNo.isSelected())
                     && (rb1.isSelected() ^ rb2.isSelected() ^ rb3.isSelected())) {
-                Licencia licencia = obtieneDatosLicencia();
-                licencia.getPersona().setId(persona.getId());
-                licenciaDAO.agregarLicenciaMismaPersona(licencia);
+                int opcion = JOptionPane.showOptionDialog(null, "La licencia se encuentra vigente\nDebe cancelarla para continuar", "Información",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+                        new Object[]{"Dar de Baja Licencia", "No"}, null);
+
+                if (opcion == JOptionPane.YES_OPTION) {
+                    Licencia licencia = licenciaDAO.listaLicenciasVigentes(persona).get(0);
+                    licencia.setEstado("Caducada");
+                    if (licenciaDAO.bajaLicencia(licencia) != null) {
+                        Licencia licenciaAgregar = obtieneDatosLicencia();
+                        insertarPersona = false;
+                        agregarLicencia(licenciaAgregar);
+                        JOptionPane.showMessageDialog(this, "Se dio de baja tu licencia anterior\nAhora tienes una nueva.", "Información", JOptionPane.INFORMATION_MESSAGE);
+                        PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
+                        frmMenu.setVisible(true);
+                        this.dispose();
+                        return;
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Error dar de baja.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else if (opcion == JOptionPane.NO_OPTION) {
+                    return;
+                }
+
             } else {
                 return;
             }
-            JOptionPane.showMessageDialog(this, "Se renovó con éxito la licencia \n RFC: " + txtRFC.getText(), "Licencia Renovada", JOptionPane.INFORMATION_MESSAGE);
-            PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
-            frmMenu.setVisible(true);
-            this.dispose();
         }
 
     }//GEN-LAST:event_btnGenerarActionPerformed
@@ -608,8 +631,13 @@ public class PantallaLicencia extends javax.swing.JFrame {
                 rb2.setEnabled(true);
                 rb3.setEnabled(true);
                 txtTelefono.setEnabled(true);
-                existe = "Renovacion";
-                btnGenerar.setText("Renovar Licencia");
+                List<Licencia> listaLicencia = licenciaDAO.listaLicenciasVigentes(persona);
+                if (listaLicencia.isEmpty()) {
+                    existe = "PrimeraVez";
+                    insertarPersona = false;
+                } else {
+                    existe = "Renovacion";
+                }
                 this.persona = persona;
             } else {
                 txtNombre.setEnabled(true);
@@ -621,6 +649,7 @@ public class PantallaLicencia extends javax.swing.JFrame {
                 rb2.setEnabled(true);
                 rb3.setEnabled(true);
                 existe = "PrimeraVez";
+                insertarPersona = true;
             }
         } else {
             JOptionPane.showMessageDialog(this, "Algo esta mal, verifica alguna de estas opciones\n-Campo vacio.\n-RFC menor a 13 digitos.", "Verifique campos", JOptionPane.ERROR_MESSAGE);

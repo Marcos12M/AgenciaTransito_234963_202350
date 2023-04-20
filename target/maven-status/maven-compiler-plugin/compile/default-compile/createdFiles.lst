@@ -2,6 +2,7 @@ GUI\PantallaConsultar$6.class
 GUI\PantallaPerdidaLicencias$2.class
 GUI\PantallaPerdidaMatriculas$8.class
 GUI\PantallaAltaVehiculo$8.class
+GUI\PantallaMatricula$5.class
 Entidades\Vehiculo_.class
 GUI\PantallaAltaVehiculo.class
 Persistencia\PersonaDAO.class
@@ -14,7 +15,9 @@ GUI\PantallaLicencia$10.class
 GUI\PantallaLicencia$8.class
 GUI\PantallaReporte$5.class
 GUI\PantallaMatricula$2.class
+Persistencia\PlacaDAO.class
 GUI\PantallaPerdidaMatriculas$2.class
+Entidades\Usuario_.class
 GUI\PantallaMenu$2.class
 GUI\PantallaMenu$8.class
 GUI\PantallaMenu$5.class
@@ -23,6 +26,7 @@ GUI\PantallaReporte.class
 GUI\PantallaConsultar$1.class
 GUI\PantallaReporte$8.class
 GUI\PantallaAltaVehiculo$10.class
+Entidades\Usuario.class
 GUI\PantallaPerdidaMatriculas$6.class
 GUI\PantallaLicencia$9.class
 GUI\PantallaConsultar$4.class
@@ -47,7 +51,6 @@ GUI\PantallaConsultar$3.class
 GUI\PantallaConsultar$9.class
 GUI\PantallaMenu$3.class
 GUI\PantallaLicencia$4.class
-GUI\PantallaReporte$10.class
 GUI\PantallaReporte$3.class
 GUI\PantallaInicioSesion$2.class
 Persistencia\VehiculoDAO.class
@@ -66,6 +69,7 @@ GUI\PantallaMenu.class
 GUI\PantallaMenu$9.class
 GUI\PantallaMatricula$1.class
 GUI\PantallaPerdidaMatriculas$4.class
+Persistencia\IPlacaDAO.class
 Entidades\Tramite.class
 GUI\PantallaConsultar$2.class
 GUI\PantallaReporte$7.class
@@ -84,6 +88,7 @@ Pruebas\ProyectoAgenciaTransito.class
 GUI\PantallaPerdidaMatriculas.class
 GUI\PantallaAltaVehiculo$4.class
 GUI\PantallaPerdidaLicencias$4.class
+GUI\PantallaMenu$10.class
 GUI\PantallaAltaVehiculo$12.class
 GUI\PantallaConsultar.class
 GUI\PantallaLicencia$16.class

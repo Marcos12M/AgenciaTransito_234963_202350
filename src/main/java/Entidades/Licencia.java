@@ -55,7 +55,8 @@ public class Licencia extends Tramite implements Serializable {
         this.Vigencia = Vigencia;
         this.VigenciaF = VigenciaF;
     }
-
+    
+    
     public void setPersona(Persona persona) {
         super.setPersona(persona);
     }

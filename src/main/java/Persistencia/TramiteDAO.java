@@ -92,11 +92,11 @@ public class TramiteDAO implements ITramiteDAO {
             predicados.add(criteriaBuilder.equal(persona.get("fechaNacimiento"), fechaNacimiento));
         }
 
-        if (RFC != null) {
+        if (!RFC.equals("")) {
             predicados.add(criteriaBuilder.equal(persona.get("RFC"), RFC));
         }
 
-        if (Nombre != null) {
+        if (!Nombre.equals("")){
             predicados.add(criteriaBuilder.like(persona.get("nombre"), "%" + Nombre + "%"));
         }
 

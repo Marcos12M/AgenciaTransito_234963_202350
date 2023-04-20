@@ -4,7 +4,10 @@
  */
 package Persistencia;
 
+import Entidades.Licencia;
 import Entidades.Persona;
+import Entidades.Placa;
+import Entidades.Tramite;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +19,12 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.swing.JOptionPane;
 
 /**
@@ -126,5 +135,39 @@ public class PersonaDAO implements IPersonaDAO {
             em.close();
             emf.close();
         }
+    }
+    
+    public List<Persona> listaConsulta(Date fechaNacimiento, String RFC, String Nombre) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Persona> criteriaQuery = criteriaBuilder.createQuery(Persona.class);
+        Root<Persona> persona = criteriaQuery.from(Persona.class);
+        criteriaQuery.select(persona);
+
+        List<Predicate> predicados = new ArrayList<Predicate>();
+
+        if (fechaNacimiento != null) {
+            predicados.add(criteriaBuilder.equal(persona.get("fechaNacimiento"), fechaNacimiento));
+        }
+
+        if (!RFC.equals("")) {
+            predicados.add(criteriaBuilder.equal(persona.get("RFC"), RFC));
+        }
+
+        if (!Nombre.equals("")){
+            predicados.add(criteriaBuilder.like(persona.get("nombre"), "%" + Nombre + "%"));
+        }
+
+        if (!predicados.isEmpty()) {
+            criteriaQuery.where(criteriaBuilder.and(predicados.toArray(new Predicate[predicados.size()])));
+        }
+
+        TypedQuery<Persona> query = em.createQuery(criteriaQuery);
+        List<Persona> listaPersona = query.getResultList();
+        em.getTransaction().commit();
+
+        return listaPersona;
     }
 }

@@ -5,6 +5,7 @@
 package GUI;
 
 import Entidades.Licencia;
+import Entidades.Persona;
 import Entidades.Placa;
 import Entidades.Tramite;
 import Persistencia.ILicenciaDAO;
@@ -44,13 +45,13 @@ public class PantallaConsultar extends javax.swing.JFrame {
         tblConsultas.setModel(model);
 
         // Llenar la tabla con los resultados
-        List<Tramite> results = tramiteDAO.listaConsulta(txtFechaNacimiento.getDate(), txtRFC.getText(), txtNombre.getText());
+        List<Persona> results = personaDAO.listaConsulta(txtFechaNacimiento.getDate(), txtRFC.getText(), txtNombre.getText());
 
-        for (Tramite tramite : results) {
+        for (Persona persona : results) {
             Object[] rowData = new Object[3];
-            rowData[0] = tramite.getPersona().getRFC();
-            rowData[1] = tramite.getPersona().getNombre();
-            rowData[2] = tramite.getPersona().getFechaNacimiento();
+            rowData[0] = persona.getRFC();
+            rowData[1] = persona.getNombre();
+            rowData[2] = persona.getFechaNacimiento();
             model.addRow(rowData);
         }
 
@@ -109,6 +110,11 @@ public class PantallaConsultar extends javax.swing.JFrame {
             }
         });
 
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNombreKeyReleased(evt);
@@ -321,6 +327,10 @@ public class PantallaConsultar extends javax.swing.JFrame {
         // TODO add your handling code here:
          llenarTablaConsultas();
     }//GEN-LAST:event_txtNombreKeyReleased
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
 
     /**
      * @param args the command line arguments

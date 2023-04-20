@@ -5,6 +5,7 @@
 package Persistencia;
 
 import Entidades.Persona;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,5 +21,7 @@ public interface IPersonaDAO {
     public List<Persona> generarListaPersonas();
 
     public void agregarPersonas(List<Persona> personas);
+    
+    public List<Persona> listaConsulta(Date fechaNacimiento, String RFC, String Nombre);
     
 }

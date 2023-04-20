@@ -61,6 +61,7 @@ public class Tramite implements Serializable {
         this.Costo = Costo;
         this.persona = persona;
     }
+    
 
     public Integer getId() {
         return id;

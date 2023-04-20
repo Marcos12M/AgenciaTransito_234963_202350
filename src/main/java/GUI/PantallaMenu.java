@@ -51,8 +51,6 @@ public class PantallaMenu extends javax.swing.JFrame {
         btnReportes = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnAltaVehiculo = new javax.swing.JButton();
-        btnPerdidaLicencia = new javax.swing.JButton();
-        btnPerdidaPlacas = new javax.swing.JButton();
         btnInsercionMasiva = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -117,24 +115,6 @@ public class PantallaMenu extends javax.swing.JFrame {
             }
         });
 
-        btnPerdidaLicencia.setBackground(new java.awt.Color(204, 255, 153));
-        btnPerdidaLicencia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnPerdidaLicencia.setText("Baja de Licencias");
-        btnPerdidaLicencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPerdidaLicenciaActionPerformed(evt);
-            }
-        });
-
-        btnPerdidaPlacas.setBackground(new java.awt.Color(204, 255, 153));
-        btnPerdidaPlacas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnPerdidaPlacas.setText("Baja de Placas");
-        btnPerdidaPlacas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPerdidaPlacasActionPerformed(evt);
-            }
-        });
-
         btnInsercionMasiva.setBackground(new java.awt.Color(255, 153, 153));
         btnInsercionMasiva.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnInsercionMasiva.setText("inserción “masiva”");
@@ -152,8 +132,7 @@ public class PantallaMenu extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnPerdidaLicencia)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnInsercionMasiva))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,7 +141,6 @@ public class PantallaMenu extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnPerdidaPlacas, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnAltaVehiculo, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnReportes, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnSolicitarPlacas, javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,19 +169,11 @@ public class PantallaMenu extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addComponent(btnAltaVehiculo)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(btnPerdidaLicencia)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnPerdidaPlacas)
-                        .addGap(15, 44, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnInsercionMasiva)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCerrar)
-                        .addGap(29, 29, 29))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(btnInsercionMasiva)
+                .addGap(18, 18, 18)
+                .addComponent(btnCerrar)
+                .addGap(29, 29, 29))
         );
 
         jPanel1.setBackground(new java.awt.Color(153, 102, 0));
@@ -257,20 +227,6 @@ public class PantallaMenu extends javax.swing.JFrame {
         frmCerrar.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
-
-    private void btnPerdidaLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerdidaLicenciaActionPerformed
-        // TODO add your handling code here:
-        PantallaPerdidaLicencias frmPerdida1 = new PantallaPerdidaLicencias(personaDAO, licenciaDAO);
-        frmPerdida1.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnPerdidaLicenciaActionPerformed
-
-    private void btnPerdidaPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerdidaPlacasActionPerformed
-        // TODO add your handling code here:
-        PantallaPerdidaMatriculas frmPerdidaMat = new PantallaPerdidaMatriculas(personaDAO, licenciaDAO);
-        frmPerdidaMat.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnPerdidaPlacasActionPerformed
 
     private void btnTramitarLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitarLicenciaActionPerformed
         // TODO add your handling code here:
@@ -374,8 +330,6 @@ public class PantallaMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnInsercionMasiva;
-    private javax.swing.JButton btnPerdidaLicencia;
-    private javax.swing.JButton btnPerdidaPlacas;
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnSolicitarPlacas;
     private javax.swing.JButton btnTramitarLicencia;

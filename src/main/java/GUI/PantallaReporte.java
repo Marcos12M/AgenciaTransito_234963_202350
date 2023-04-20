@@ -32,8 +32,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PantallaReporte extends javax.swing.JFrame {
 
-    private int currentPage = 0;
-    private int rowsPerPage = 5;
+    private int pagina = 1;
+    private int limite = 2;
     private final IPersonaDAO personaDAO;
     private final ILicenciaDAO licenciaDAO;
     private final ITramiteDAO tramiteDAO;
@@ -47,6 +47,10 @@ public class PantallaReporte extends javax.swing.JFrame {
         this.tramiteDAO = tramiteDAO;
         initComponents();
         llenarTablaTramites();
+    }
+
+    private void ObtenerTituloPaginacion() {
+        String paginaUsuario = Integer.toString(pagina);
     }
 
     public void llenarTablaTramites() {
@@ -337,7 +341,7 @@ public class PantallaReporte extends javax.swing.JFrame {
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         // TODO add your handling code here:
-        System.out.println("3");
+        this.pagina++;
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnRegresarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarMenuActionPerformed
@@ -349,7 +353,9 @@ public class PantallaReporte extends javax.swing.JFrame {
 
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
         // TODO add your handling code here:
-        System.out.println("2");
+        if (this.pagina > 1) {
+            this.pagina--;
+        }
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
     private void rbLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbLicenciaActionPerformed
@@ -386,7 +392,7 @@ public class PantallaReporte extends javax.swing.JFrame {
 
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
         // TODO add your handling code here:
-         llenarTablaTramites();
+        llenarTablaTramites();
     }//GEN-LAST:event_txtNombreKeyReleased
 
     /**
