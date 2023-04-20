@@ -11,6 +11,7 @@ import Persistencia.VehiculoDAO;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -28,10 +29,14 @@ public class PantallaAltaVehiculo extends javax.swing.JFrame {
     public PantallaAltaVehiculo(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
         this.personaDAO = personaDAO;
         this.licenciaDAO = licenciaDAO;
+        
         initComponents();
-
+        
     }
-
+    
+    public boolean verificaNumCaracteres(JTextField textField, int numValido) {
+    return textField.getText().length() == numValido;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -325,7 +330,21 @@ public class PantallaAltaVehiculo extends javax.swing.JFrame {
 
     private void btnDarAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarAltaActionPerformed
         // TODO add your handling code here:
-        agregarVehiculo(recoletaDatos());
+        
+        Vehiculo vehiculo = new Vehiculo();
+        vehiculo=recoletaDatos();
+        if (verificaNumCaracteres(txtNumeroSerie, 17)) {
+            if (personaDAO.buscarPersona(txtRFCdueno.getText())!=null&&vehiculoDAO.buscarVehiculo(txtNumeroSerie.getText())==null) {
+                vehiculoDAO.agregaVehiculo(vehiculo);
+                JOptionPane.showMessageDialog(null, "El vehiculo con numero de serie: "
+                    + txtNumeroSerie.getText() + " se agregó", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(null, "RFC o Numero de serie incorrectos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "El numero de serie debe ser de 17 digitos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
         limpiaCampos();
         
     }//GEN-LAST:event_btnDarAltaActionPerformed
@@ -347,13 +366,7 @@ public class PantallaAltaVehiculo extends javax.swing.JFrame {
         return vehiculo;
     }
 
-    public void agregarVehiculo(Vehiculo vehiculo) {
-        Vehiculo seAgregoPersona = this.vehiculoDAO.agregaVehiculo(vehiculo);
-        if (seAgregoPersona != null) {
-        } else {
-            JOptionPane.showMessageDialog(this, "No fue posible agregar el vehiculo", "Informacion", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+    
 
     /**
      * @param args the command line arguments

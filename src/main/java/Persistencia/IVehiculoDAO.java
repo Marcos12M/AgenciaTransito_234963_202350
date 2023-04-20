@@ -14,5 +14,5 @@ import Entidades.Vehiculo;
 public interface IVehiculoDAO {
     public Vehiculo agregaVehiculo(Vehiculo vehiculo);
     public Vehiculo buscarVehiculo(String numSerie);
-    public void setPlaca(Placa placa);
+    public void setPlaca(Placa placa, Vehiculo vehiculo);
 }

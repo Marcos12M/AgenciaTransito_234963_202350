@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7945dbeb-20f7-4337-96d7-ba5e4ba5f576">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="nombreTramite" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="costo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="95" y="15" width="372" height="39" uuid="bf27689e-a74f-49a5-8c03-ad7f9fe01384"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="24" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[PDF HISTORIAL DE REPORTES]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="56" splitType="Stretch">
+			<rectangle>
+				<reportElement x="46" y="36" width="100" height="20" uuid="fa8b8b46-d4c6-4e44-8d46-0d27cf7c022c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="146" y="36" width="96" height="20" uuid="24a94eca-f9c9-4586-91de-4e3a0c20a11b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="242" y="36" width="176" height="20" uuid="58348c06-1919-4e84-a236-ff449a693f45"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="418" y="36" width="100" height="20" uuid="9fc71742-3c8f-4c08-a7c5-8cf6d6956994"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="46" y="36" width="100" height="20" uuid="06b8f422-5819-4250-9555-ccbae3da6541"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="36" width="100" height="20" uuid="07cf9200-af04-4998-90e8-57304893a171"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Costo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="242" y="36" width="176" height="20" uuid="de2ca9fe-4c06-455c-92af-f64814131d14"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="146" y="36" width="96" height="20" uuid="ebd83ebd-62cf-44bf-b73f-028e9893bb11"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[NombreTramite]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="46" y="0" width="100" height="20" uuid="28085ad0-2b6a-4e49-a4f2-f1eedbf7a574"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="146" y="0" width="96" height="20" uuid="fee0769e-cf6b-4217-8d4f-7d4566e41812"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="242" y="0" width="176" height="20" uuid="7ce6a595-7edb-403b-ab35-26a32515f685"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="418" y="0" width="100" height="20" uuid="739857ca-6225-4f77-ba68-d93d789c965d"/>
+			</rectangle>
+			<textField>
+				<reportElement x="46" y="0" width="100" height="20" uuid="50840341-bd6f-4195-9ac9-8f58f043aaeb"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="0" width="96" height="20" uuid="b4224f19-ad95-44a4-ab8d-93659d052c03"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombreTramite}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="0" width="176" height="20" uuid="71107e8f-228d-4ae4-8ff3-d99b52a0a24e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="0" width="100" height="20" uuid="6440330d-c6f3-483f-843e-5a2f88558bf1"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{costo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

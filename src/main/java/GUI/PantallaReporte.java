@@ -420,8 +420,9 @@ public class PantallaReporte extends javax.swing.JFrame {
                 listaReporte.add(PDF);
             }
             try {
-                JasperReport reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/src/main/java/Reporte/Tramites.jasper"));
-                JasperPrint print = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(listaReporte));
+                InputStream reportFile = getClass().getResourceAsStream("/PDFReportes.jrxml");
+                JasperReport jasperReport = JasperCompileManager.compileReport(reportFile);
+                JasperPrint print = JasperFillManager.fillReport(jasperReport, null, new JRBeanCollectionDataSource(listaReporte));
                 JasperViewer visualiza = new JasperViewer(print, false);
                 visualiza.setTitle("Reporte tramites realizados");
                 visualiza.setVisible(true);

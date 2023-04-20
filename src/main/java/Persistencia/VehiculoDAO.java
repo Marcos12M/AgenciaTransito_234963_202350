@@ -36,7 +36,7 @@ public class VehiculoDAO implements IVehiculoDAO {
         try {
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
             EntityManager em = emf.createEntityManager();
-            Query query = em.createQuery("SELECT p FROM Vehiculo p WHERE p.NumSerie = :numSerie");
+            Query query = em.createQuery("SELECT p FROM Vehiculo p WHERE p.numSerie = :numSerie");
             query.setParameter("numSerie", numSerie);
             Vehiculo vehiculo = (Vehiculo) query.getSingleResult();
             return vehiculo;
@@ -46,8 +46,19 @@ public class VehiculoDAO implements IVehiculoDAO {
     }
     
     @Override
-    public void setPlaca(Placa placa) {
-            
+   public void setPlaca(Placa placa, Vehiculo vehiculo) {
+      try {  
+       EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        vehiculo.setPlaca(placa);
+        vehiculo = em.merge(vehiculo);
+        em.getTransaction().commit();
+        em.close();
+        emf.close();
+         } catch (NoResultException ex) {
+             
+        }
     }
 
 }

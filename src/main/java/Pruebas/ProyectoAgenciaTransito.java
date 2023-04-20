@@ -4,7 +4,6 @@
  */
 package Pruebas;
 
-import GUI.PantallaInicioSesion;
 import GUI.PantallaMenu;
 import Persistencia.ILicenciaDAO;
 import Persistencia.IPersonaDAO;
