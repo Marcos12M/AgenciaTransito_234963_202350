@@ -21,12 +21,22 @@ import javax.persistence.TypedQuery;
  */
 public class LicenciaDAO implements ILicenciaDAO {
 
+    /**
+     * Agrega una licencia a la base de datos. Si se establece el flag
+     * insertarPersona a true, también se inserta la persona asociada a la
+     * licencia en la base de datos.
+     *
+     * @param licencia Objeto de tipo Licencia a agregar a la base de datos.
+     * @param insertarPersona Flag que indica si se debe insertar también la
+     * persona asociada a la licencia en la base de datos.
+     * @return Objeto de tipo Licencia que se ha agregado a la base de datos.
+     */
     @Override
     public Licencia agregarLicencia(Licencia licencia, boolean insertarPersona) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        if (insertarPersona){
+        if (insertarPersona) {
             em.persist(licencia.getPersona());
         }
         em.persist(licencia);
@@ -36,6 +46,14 @@ public class LicenciaDAO implements ILicenciaDAO {
         return licencia;
     }
 
+    /**
+     * Agrega una licencia a la base de datos para una persona que ya existe en
+     * la base de datos.
+     *
+     * @param licencia Objeto de tipo Licencia a agregar a la base de datos.
+     * @return Objeto de tipo Licencia que se ha agregado a la base de datos.
+     */
+    @Override
     public Licencia agregarLicenciaMismaPersona(Licencia licencia) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
@@ -48,6 +66,14 @@ public class LicenciaDAO implements ILicenciaDAO {
         return licencia;
     }
 
+    /**
+     * Realiza la baja de una licencia en la base de datos.
+     *
+     * @param licencia Objeto de tipo Licencia a dar de baja en la base de
+     * datos.
+     * @return Objeto de tipo Licencia que se ha dado de baja en la base de
+     * datos.
+     */
     @Override
     public Licencia bajaLicencia(Licencia licencia) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
@@ -60,6 +86,15 @@ public class LicenciaDAO implements ILicenciaDAO {
         return licencia;
     }
 
+    /**
+     * Obtiene una lista de licencias vigentes asociadas a una persona en la
+     * base de datos.
+     *
+     * @param persona Objeto de tipo Persona para la cual se obtendrán las
+     * licencias vigentes.
+     * @return Lista de objetos del tipo Licencia que están vigentes para la
+     * persona en la base de datos.
+     */
     @Override
     public List<Licencia> listaLicenciasVigentes(Persona persona) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");

@@ -33,6 +33,12 @@ import javax.swing.JOptionPane;
  */
 public class PersonaDAO implements IPersonaDAO {
 
+    /**
+     * Agrega una nueva Persona a la base de datos.
+     *
+     * @param persona La Persona a ser agregada.
+     * @return La Persona agregada con el ID generado por la base de datos.
+     */
     @Override
     public Persona agregarPersona(Persona persona) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
@@ -45,6 +51,13 @@ public class PersonaDAO implements IPersonaDAO {
         return persona;
     }
 
+    /**
+     * Busca una Persona en la base de datos en función de su RFC.
+     *
+     * @param RFC El RFC de la Persona a buscar.
+     * @return La Persona encontrada, o null si no se encuentra ninguna Persona
+     * con el RFC dado.
+     */
     @Override
     public Persona buscarPersona(String RFC) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
@@ -60,6 +73,11 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
+    /**
+     * Genera una lista de personas con datos predefinidos.
+     *
+     * @return Una lista de objetos Persona.
+     */
     @Override
     public List<Persona> generarListaPersonas() {
 
@@ -114,7 +132,12 @@ public class PersonaDAO implements IPersonaDAO {
 
         return personas;
     }
-    
+
+    /**
+     * Agrega personas a la base de datos.
+     *
+     * @param personas Lista de objetos del tipo Persona a agregar.
+     */
     @Override
     public void agregarPersonas(List<Persona> personas) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
@@ -136,7 +159,19 @@ public class PersonaDAO implements IPersonaDAO {
             emf.close();
         }
     }
-    
+
+    /**
+     * Realiza una consulta en la base de datos de personas basada en los
+     * criterios de búsqueda.
+     *
+     * @param fechaNacimiento Fecha de nacimiento de las personas a buscar.
+     * Puede ser nulo.
+     * @param RFC RFC de las personas a buscar. Puede ser una cadena vacía.
+     * @param Nombre Nombre de las personas a buscar. Puede ser una cadena
+     * vacía.
+     * @return Lista de objetos del tipo Persona que cumplen con los criterios
+     * de búsqueda.
+     */
     public List<Persona> listaConsulta(Date fechaNacimiento, String RFC, String Nombre) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
         EntityManager em = emf.createEntityManager();
@@ -156,7 +191,7 @@ public class PersonaDAO implements IPersonaDAO {
             predicados.add(criteriaBuilder.equal(persona.get("RFC"), RFC));
         }
 
-        if (!Nombre.equals("")){
+        if (!Nombre.equals("")) {
             predicados.add(criteriaBuilder.like(persona.get("nombre"), "%" + Nombre + "%"));
         }
 

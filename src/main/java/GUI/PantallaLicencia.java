@@ -24,11 +24,15 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**
+ * Formulario de PantallaLicencia
  *
  * @author Marcos Toledo 00000234963
  */
 public class PantallaLicencia extends javax.swing.JFrame {
 
+    /**
+     * Declaracion de Variables de el Form
+     */
     private final IPersonaDAO personaDAO;
     private final ILicenciaDAO licenciaDAO;
     private Persona persona;
@@ -37,7 +41,10 @@ public class PantallaLicencia extends javax.swing.JFrame {
     private int anios = 0;
 
     /**
-     * Creates new form PantallaMenu
+     * Metodo Constructor de la Clase
+     *
+     * @param personaDAO persona
+     * @param licenciaDAO licencia
      */
     public PantallaLicencia(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
         this.personaDAO = personaDAO;
@@ -56,6 +63,11 @@ public class PantallaLicencia extends javax.swing.JFrame {
         txtCosto.setText("El costo de la licencia sera de $$$$");
     }
 
+    /**
+     * Metodo que obtiene todos los Datos del registro de persona
+     *
+     * @return persona
+     */
     public Persona obtieneDatosPersona() {
         Persona persona = new Persona();
         persona.setRFC(txtRFC.getText());
@@ -71,12 +83,23 @@ public class PantallaLicencia extends javax.swing.JFrame {
         return persona;
     }
 
+    /**
+     * Metodo que obtiene todos los Datos mediante la rfc
+     *
+     * @param RFC
+     * @return RFC
+     */
     public String obtieneRFC(String RFC) {
         Persona persona = new Persona();
         persona.setRFC(RFC);
         return RFC;
     }
 
+    /**
+     * Metodo que obtiene todos los Datos de la persona mediante la rfc
+     *
+     * @return cliente
+     */
     private void buscarPersona(String RFC) {
         String existePersona = obtieneRFC(RFC);
         Persona seBuscoPersona = this.personaDAO.buscarPersona(RFC);
@@ -86,6 +109,10 @@ public class PantallaLicencia extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo que actualiza los txt para mostrar el precio.
+     *
+     */
     public void actualizaprecio() {
         if (rbSi.isSelected()) {
             if (rb1.isSelected()) {
@@ -111,6 +138,11 @@ public class PantallaLicencia extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo que obtiene todos los Datos de Licencia
+     *
+     * @return licencia
+     */
     public Licencia obtieneDatosLicencia() {
         Date fechaActual = new Date();
         Licencia licencia = new Licencia();
@@ -166,6 +198,11 @@ public class PantallaLicencia extends javax.swing.JFrame {
         return licencia;
     }
 
+    /**
+     * Metodo que agregaLicencia
+     *
+     * @return Licencia
+     */
     private void agregarLicencia(Licencia licencia) {
         if (!insertarPersona) {
             if (rbSi.isSelected()) {
@@ -486,7 +523,11 @@ public class PantallaLicencia extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Boton que Despliega el Menu Form para ir ala pantalla menu
+     *
+     * @param evt evento
+     */
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
@@ -494,6 +535,11 @@ public class PantallaLicencia extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    /**
+     * RadioBoton que nomas deja seleccionar una opcion si o no
+     *
+     * @param evt evento
+     */
     private void rbSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbSiActionPerformed
         // TODO add your handling code here:
         if (rbSi.isSelected()) {
@@ -502,6 +548,11 @@ public class PantallaLicencia extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rbSiActionPerformed
 
+    /**
+     * RadioBoton que nomas deja seleccionar una opcion si o no
+     *
+     * @param evt evento
+     */
     private void rbNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNoActionPerformed
         // TODO add your handling code here:
         if (rbNo.isSelected()) {
@@ -510,6 +561,12 @@ public class PantallaLicencia extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rbNoActionPerformed
 
+    /**
+     * Boton que genera la licencia y realiza diferentes aspectos dependiendo de
+     * la verificacion.
+     *
+     * @param evt evento
+     */
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
         // TODO add your handling code here:
         if (existe.equals("Espera")) {
@@ -587,6 +644,11 @@ public class PantallaLicencia extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnGenerarActionPerformed
 
+    /**
+     * Boton que valida los datos de nombre
+     *
+     * @param evt evento
+     */
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
@@ -605,6 +667,11 @@ public class PantallaLicencia extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_txtNombreKeyTyped
 
+    /**
+     * Boton que valida los datos de telefono
+     *
+     * @param evt evento
+     */
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
         // TODO add your handling code here:
         //solo permite que se ingresen numeros
@@ -621,6 +688,12 @@ public class PantallaLicencia extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
+    /**
+     * Boton que valida la existencia de la persona para permitir entrada de
+     * datos
+     *
+     * @param evt evento
+     */
     private void btnExistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExistenciaActionPerformed
         // TODO add your handling code here:
         if (!txtRFC.getText().isEmpty() && txtRFC.getText().length() == 13) {
@@ -662,6 +735,11 @@ public class PantallaLicencia extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExistenciaActionPerformed
 
+    /**
+     * RadioBoton que nomas deja seleccionar una opcion 1,2,3
+     *
+     * @param evt evento
+     */
     private void rb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb1ActionPerformed
         // TODO add your handling code here:
         if (rb1.isSelected()) {
@@ -671,6 +749,11 @@ public class PantallaLicencia extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rb1ActionPerformed
 
+    /**
+     * RadioBoton que nomas deja seleccionar una opcion 1,2,3
+     *
+     * @param evt evento
+     */
     private void rb3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb3ActionPerformed
         // TODO add your handling code here:
         if (rb3.isSelected()) {
@@ -680,6 +763,11 @@ public class PantallaLicencia extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rb3ActionPerformed
 
+    /**
+     * RadioBoton que nomas deja seleccionar una opcion 1,2,3
+     *
+     * @param evt evento
+     */
     private void rb2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb2ActionPerformed
         // TODO add your handling code here:
         if (rb2.isSelected()) {
@@ -689,6 +777,11 @@ public class PantallaLicencia extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rb2ActionPerformed
 
+    /**
+     * Valida los datos de la RFC
+     *
+     * @param evt evento
+     */
     private void txtRFCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
@@ -707,10 +800,20 @@ public class PantallaLicencia extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_txtRFCKeyTyped
 
+    /**
+     * txt por default
+     *
+     * @param evt evento
+     */
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
+    /**
+     * txt por default
+     *
+     * @param evt evento
+     */
     private void txtRFCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRFCActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRFCActionPerformed

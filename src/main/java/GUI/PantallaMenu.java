@@ -17,17 +17,24 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
+ * Formulario de Pantall Menu
  *
  * @author Marcos Toledo 00000234963
  */
 public class PantallaMenu extends javax.swing.JFrame {
 
     /**
-     * Creates new form PantallaMenu
+     * Declaracion de Variables de el Form
      */
     private final IPersonaDAO personaDAO;
     private final ILicenciaDAO licenciaDAO;
 
+    /**
+     * Metodo Constructor de la Clase
+     *
+     * @param personaDAO cliente
+     * @param licenciaDAO licencia
+     */
     public PantallaMenu(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
         this.personaDAO = personaDAO;
         this.licenciaDAO = licenciaDAO;
@@ -205,6 +212,11 @@ public class PantallaMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Boton que Despliega el Form Tramitar Licencia
+     *
+     * @param evt evento
+     */
     private void btnTramitarLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitarLicenciaActionPerformed
         // TODO add your handling code here:
         PantallaLicencia frmLicencia = new PantallaLicencia(personaDAO, licenciaDAO);
@@ -212,6 +224,11 @@ public class PantallaMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnTramitarLicenciaActionPerformed
 
+    /**
+     * Boton que Despliega el Form Solicitar Placa
+     *
+     * @param evt evento
+     */
     private void btnSolicitarPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarPlacasActionPerformed
         // TODO add your handling code here:
         PantallaMatricula frmMatricula = new PantallaMatricula(personaDAO, licenciaDAO);
@@ -219,6 +236,11 @@ public class PantallaMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSolicitarPlacasActionPerformed
 
+    /**
+     * Boton que Despliega el Form Consultar Persona
+     *
+     * @param evt evento
+     */
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // TODO add your handling code here:
         ITramiteDAO tramiteDAO = new TramiteDAO();
@@ -227,6 +249,11 @@ public class PantallaMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnConsultarActionPerformed
 
+    /**
+     * Boton que Despliega el Form Reporte tramites
+     *
+     * @param evt evento
+     */
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         // TODO add your handling code here:
         ITramiteDAO tramiteDAO = new TramiteDAO();
@@ -235,6 +262,11 @@ public class PantallaMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnReportesActionPerformed
 
+    /**
+     * Boton que Despliega el Form Alta Vehiculo
+     *
+     * @param evt evento
+     */
     private void btnAltaVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaVehiculoActionPerformed
         // TODO add your handling code here:
         PantallaAltaVehiculo frmVechiculo = new PantallaAltaVehiculo(personaDAO, licenciaDAO);
@@ -242,6 +274,12 @@ public class PantallaMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnAltaVehiculoActionPerformed
 
+    /**
+     * Boton que ejecuta los metodos de persona dato para insertar un usuarios
+     * predefinidos.
+     *
+     * @param evt evento
+     */
     private void btnInsercionMasivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsercionMasivaActionPerformed
         // TODO add your handling code here:
         personaDAO.buscarPersona("BEFJ831218123");

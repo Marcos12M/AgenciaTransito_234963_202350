@@ -27,10 +27,11 @@ public class PantallaConsultar extends javax.swing.JFrame {
     /**
      * Creates new form PantallaRegistro
      */
-    private final IPersonaDAO personaDAO;
-    private final ILicenciaDAO licenciaDAO;
-    private final ITramiteDAO tramiteDAO;
+    private final IPersonaDAO personaDAO; // Objeto DAO para acceder a los datos de personas
+    private final ILicenciaDAO licenciaDAO; // Objeto DAO para acceder a los datos de licencias
+    private final ITramiteDAO tramiteDAO; // Objeto DAO para acceder a los datos de trámites
 
+    // Constructor de la clase que recibe los objetos DAO como parámetros
     public PantallaConsultar(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO, ITramiteDAO tramiteDAO) {
         this.personaDAO = personaDAO;
         this.licenciaDAO = licenciaDAO;
@@ -38,6 +39,7 @@ public class PantallaConsultar extends javax.swing.JFrame {
         initComponents();
     }
 
+    // Método para llenar la tabla de consultas en la interfaz gráfica
     public void llenarTablaConsultas() {
         // Crear el modelo de tabla
         DefaultTableModel model = new DefaultTableModel();
@@ -291,23 +293,40 @@ public class PantallaConsultar extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Boton que Despliega el Form para actualizar la informacion
+     *
+     * @param evt evento
+     */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         llenarTablaConsultas();
     }//GEN-LAST:event_jButton4ActionPerformed
-
+    /**
+     * default
+     *
+     * @param evt evento
+     */
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    /**
+     * Boton que Despliega el Form Menu
+     *
+     * @param evt evento
+     */
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
         frmMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
-
+    /**
+     * Valida campos RFC
+     *
+     * @param evt evento
+     */
     private void txtRFCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyTyped
         // TODO add your handling code here:
         txtRFC.addKeyListener(new KeyAdapter() {
@@ -320,10 +339,20 @@ public class PantallaConsultar extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_txtRFCKeyTyped
 
+    /**
+     * Default RFC
+     *
+     * @param evt evento
+     */
     private void txtRFCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRFCActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRFCActionPerformed
 
+    /**
+     * Valida campos Nombre
+     *
+     * @param evt evento
+     */
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         // TODO add your handling code here:
         txtNombre.addKeyListener(new KeyAdapter() {
@@ -336,20 +365,40 @@ public class PantallaConsultar extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_txtNombreKeyTyped
 
+    /**
+     * txt que Despliega la tabla para actualizar la informacion de la tabla
+     *
+     * @param evt evento
+     */
     private void txtRFCKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyReleased
         // TODO add your handling code here:
         llenarTablaConsultas();
     }//GEN-LAST:event_txtRFCKeyReleased
 
+    /**
+     * txt que Despliega la tabla para actualizar la informacion de la tabla
+     *
+     * @param evt evento
+     */
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
         // TODO add your handling code here:
         llenarTablaConsultas();
     }//GEN-LAST:event_txtNombreKeyReleased
 
+    /**
+     * txt por default
+     *
+     * @param evt evento
+     */
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
+    /**
+     * Despliegua informa personaliza por doble click
+     *
+     * @param evt evento
+     */
     private void busquedaPersonalizada(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_busquedaPersonalizada
         // TODO add your handling code here:
         String valor = (tblConsultas.getValueAt(tblConsultas.getSelectedRow(), 1).toString());
@@ -362,7 +411,7 @@ public class PantallaConsultar extends javax.swing.JFrame {
             System.out.println(valor);
             this.dispose();
         }
-        if (opcion == JOptionPane.NO_OPTION){
+        if (opcion == JOptionPane.NO_OPTION) {
             return;
         }
     }//GEN-LAST:event_busquedaPersonalizada

@@ -30,6 +30,20 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TramiteDAO implements ITramiteDAO {
 
+    /**
+     * Obtiene una lista de trámites de acuerdo a los criterios de búsqueda
+     * especificados.
+     *
+     * @param LicenciasS Un booleano que indica si se deben incluir trámites de
+     * licencias (true) o no (false) en la búsqueda.
+     * @param PlacasS Un booleano que indica si se deben incluir trámites de
+     * placas (true) o no (false) en la búsqueda.
+     * @param fechaInicio La fecha de inicio del rango de fechas de búsqueda.
+     * @param fechaFin La fecha de fin del rango de fechas de búsqueda.
+     * @param Nombre El nombre de la persona asociada a los trámites a buscar.
+     * @return Una lista de objetos Tramite que cumplen con los criterios de
+     * búsqueda especificados.
+     */
     @Override
     public List<Tramite> listaTramite(boolean LicenciasS, boolean PlacasS, Date fechaInicio, Date fechaFin, String Nombre) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
@@ -74,6 +88,12 @@ public class TramiteDAO implements ITramiteDAO {
         return listaTramites;
     }
 
+    /**
+     * Obtiene una lista de Tramite en función de un RFC dado.
+     *
+     * @param RFC El RFC de la Persona asociada al Tramite a buscar.
+     * @return Una lista de objetos Tramite que cumplen con el RFC dado.
+     */
     @Override
     public List<Tramite> listaConsulta(String RFC) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
@@ -91,7 +111,7 @@ public class TramiteDAO implements ITramiteDAO {
         if (!RFC.equals("")) {
             predicados.add(criteriaBuilder.equal(persona.get("RFC"), RFC));
         }
-        
+
         if (!predicados.isEmpty()) {
             criteriaQuery.where(criteriaBuilder.and(predicados.toArray(new Predicate[predicados.size()])));
         }

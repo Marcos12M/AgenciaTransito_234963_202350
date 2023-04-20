@@ -14,19 +14,26 @@ import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
+ * Formulario de Pantalla Matricula
  *
  * @author Marcos Toledo 00000234963
  */
 public class PantallaMatricula extends javax.swing.JFrame {
 
     /**
-     * Creates new form PantallaMenu
+     * Declaracion de Variables de el Form
      */
     private final IPersonaDAO personaDAO;
     private final ILicenciaDAO licenciaDAO;
     private final VehiculoDAO vehiculoDAO = new VehiculoDAO();
     private final PlacaDAO placaDAO = new PlacaDAO();
 
+    /**
+     * Metodo Constructor de la Clase
+     *
+     * @param personaDAO persona
+     * @param licenciaDAO licencia
+     */
     public PantallaMatricula(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
         this.personaDAO = personaDAO;
         this.licenciaDAO = licenciaDAO;
@@ -198,8 +205,14 @@ public class PantallaMatricula extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Boton que Despliega el Form Menu para regresar al Menu
+     *
+     * @param evt evento
+     */
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
@@ -207,6 +220,12 @@ public class PantallaMatricula extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    /**
+     * Verifica que cada vez que escribas no contega letras y algunas
+     * validaciones extras.
+     *
+     * @param evt evento
+     */
     private void txtNumSerieKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumSerieKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
@@ -220,6 +239,12 @@ public class PantallaMatricula extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtNumSerieKeyTyped
 
+    /**
+     * Boton que Despliega los metodos para guardar las placas en la base de
+     * datos.
+     *
+     * @param evt evento
+     */
     private void btnPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagoActionPerformed
         // TODO add your handling code here:
 
@@ -241,6 +266,12 @@ public class PantallaMatricula extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnPagoActionPerformed
 
+    /**
+     * Boton que verifica que el numero de serie exista y algunos metodos extra
+     * para generarlas
+     *
+     * @param evt evento
+     */
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
         // TODO add your handling code here:
         Vehiculo vehiculo = new Vehiculo();
@@ -265,16 +296,34 @@ public class PantallaMatricula extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnVerificarActionPerformed
 
+    /**
+     * Despliega la informacion de placa
+     *
+     * @return placa
+     */
     public Placa recolectaDatos() {
         Placa placa = new Placa();
         placa.setCosto(Integer.parseInt(lblCoste.getText()));
         placa.setNumero(lblMatricula.getText());
         return placa;
     }
-    public Vehiculo buscaVehiculo(String numSerie){
+
+    /**
+     * Despliega la informacion de vehiculo
+     *
+     * @param numSerie
+     * @return vehiculo
+     */
+    public Vehiculo buscaVehiculo(String numSerie) {
         return vehiculoDAO.buscarVehiculo(numSerie);
-        
+
     }
+
+    /**
+     * Genera una placa aleatoria.
+     *
+     * @return placa
+     */
     public static String generarPlaca() {
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String numeros = "0123456789";

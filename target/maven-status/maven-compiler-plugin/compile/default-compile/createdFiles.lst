@@ -12,14 +12,12 @@ GUI\PantallaLicencia$8.class
 GUI\PantallaReporte$5.class
 GUI\PantallaMatricula$2.class
 Persistencia\PlacaDAO.class
-Entidades\Usuario_.class
 GUI\PantallaMenu$2.class
 GUI\PantallaMenu$5.class
 GUI\PantallaReporte.class
 GUI\PantallaConsultar$1.class
 GUI\PantallaReporte$8.class
 GUI\PantallaAltaVehiculo$10.class
-Entidades\Usuario.class
 GUI\PantallaLicencia$9.class
 GUI\PantallaConsultar$4.class
 Persistencia\LicenciaDAO.class

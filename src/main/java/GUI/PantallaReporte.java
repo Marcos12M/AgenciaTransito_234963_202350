@@ -44,11 +44,15 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
+ * Formulario de Reportes Tramite de la Agencia
  *
  * @author Marcos Toledo 00000234963
  */
 public class PantallaReporte extends javax.swing.JFrame {
 
+    /**
+     * Declaracion de Variables de el Form
+     */
     private int pagina = 1;
     private int limite = 2;
     private final IPersonaDAO personaDAO;
@@ -57,7 +61,12 @@ public class PantallaReporte extends javax.swing.JFrame {
     private List<Tramite> results;
 
     /**
-     * Creates new form PantallaRegistro
+     * Metodo Constructor de la Clase
+     *
+     * @param personaDAO persona
+     * @param licenciaDAO licencia
+     * @param tramiteDAO tramite
+     * @param valor valor dado por si la consulta es seleccionada en consulta
      */
     public PantallaReporte(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO, ITramiteDAO tramiteDAO, String valor) {
         this.personaDAO = personaDAO;
@@ -68,10 +77,18 @@ public class PantallaReporte extends javax.swing.JFrame {
         llenarTablaTramites();
     }
 
+    /**
+     * Metodo de paginacion.
+     *
+     */
     private void ObtenerTituloPaginacion() {
         String paginaUsuario = Integer.toString(pagina);
     }
 
+    /**
+     * Metodo para obtener el formato de la tabla y asignarle sus valors con
+     * tramiteDAO obteniendo la lista de reportes.
+     */
     public void llenarTablaTramites() {
         // Crear el modelo de tabla
         DefaultTableModel model = new DefaultTableModel();
@@ -353,16 +370,32 @@ public class PantallaReporte extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Boton que Despliega la tabla para actualizar la informacion
+     *
+     * @param evt evento
+     */
     private void btnPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeriodoActionPerformed
         // TODO add your handling code here:
         llenarTablaTramites();
     }//GEN-LAST:event_btnPeriodoActionPerformed
 
+    /**
+     * Boton que Despliega la siguiente pagina de la tabla para actualizar la
+     * informacion
+     *
+     * @param evt evento
+     */
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         // TODO add your handling code here:
         this.pagina++;
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
+    /**
+     * Boton que Despliega el Menu Form para volver al Menu
+     *
+     * @param evt evento
+     */
     private void btnRegresarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarMenuActionPerformed
         // TODO add your handling code here:
         PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
@@ -370,6 +403,12 @@ public class PantallaReporte extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegresarMenuActionPerformed
 
+    /**
+     * Boton que Despliega la anterior pagina de la tabla para actualizar la
+     * informacion
+     *
+     * @param evt evento
+     */
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
         // TODO add your handling code here:
         if (this.pagina > 1) {
@@ -377,6 +416,12 @@ public class PantallaReporte extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
+    /**
+     * RadioButton que comprueba que un opcion este seleccionada de la tabla
+     * para actualizar la informacion
+     *
+     * @param evt evento
+     */
     private void rbLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbLicenciaActionPerformed
         // TODO add your handling code here:
 
@@ -392,6 +437,12 @@ public class PantallaReporte extends javax.swing.JFrame {
 
     }//GEN-LAST:event_rbLicenciaActionPerformed
 
+    /**
+     * Boton que genera un PDF
+     * de la informacion de la tabla
+     *
+     * @param evt evento
+     */
     private void btnGenerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPDFActionPerformed
         // TODO add your handling code here:
         if (results.isEmpty()) {
@@ -437,6 +488,12 @@ public class PantallaReporte extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnGenerarPDFActionPerformed
 
+    /**
+     * RadioButton que comprueba que un opcion este seleccionada de la tabla
+     * para actualizar la informacion
+     *
+     * @param evt evento
+     */
     private void rbPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPlacasActionPerformed
         // TODO add your handling code here:
         if (rbPlacas.isSelected()) {
@@ -450,6 +507,12 @@ public class PantallaReporte extends javax.swing.JFrame {
         llenarTablaTramites();
     }//GEN-LAST:event_rbPlacasActionPerformed
 
+    /**
+     * txtNombre comprueba que exista cada vez que escribes y actualiza la
+     * información para actualizar la tabla
+     *
+     * @param evt evento
+     */
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
         // TODO add your handling code here:
         llenarTablaTramites();

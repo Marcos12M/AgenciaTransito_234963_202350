@@ -26,17 +26,29 @@ public class PantallaAltaVehiculo extends javax.swing.JFrame {
     private final ILicenciaDAO licenciaDAO;
     private final VehiculoDAO vehiculoDAO = new VehiculoDAO();
 
+    /**
+     * Constructor por defecto de Pantalla Alta Vehiculo
+     *
+     * @param personaDAO
+     * @param licenciaDAO
+     */
     public PantallaAltaVehiculo(IPersonaDAO personaDAO, ILicenciaDAO licenciaDAO) {
         this.personaDAO = personaDAO;
         this.licenciaDAO = licenciaDAO;
-        
         initComponents();
-        
     }
-    
+
+    /**
+     * Metodo que verifica caracteres de los campos.
+     *
+     * @param textField
+     * @param numValido
+     * @return 
+     */
     public boolean verificaNumCaracteres(JTextField textField, int numValido) {
-    return textField.getText().length() == numValido;
+        return textField.getText().length() == numValido;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -259,14 +271,22 @@ public class PantallaAltaVehiculo extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Boton que te regresa a la pantalla Menu
+     *
+     * @param evt evento
+     */
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         PantallaMenu frmMenu = new PantallaMenu(personaDAO, licenciaDAO);
         frmMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
-
+    /**
+     * txt que valida datos del vehiculo
+     *
+     * @param evt evento
+     */
     private void txtNumeroSerieKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroSerieKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
@@ -279,7 +299,11 @@ public class PantallaAltaVehiculo extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtNumeroSerieKeyTyped
-
+    /**
+     * txt que valida datos del vehiculo
+     *
+     * @param evt evento
+     */
     private void txtRFCduenoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCduenoKeyTyped
         // TODO add your handling code here:
         txtRFCdueno.addKeyListener(new KeyAdapter() {
@@ -299,7 +323,11 @@ public class PantallaAltaVehiculo extends javax.swing.JFrame {
     private void txtMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarcaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMarcaActionPerformed
-
+    /**
+     * txt que valida datos del vehiculo
+     *
+     * @param evt evento
+     */
     private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
         // TODO add your handling code here:
         txtMarca.addKeyListener(new KeyAdapter() {
@@ -315,7 +343,11 @@ public class PantallaAltaVehiculo extends javax.swing.JFrame {
     private void txtColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtColorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtColorActionPerformed
-
+    /**
+     * txt que valida datos del vehiculo
+     *
+     * @param evt evento
+     */
     private void txtColorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtColorKeyTyped
         // TODO add your handling code here:
         txtColor.addKeyListener(new KeyAdapter() {
@@ -327,34 +359,39 @@ public class PantallaAltaVehiculo extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_txtColorKeyTyped
-
+    /**
+     * boton que da de alta un vehiculo
+     *
+     * @param evt evento
+     */
     private void btnDarAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarAltaActionPerformed
         // TODO add your handling code here:
-        
+
         Vehiculo vehiculo = new Vehiculo();
-        vehiculo=recoletaDatos();
+        vehiculo = recoletaDatos();
         if (verificaNumCaracteres(txtNumeroSerie, 17)) {
-            if (personaDAO.buscarPersona(txtRFCdueno.getText())!=null&&vehiculoDAO.buscarVehiculo(txtNumeroSerie.getText())==null) {
+            if (personaDAO.buscarPersona(txtRFCdueno.getText()) != null && vehiculoDAO.buscarVehiculo(txtNumeroSerie.getText()) == null) {
                 vehiculoDAO.agregaVehiculo(vehiculo);
                 JOptionPane.showMessageDialog(null, "El vehiculo con numero de serie: "
-                    + txtNumeroSerie.getText() + " se agregó", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            }else{
+                        + txtNumeroSerie.getText() + " se agregó", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            } else {
                 JOptionPane.showMessageDialog(null, "RFC o Numero de serie incorrectos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "El numero de serie debe ser de 17 digitos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
-        
+
         limpiaCampos();
-        
+
     }//GEN-LAST:event_btnDarAltaActionPerformed
-    public void limpiaCampos(){
+    public void limpiaCampos() {
         txtColor.setText("");
         txtMarca.setText("");
         txtRFCdueno.setText("");
         txtModelo.setText("");
         txtNumeroSerie.setText("");
     }
+
     public Vehiculo recoletaDatos() {
         Vehiculo vehiculo = new Vehiculo();
         vehiculo.setNumSerie(txtNumeroSerie.getText());
@@ -365,8 +402,6 @@ public class PantallaAltaVehiculo extends javax.swing.JFrame {
         vehiculo.setPlaca(null);
         return vehiculo;
     }
-
-    
 
     /**
      * @param args the command line arguments
